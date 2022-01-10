@@ -62,5 +62,5 @@ public class MainController {
 
         return "redirect:/";
     }
-/*hukfgfkff*/
+
 }
