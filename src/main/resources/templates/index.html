@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container my-2">
+        <div class="text-center">
+            <h1>Hello from project (united)</h1>
+
+            <a class="btn btn-warning btn" th:href="@{'find-path/'}">Recherche d'itinéraire</a>
+            <a class="btn btn-warning btn" th:href="@{'main/admin/users/'}">Les utilisateurs</a>
+            <a class="btn btn-warning btn" th:href="@{'holiday/'}">Jours fériés</a>
+            <a class="btn btn-warning btn" th:href="@{'with-layout/'}">Layout</a>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

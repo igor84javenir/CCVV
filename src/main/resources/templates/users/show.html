@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container-fluid">
+    <div class="text-center">
+        <div>
+            <h1>Gestion des utilisteurs</h1>
+        </div>
+<!--        <div class="mb-3"><a th:href="@{new/}" class="h4 text-warning">Ajouter un utilisateur</a> </div>-->
+        <a class="btn btn-warning btn-md" th:href="@{new/}">Ajouter un utilisateur</a>
+        <div class="my-5">
+            <table class="table table-bordered" >
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Type</th>
+                    <th>Email</th>
+                    <th>Commune</th>
+                    <th>Créé par</th>
+                    <th>Créé le</th>
+                    <th>Modifié par</th>
+                    <th>Modifié le</th>
+                    <th th:if="${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Statut</th>
+                    <th th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}"><a class="btn btn-light btn-sm" th:href="@{'deleted-users/'}">Voir les effacés</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="user : ${users}">
+                    <tr>
+                        <td>[[${user.id}]]</td>
+                        <td>[[${user.name}]]</td>
+                        <td>[[${user.userRole}]]</td>
+                        <td>[[${user.mail}]]</td>
+                        <td>[[${user.city.name}]]</td>
+                        <td>[[${user.createdBy}]]</td>
+                        <td>[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</td>
+                        <td>[[${user.modifiedBy}]]</td>
+                        <td>[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</td>
+
+                        <td th:if="${user.exist == true}">
+                            <a class="btn btn-warning btn-sm" th:href="@{'edit/' + ${user.id}}">Editer</a>
+                            <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'delete/' + ${user.id}}">Supprimer</a>
+                        </td>
+                        <td th:unless="${user.exist} == true"
+                            th:text="supprimé">
+                        </td>
+
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        nav {
+            background-color: #c16b24;
+        }
+        .navbar-nav-right {
+            margin-left: auto;
+        }
+        table.table-bordered > thead > tr > th{
+            border:1px solid #c16b24;
+            color: white;
+            background-color: #c16b24;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark mb-3" >
+            <a class="navbar-brand px-3" th:href="@{/}">CCVV</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}">Nous contacter</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right px-3">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{change-password/1}">Changer MDP</a>
+                    </li>
+                </ul>
+            </div>
+    </nav>
+
+
+<!-- Flash Attribute -->
+
+<div
+        th:if="not ${#strings.isEmpty(flash)}"
+        th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-' + ${flashType}"
+        role="alert"
+>
+    <p class="m-0" th:text="${flash}"></p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<!-- Content Section -->
+
+<section layout:fragment="content">
+    <p>This is filled by the content template.</p>
+</section>
+
+<!-- Footer -->
+<footer class="container py-3 fixed-bottom">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-muted">&copy; 2022 Communauté de communes Vaison Ventoux. Tous droit réservés.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Optional Section -->
+<th:block layout:fragment="optional" />
+
+</body>
+</html>
