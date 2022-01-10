@@ -24,6 +24,7 @@ public class MainController {
 
     @GetMapping
     public String showSelection() {
+
         return "index";
     }
 
@@ -41,19 +42,25 @@ public class MainController {
     }
 
     @PostMapping("change-password/{id}")
-    public String updatePassword(@ModelAttribute("id") long id, Model model, PasswordsDTO passwords) throws UserNotFoundException {
+    public String updatePassword(@ModelAttribute("id") long id, Model model, PasswordsDTO passwords, RedirectAttributes ra) throws UserNotFoundException {
 
         System.out.println("UpdatePassword passwords are : " + passwords);
         System.out.println("UpdatePassword ID is : " + id);
 
-//        String result = userService.updatePassword(id, passwords);
+        String flash = userService.updatePassword(id, passwords);
 
-        String flash = "Invalid URL";
-        String flashType = "danger";
-        model.addAttribute("flash", flash);
-        model.addAttribute("flashType", flashType);
+        String flashType;
 
-        return "index";
+        if (flash.endsWith("succès")) {
+            flashType = "success";
+        } else {
+            flashType = "danger";
+        }
+
+        ra.addFlashAttribute("flash", flash);
+        ra.addFlashAttribute("flashType", flashType);
+
+        return "redirect:/";
     }
 
 }
