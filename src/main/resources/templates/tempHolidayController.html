@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+    <title>Title</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container m-lg-5">
+    <div>
+        <div class = "text-center"><h1>Vérifier si une date est un jour férié</h1></div>
+
+        <form th:action="@{check/}" method="post">
+
+            <div class="border border-secondary rounded p-3 m-5">
+                <div class="col-lg-3 py-1 mx-auto">
+                    <label for="holiday" class="form-label">Vérifier la date</label>
+                    <input type="date" data-date="" data-date-format="YYYY MM DD" class="form-control" th:value="${checkDate}" name="myCheckDate" id="holiday">
+                </div>
+                <div class="text-center py-2">
+                    <button class="btn btn-warning m-2" type="submit">Vérifier</button>
+                </div>
+                <div class = "text-center">
+                    <span th:text="${resultOfCheck}"></span>
+                </div>
+            </div>
+        <div>
+    </div>
+</div>
+</div>
+</body>
+</html>
