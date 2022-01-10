@@ -101,7 +101,7 @@ public class UserService {
                 save(user);
                 return "Votre mot de passe a été modifié avec succès";
             } {
-                return "Les champs \"Mot de passe\" et \"Confirmation\" doivent toujours identiques";
+                return "Les champs \"Nouvea mot de passe\" et \"Confirmer mot de passe\" doivent etre identiques";
             }
 
         } else {

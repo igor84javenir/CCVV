@@ -34,15 +34,14 @@ public class MainController {
     }
 
     @GetMapping("change-password/{id}")
-    public String editPassword(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("id", id);
+    public String editPassword(Model model) {
         PasswordsDTO passwords = new PasswordsDTO();
         model.addAttribute("passwords", passwords);
         return "editPassword";
     }
 
     @PostMapping("change-password/{id}")
-    public String updatePassword(@ModelAttribute("id") long id, Model model, PasswordsDTO passwords, RedirectAttributes ra) throws UserNotFoundException {
+    public String updatePassword(@PathVariable long id, PasswordsDTO passwords, RedirectAttributes ra) throws UserNotFoundException {
 
         System.out.println("UpdatePassword passwords are : " + passwords);
         System.out.println("UpdatePassword ID is : " + id);
@@ -53,6 +52,9 @@ public class MainController {
 
         if (flash.endsWith("succès")) {
             flashType = "success";
+            ra.addFlashAttribute("flash", flash);
+            ra.addFlashAttribute("flashType", flashType);
+            return "redirect:/";
         } else {
             flashType = "danger";
         }
@@ -60,7 +62,8 @@ public class MainController {
         ra.addFlashAttribute("flash", flash);
         ra.addFlashAttribute("flashType", flashType);
 
-        return "redirect:/";
+        return "redirect:/change-password/" + id;
+
     }
 
 }
