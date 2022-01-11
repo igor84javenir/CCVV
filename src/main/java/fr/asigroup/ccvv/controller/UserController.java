@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 @Controller
 @RequestMapping("/main/admin/users")
 public class UserController {
-    private static final int ROWS_PER_PAGE = 2;
+    private static final int ROWS_PER_PAGE = 10;
 
     private UserService userService;
     private CityService cityService;
@@ -36,8 +36,6 @@ public class UserController {
 
     @GetMapping(value = { "/","" })
     public String showUsers(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber, Model model) throws UserNotFoundException, CityNotFoundException {
-
-//        System.out.println(pageNumber);
 
         Page<User> pagedUsers = userService.getAllPagedExist(pageNumber - 1, ROWS_PER_PAGE);
         int lastPage = pagedUsers.getTotalPages() + 1;

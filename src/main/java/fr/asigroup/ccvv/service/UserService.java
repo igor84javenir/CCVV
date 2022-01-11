@@ -89,7 +89,7 @@ public class UserService {
     }
 
     private Pageable getPageable(int pageNo, int rowsPerPage) {
-        return PageRequest.of(pageNo, rowsPerPage, Sort.by("modifiedAt"));
+        return PageRequest.of(pageNo, rowsPerPage, Sort.by("modifiedAt").descending());
     }
 
 //    public List<User> getAllDeactivated() throws UserNotFoundException {
