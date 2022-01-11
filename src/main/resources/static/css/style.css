@@ -2,8 +2,11 @@
     border: red solid 1px;
 }
 
-.borders-orange {
-    border: #c16b24 solid 1px;
+.a-text-orange {
+    color: #c16b24 !important; // Define your own color in your CSS
+}
+.a-text-orange:hover, .a-text-orange:active {
+    color: #c16b24 !important; // Define your own color's darkening/lightening in your CSS
 }
 
 nav {

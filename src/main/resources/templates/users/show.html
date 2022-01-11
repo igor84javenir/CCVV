@@ -33,7 +33,7 @@
                 <th:block th:each="user : ${users}">
                     <tr>
                         <td>[[${user.id}]]</td>
-                        <td><a href="#" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{user.id}">[[${user.name}]]</a></td>
+                        <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{user.id}">[[${user.name}]]</a></td>
                         <td>[[${user.userRole}]]</td>
                         <td>[[${user.mail}]]</td>
                         <td>[[${user.city.name}]]</td>
@@ -61,7 +61,7 @@
                                     <h5 class="modal-title" id="exampleModalLabel">[[${user.name}]]</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body" style="text-align: left">
                                     <div class="row">
                                         <div class="col-3">ID</div>
                                         <div class="col-9">[[${user.id}]]</div>
