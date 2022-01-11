@@ -120,6 +120,18 @@ INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_ro
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoish_ccvv@prefecture.gouv.fr', 'Système', 'FrançoisH', 'root', 0, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'))
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'nicolass_ccvv@prefecture.gouv.fr', 'Système', 'NicolasS', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'))
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'jacquesc_ccvv@prefecture.gouv.fr', 'Système', 'JacquesC', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoism_ccvv@prefecture.gouv.fr', 'Système', 'FrançoisM', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoism_ccvv@prefecture.gouv.fr', 'Système', 'FrançoisM', 'root', 2, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'valeryge_ccvv@prefecture.gouv.fr', 'Système', 'ValéryGE', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'alainp_ccvv@prefecture.gouv.fr', 'Système', 'AlainP', 'root', 0, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'georgesp_ccvv@prefecture.gouv.fr', 'Système', 'GeorgesP', 'root', 0, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'alainp_ccvv@prefecture.gouv.fr', 'Système', 'AlainP', 'root', 1, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'charlesdg_ccvv@prefecture.gouv.fr', 'Système', 'CharlesDG', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'renec_ccvv@prefecture.gouv.fr', 'Système', 'RenéC', 'root', 2, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'vincenta_ccvv@prefecture.gouv.fr', 'Système', 'VincentA', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 'AlbertL', 'root', 0, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
+
+
+
+
 
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', false, 'test@test.com', 'Système', 'test', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
