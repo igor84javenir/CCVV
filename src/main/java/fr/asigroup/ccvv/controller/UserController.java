@@ -6,18 +6,24 @@ import fr.asigroup.ccvv.service.CityNotFoundException;
 import fr.asigroup.ccvv.service.CityService;
 import fr.asigroup.ccvv.service.UserNotFoundException;
 import fr.asigroup.ccvv.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("/main/admin/users/")
+@RequestMapping("/main/admin/users")
 public class UserController {
+    private static final int ROWS_PER_PAGE = 2;
+
     private UserService userService;
     private CityService cityService;
 
@@ -26,17 +32,37 @@ public class UserController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/")
-    public String showUsers(Model model) throws UserNotFoundException, CityNotFoundException {
-        List<User> users = userService.getAll();
 
-        List<City> cities = cityService.getAll();
 
-        User newUser = new User();
-        model.addAttribute("user", newUser);
+    @GetMapping(value = { "/","" })
+    public String showUsers(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber, Model model) throws UserNotFoundException, CityNotFoundException {
 
-        model.addAttribute("cities", cities);
-        model.addAttribute("users", users);
+//        System.out.println(pageNumber);
+
+        Page<User> pagedUsers = userService.getAllPagedExist(pageNumber - 1, ROWS_PER_PAGE);
+        int lastPage = pagedUsers.getTotalPages() + 1;
+        int currentPage = pageNumber;
+
+        List<Integer> pages = IntStream
+                .range(1, lastPage)
+                .boxed()
+                .collect(Collectors.toList());
+
+        model.addAttribute("users", pagedUsers);
+        model.addAttribute("pages", pages);
+        model.addAttribute("currentPage", currentPage);
+
+
+//        List<User> users = userService.getAll();
+//        model.addAttribute("users", users);
+
+//        User newUser = new User();
+//        model.addAttribute("user", newUser);
+//        List<City> cities = cityService.getAll();
+//        model.addAttribute("cities", cities);
+
+
+
 
 
         return "users/show";
@@ -105,17 +131,27 @@ public class UserController {
     }
 
     @GetMapping("/deleted-users")
-    public String showDeactivatedUsers(Model model) throws UserNotFoundException, CityNotFoundException {
-        List<User> users = userService.getAllDeactivated();
+    public String showDeactivatedUsers(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber, Model model) throws UserNotFoundException, CityNotFoundException {
+//        List<User> users = userService.getAllDeactivated();
+//        model.addAttribute("users", users);
 
-        List<City> cities = cityService.getAll();
+        Page<User> pagedUsers = userService.getAllPagedNotExist(pageNumber - 1, ROWS_PER_PAGE);
+        int lastPage = pagedUsers.getTotalPages() + 1;
+        int currentPage = pageNumber;
 
-        User newUser = new User();
-        model.addAttribute("user", newUser);
+        List<Integer> pages = IntStream
+                .range(1, lastPage)
+                .boxed()
+                .collect(Collectors.toList());
 
-        model.addAttribute("cities", cities);
-        model.addAttribute("users", users);
+        model.addAttribute("users", pagedUsers);
+        model.addAttribute("pages", pages);
+        model.addAttribute("currentPage", currentPage);
 
+//        List<City> cities = cityService.getAll();
+//        User newUser = new User();
+//        model.addAttribute("user", newUser);
+//        model.addAttribute("cities", cities);
 
         return "users/show";
     }

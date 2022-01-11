@@ -3,6 +3,10 @@ package fr.asigroup.ccvv.service;
 import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.pojo.PasswordsDTO;
 import fr.asigroup.ccvv.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -54,39 +58,56 @@ public class UserService {
     }
 
 
-    public List<User> getAll() throws UserNotFoundException {
-        Iterable<User> userIterable = userRepository.findAll();
+//    public List<User> getAll() throws UserNotFoundException {
+//
+//        Iterable<User> userIterable = userRepository.findAll();
+//
+//        List<User> users = new ArrayList<>();
+//        for (User u : userIterable) {
+//            if (u != null && u.isExist()) {
+//                users.add(u);
+//            }
+//        }
+//
+//        if (!users.isEmpty()) {
+//            return users;
+//        } else {
+//            throw new UserNotFoundException("No users found");
+//        }
+//    }
 
-        List<User> users = new ArrayList<>();
-        for (User u : userIterable) {
-            if (u != null && u.isExist()) {
-                users.add(u);
-            }
-        }
+    public Page<User> getAllPagedExist(int pageNo, int rowsPerPage) {
+        Pageable pageable = getPageable(pageNo, rowsPerPage);
 
-        if (!users.isEmpty()) {
-            return users;
-        } else {
-            throw new UserNotFoundException("No users found");
-        }
+        return userRepository.findAllByExist(true, pageable);
     }
 
-    public List<User> getAllDeactivated() throws UserNotFoundException {
-        Iterable<User> userIterable = userRepository.findAll();
+    public Page<User> getAllPagedNotExist(int pageNo, int rowsPerPage) {
+        Pageable pageable = getPageable(pageNo, rowsPerPage);
 
-        List<User> users = new ArrayList<>();
-        for (User u : userIterable) {
-            if (u != null && !u.isExist()) {
-                users.add(u);
-            }
-        }
-
-        if (!users.isEmpty()) {
-            return users;
-        } else {
-            throw new UserNotFoundException("No users found");
-        }
+        return userRepository.findAllByExist(false, pageable);
     }
+
+    private Pageable getPageable(int pageNo, int rowsPerPage) {
+        return PageRequest.of(pageNo, rowsPerPage, Sort.by("modifiedAt"));
+    }
+
+//    public List<User> getAllDeactivated() throws UserNotFoundException {
+//        Iterable<User> userIterable = userRepository.findAll();
+//
+//        List<User> users = new ArrayList<>();
+//        for (User u : userIterable) {
+//            if (u != null && !u.isExist()) {
+//                users.add(u);
+//            }
+//        }
+//
+//        if (!users.isEmpty()) {
+//            return users;
+//        } else {
+//            throw new UserNotFoundException("No users found");
+//        }
+//    }
 
     public String updatePassword(long id, PasswordsDTO passwords) throws UserNotFoundException {
         User user = getUserById(id);

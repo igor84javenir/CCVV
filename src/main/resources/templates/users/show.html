@@ -14,8 +14,10 @@
         <div>
             <h1>Gestion des utilisteurs</h1>
         </div>
-<!--        <div class="mb-3"><a th:href="@{new/}" class="h4 text-warning">Ajouter un utilisateur</a> </div>-->
-        <a class="btn btn-warning btn-md" th:href="@{new/}">Ajouter un utilisateur</a>
+        <div th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">
+            <a class="btn btn-warning btn-md" th:href="@{new/}">Ajouter un utilisateur</a>
+        </div>
+
         <div class="my-5">
             <table class="table table-bordered" >
                 <thead class="table-light">
@@ -30,7 +32,7 @@
                     <th>Modifié par</th>
                     <th>Modifié le</th>
                     <th th:if="${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Statut</th>
-                    <th th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}"><a class="btn btn-light btn-sm" th:href="@{'deleted-users/'}">Voir les effacés</a></th>
+                    <th th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}"><a class="btn btn-light btn-sm" th:href="@{'/main/admin/users/deleted-users/'}">Voir les effacés</a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,7 +50,7 @@
 
                         <td th:if="${user.exist == true}">
                             <a class="btn btn-warning btn-sm" th:href="@{'edit/' + ${user.id}}">Editer</a>
-                            <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'delete/' + ${user.id}}">Supprimer</a>
+                            <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
                         </td>
                         <td th:unless="${user.exist} == true"
                             th:text="supprimé">
@@ -59,6 +61,38 @@
                 </tbody>
             </table>
         </div>
+
+        <div th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">
+            <nav aria-label="Page navigation" th:if="${#lists.size(pages)}">
+                <ul class="pagination justify-content-center mt-5 dark">
+                    <li th:class="'page-item' + ${currentPage <= 1 ? ' disabled' : ''}">
+                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users(page-number=${currentPage - 1})}">Previous</a>
+                    </li>
+                    <li th:each="page : ${pages}" th:class="'page-item' + ${currentPage == page ? ' active' : ''}">
+                        <a class="bg-dark text-light page-link " style="border-color:rgba(255,255,255,0.75)" th:href="@{/main/admin/users(page-number=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li th:class="'page-item' + ${currentPage >= #lists.size(pages) ? ' disabled' : ''}">
+                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users(page-number=${currentPage + 1})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div th:unless="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">
+            <nav aria-label="Page navigation" th:if="${#lists.size(pages)}">
+                <ul class="pagination justify-content-center mt-5 dark">
+                    <li th:class="'page-item' + ${currentPage <= 1 ? ' disabled' : ''}">
+                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users/deleted-users(page-number=${currentPage - 1})}">Previous</a>
+                    </li>
+                    <li th:each="page : ${pages}" th:class="'page-item' + ${currentPage == page ? ' active' : ''}">
+                        <a class="bg-dark text-light page-link " style="border-color:rgba(255,255,255,0.75)" th:href="@{/main/admin/users/deleted-users(page-number=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li th:class="'page-item' + ${currentPage >= #lists.size(pages) ? ' disabled' : ''}">
+                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users/deleted-users(page-number=${currentPage + 1})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
     </div>
 </div>
 </div>
