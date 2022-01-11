@@ -1,0 +1,53 @@
+.borders {
+    border: red solid 1px;
+}
+
+.borders-orange {
+    border: #c16b24 solid 1px;
+}
+
+nav {
+    background-color: #c16b24;
+}
+.navbar-nav-right {
+    margin-left: auto;
+}
+table.table-bordered > thead > tr > th{
+    border:1px solid #c16b24;
+    color: white;
+    background-color: #c16b24;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.a-border-pageable {
+    border-color: rgb(193, 107, 36) !important;
+}
+
+.col-size-id {
+    width: 9%;
+}
+
+.col-size-nom {
+    width: 14%;
+}
+
+.col-size-type {
+    width: 10%;
+}
+
+.col-size-email {
+    width: 28%;
+}
+
+.col-size-commune {
+    width: 23%;
+}
+
+.col-size-editer-supprimer {
+    width: 16%;
+}
