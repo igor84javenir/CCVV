@@ -9,44 +9,39 @@
 </head>
 <body>
 <div layout:fragment="content">
-<div class="container-fluid">
+<!--<div class="container-fluid">-->
+<div class="container">
     <div class="text-center">
         <div>
             <h1>Gestion des utilisteurs</h1>
         </div>
-        <div th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">
-            <a class="btn btn-warning btn-md" th:href="@{new/}">Ajouter un utilisateur</a>
-        </div>
-
+        <a class="btn btn-warning btn-md" th:href="@{/main/admin/users/new/}">Ajouter un utilisateur</a>
         <div class="my-5">
             <table class="table table-bordered" >
                 <thead class="table-light">
                 <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Type</th>
-                    <th>Email</th>
-                    <th>Commune</th>
-                    <th>Créé par</th>
-                    <th>Créé le</th>
-                    <th>Modifié par</th>
-                    <th>Modifié le</th>
-                    <th th:if="${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Statut</th>
-                    <th th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}"><a class="btn btn-light btn-sm" th:href="@{'/main/admin/users/deleted-users/'}">Voir les effacés</a></th>
+                    <th class="col-size-id">ID</th>
+                    <th class="col-size-nom">Nom</th>
+                    <th class="col-size-type">Type</th>
+                    <th class="col-size-email">Email</th>
+                    <th class="col-size-commune">Commune</th>
+                    <th class="col-size-editer-supprimer" th:if="${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Statut</th>
+                    <th class="col-size-editer-supprimer" th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}"><a class="btn btn-light btn-sm" th:href="@{'/main/admin/users/deleted-users/'}">Voir les effacés</a></th>
                 </tr>
                 </thead>
                 <tbody>
                 <th:block th:each="user : ${users}">
                     <tr>
                         <td>[[${user.id}]]</td>
-                        <td>[[${user.name}]]</td>
+                        <td><a href="#" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{user.id}">[[${user.name}]]</a></td>
                         <td>[[${user.userRole}]]</td>
                         <td>[[${user.mail}]]</td>
                         <td>[[${user.city.name}]]</td>
-                        <td>[[${user.createdBy}]]</td>
-                        <td>[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</td>
-                        <td>[[${user.modifiedBy}]]</td>
-                        <td>[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</td>
+
+<!--                        <td>[[${user.createdBy}]]</td>-->
+<!--                        <td>[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</td>-->
+<!--                        <td>[[${user.modifiedBy}]]</td>-->
+<!--                        <td>[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</td>-->
 
                         <td th:if="${user.exist == true}">
                             <a class="btn btn-warning btn-sm" th:href="@{'edit/' + ${user.id}}">Editer</a>
@@ -55,8 +50,64 @@
                         <td th:unless="${user.exist} == true"
                             th:text="supprimé">
                         </td>
-
                     </tr>
+
+                    <!--           MODAL-START     -->
+
+                    <div class="modal fade" th:attr="id='exampleModal' + *{user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">[[${user.name}]]</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-3">ID</div>
+                                        <div class="col-9">[[${user.id}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Nom</div>
+                                        <div class="col-9">[[${user.name}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Type</div>
+                                        <div class="col-9">[[${user.userRole}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Email</div>
+                                        <div class="col-9">[[${user.mail}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Commune</div>
+                                        <div class="col-9">[[${user.city.name}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Créé par</div>
+                                        <div class="col-9">[[${user.createdBy}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Créé le</div>
+                                        <div class="col-9">[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Modifié par</div>
+                                        <div class="col-9">[[${user.modifiedBy}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">Modifié le</div>
+                                        <div class="col-9">[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--           MODAL-END     -->
+
                 </th:block>
                 </tbody>
             </table>
@@ -64,30 +115,32 @@
 
         <div th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">
             <nav aria-label="Page navigation" th:if="${#lists.size(pages)}">
-                <ul class="pagination justify-content-center mt-5 dark">
+                <ul class="pagination justify-content-center mt-5">
                     <li th:class="'page-item' + ${currentPage <= 1 ? ' disabled' : ''}">
-                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users(page-number=${currentPage - 1})}">Previous</a>
+                        <a class="bg-light text-dark page-link a-border-pageable" th:href="@{/main/admin/users(page-number=${currentPage - 1})}">
+                            Précédent</a>
                     </li>
                     <li th:each="page : ${pages}" th:class="'page-item' + ${currentPage == page ? ' active' : ''}">
-                        <a class="bg-dark text-light page-link " style="border-color:rgba(255,255,255,0.75)" th:href="@{/main/admin/users(page-number=${page})}" th:text="${page}"></a>
+                        <a class="bg-light text-dark page-link a-border-pageable" th:href="@{/main/admin/users(page-number=${page})}" th:text="${page}"></a>
                     </li>
                     <li th:class="'page-item' + ${currentPage >= #lists.size(pages) ? ' disabled' : ''}">
-                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users(page-number=${currentPage + 1})}">Next</a>
+                        <a class="bg-light text-dark page-link a-border-pageable" th:href="@{/main/admin/users(page-number=${currentPage + 1})}">
+                            Prochain</a>
                     </li>
                 </ul>
             </nav>
         </div>
         <div th:unless="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">
             <nav aria-label="Page navigation" th:if="${#lists.size(pages)}">
-                <ul class="pagination justify-content-center mt-5 dark">
+                <ul class="pagination justify-content-center mt-5">
                     <li th:class="'page-item' + ${currentPage <= 1 ? ' disabled' : ''}">
-                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users/deleted-users(page-number=${currentPage - 1})}">Previous</a>
+                        <a class="bg-light text-dark page-link a-border-pageable" th:href="@{/main/admin/users/deleted-users(page-number=${currentPage - 1})}">Précédent</a>
                     </li>
                     <li th:each="page : ${pages}" th:class="'page-item' + ${currentPage == page ? ' active' : ''}">
-                        <a class="bg-dark text-light page-link " style="border-color:rgba(255,255,255,0.75)" th:href="@{/main/admin/users/deleted-users(page-number=${page})}" th:text="${page}"></a>
+                        <a class="bg-light text-dark page-link a-border-pageable" th:href="@{/main/admin/users/deleted-users(page-number=${page})}" th:text="${page}"></a>
                     </li>
                     <li th:class="'page-item' + ${currentPage >= #lists.size(pages) ? ' disabled' : ''}">
-                        <a class="bg-dark text-light page-link" th:href="@{/main/admin/users/deleted-users(page-number=${currentPage + 1})}">Next</a>
+                        <a class="bg-light text-dark page-link a-border-pageable" th:href="@{/main/admin/users/deleted-users(page-number=${currentPage + 1})}">Prochain</a>
                     </li>
                 </ul>
             </nav>

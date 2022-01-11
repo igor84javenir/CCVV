@@ -116,10 +116,10 @@ INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES 
 
 -- INSERT INTO users (created_at, created_by, exist, mail, modified_at, modified_by, name, password, user_role, city_id) VALUES ('2022-01-01 00:00', 'Système', true, 'testmail@gmail.com', '2022-01-01 00:00', 'Système', 'TestUser', 'password123', 1, (SELECT id FROM cities WHERE name = 'Buisson'))
 
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'emmanuelm@gmail.com', 'Système', 'EmmanuelM', 'root', 0, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'))
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoish@gmail.com', 'Système', 'FrançoisH', 'root', 0, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'))
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'nicolass@gmail.com', 'Système', 'NicolasS', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'))
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'jacquesc@gmail.com', 'Système', 'JacquesC', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoism@gmail.com', 'Système', 'FrançoisM', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'emmanuelm_ccvv@prefecture.gouv.fr', 'Système', 'EmmanuelM', 'root', 0, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoish_ccvv@prefecture.gouv.fr', 'Système', 'FrançoisH', 'root', 0, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'nicolass_ccvv@prefecture.gouv.fr', 'Système', 'NicolasS', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'jacquesc_ccvv@prefecture.gouv.fr', 'Système', 'JacquesC', 'root', 1, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoism_ccvv@prefecture.gouv.fr', 'Système', 'FrançoisM', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
 
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', false, 'test@test.com', 'Système', 'test', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'))
