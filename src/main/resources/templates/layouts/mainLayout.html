@@ -30,8 +30,17 @@
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/contact}">Nous contacter</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Gestion
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{'/main/admin/users/'}">Gestion des utilisteurs</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{'/find-path/'}">Recherche d'itinéraire</a></li>
+                            <li><a class="dropdown-item" th:href="@{'/holiday/'}">Jours fériés</a></li>
+                            <li><a class="dropdown-item" th:href="@{'/with-layout/'}">Layout</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right px-3">
