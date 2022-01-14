@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="//www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lest rdvs </title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+    <!-- JavaScript Bundle with Popper -->
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{css/rdvs.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="text-center">
+        <div><h1>Gestion des RDVs</h1></div>
+        <div class="mb-3"><a th:href="@{/rdvs/nouveau}" class="h4">Ajouter un RDV</a></div>
+
+        <div th:if="${message}" class="alert alert-success text-center my-2">
+            [[${message}]]
+        </div>
+
+        <div>
+            <table class="table table-bordered">
+                <thead class="table-danger">
+                <tr>
+                    <th>Id</th>
+                    <th>motif</th>
+                    <th>commune</th>
+                    <th>nom</th>
+                    <th>prenom</th>
+                    <th>telephone</th>
+                    <th>email</th>
+                    <th>date et heure</th>
+                    <th>durée du trajet</th>
+                    <th>Utilisateur</th>
+                    <th>heure de creation</th>
+                    <th>modifié par</th>
+                    <th>heure de modification</th>
+                    <th>Statut</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="rdv : ${rdvs}">
+                    <tr>
+                        <td>[[${rdv.id}]]</td>
+                        <td>[[${rdv.reasonRdv.name}]]</td>
+                        <td>[[${rdv.city.name}]]</td>
+                        <td>[[${rdv.name}]]</td>
+                        <td>[[${rdv.firstName}]]</td>
+                        <td>[[${rdv.phone}]]</td>
+                        <td>[[${rdv.email}]]</td>
+                        <td>[[${rdv.dateAndTime}]]</td>
+                        <td>[[${rdv.pathDuration}]]</td>
+                        <td>[[${rdv.createdBy}]]</td>
+                        <td>[[${rdv.createdAt}]]</td>
+                        <td>[[${rdv.modifiedBy}]]</td>
+                        <td>[[${rdv.modifiedAt}]]</td>
+                        <td>[[${rdv.status}]]</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" th:href="@{'/rdvs/modifier/' + ${rdv.id}}">Editer</a>
+                            <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/supprimer/' + ${rdv.id}}">Supprimer</a>
+                        </td>
+                    </tr>
+
+                </th:block>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
