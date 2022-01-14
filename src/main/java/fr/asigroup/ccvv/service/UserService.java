@@ -58,23 +58,23 @@ public class UserService {
     }
 
 
-//    public List<User> getAll() throws UserNotFoundException {
-//
-//        Iterable<User> userIterable = userRepository.findAll();
-//
-//        List<User> users = new ArrayList<>();
-//        for (User u : userIterable) {
-//            if (u != null && u.isExist()) {
-//                users.add(u);
-//            }
-//        }
-//
-//        if (!users.isEmpty()) {
-//            return users;
-//        } else {
-//            throw new UserNotFoundException("No users found");
-//        }
-//    }
+    public List<User> getAll() throws UserNotFoundException {
+
+        Iterable<User> userIterable = userRepository.findAll();
+
+        List<User> users = new ArrayList<>();
+        for (User u : userIterable) {
+            if (u != null && u.isExist()) {
+                users.add(u);
+            }
+        }
+
+        if (!users.isEmpty()) {
+            return users;
+        } else {
+            throw new UserNotFoundException("No users found");
+        }
+    }
 
     public Page<User> getAllPagedExist(int pageNo, int rowsPerPage) {
         Pageable pageable = getPageable(pageNo, rowsPerPage);
@@ -131,4 +131,6 @@ public class UserService {
 
 
     }
+
+
 }
