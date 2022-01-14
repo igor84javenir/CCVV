@@ -10,4 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByExist(boolean exist, Pageable pageable);
+
+    User findByName(String username);
 }
