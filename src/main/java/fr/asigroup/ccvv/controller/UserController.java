@@ -31,8 +31,8 @@ public class UserController {
         this.userService = userService;
         this.cityService = cityService;
     }
-
-
+    
+    
 
     @GetMapping(value = { "/","" })
     public String showUsers(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber, Model model) throws UserNotFoundException, CityNotFoundException {
