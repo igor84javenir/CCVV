@@ -10,15 +10,27 @@
 }
 
 nav {
-    background-color: #c16b24;
+/*    background-color: #c16b24; */
+    background-color: #F59E0B;
 }
 .navbar-nav-right {
     margin-left: auto;
 }
+
+/* .custom-color-a, */
+.custom-color-a:focus
+/* .custom-color-a:hover */ {
+/*    color: #3366E7 !important; */
+    background-color: #F59E0B !important;
+}
+
+
 table.table-bordered > thead > tr > th{
-    border:1px solid #c16b24;
+/*    border:1px solid #c16b24; */
+    border:1px solid #F59E0B;
     color: white;
-    background-color: #c16b24;
+/*    background-color: #c16b24; */
+    background-color: #F59E0B;
 }
 
 .centered {

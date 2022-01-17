@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -45,14 +46,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/**").authenticated()
+//                .anyRequest().permitAll()
+//                .and().formLogin()
+//                .loginPage("/my-login")
+//                .usernameParameter("name")
+//                .defaultSuccessUrl("/").permitAll()
+//                .and().logout()
+//                .logoutSuccessUrl("/my-logout")
+//                .permitAll();
+
         http.authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .anyRequest().permitAll()
-                .and().formLogin()
-                .usernameParameter("name")
-                .defaultSuccessUrl("/").permitAll()
-                .and().logout()
-//                .logoutSuccessUrl("/logout")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/my-login")
+                .permitAll()
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutUrl("/my-logout")
+
+                .logoutSuccessUrl("/my-login")
                 .permitAll();
     }
 }
