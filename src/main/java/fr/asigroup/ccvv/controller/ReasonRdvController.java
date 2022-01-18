@@ -1,6 +1,5 @@
 package fr.asigroup.ccvv.controller;
 
-import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.service.ReasonRdvNotFoundException;
 import fr.asigroup.ccvv.service.ReasonRdvService;
 import fr.asigroup.ccvv.entity.ReasonRdv;
@@ -26,7 +25,7 @@ public class ReasonRdvController {
         List<ReasonRdv> liste = service.getAll();
         m.addAttribute("reasonsList", liste);
 
-        return "reasons_rdv";
+        return "rdvReasons/reasonsShow";
     }
 
 
@@ -35,7 +34,7 @@ public class ReasonRdvController {
         ReasonRdv reason = new ReasonRdv();
         m.addAttribute("reason", reason);
 
-        return "reasons_rdv_ajout";
+        return "rdvReasons/reasonNewOrEdit";
     }
 
     @PostMapping("/reasons_rdv/enregistrer")
@@ -72,7 +71,7 @@ public class ReasonRdvController {
 
 
      model.addAttribute("reason",reasonRdv);
-        return "reasons_rdv_ajout";
+        return "rdvReasons/reasonNewOrEdit";
     }
 
     }
