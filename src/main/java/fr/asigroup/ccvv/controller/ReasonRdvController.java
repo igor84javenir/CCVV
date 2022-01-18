@@ -66,4 +66,13 @@ public class ReasonRdvController {
         return "redirect:/reasons_rdv";
 
     }
-}
+    @GetMapping("/reasons_rdv/edit/{id}")
+    public String editReasons_rdv(@PathVariable("id") long id,Model model) throws UserNotFoundException {
+        ReasonRdv reasonRdv = service.getReasonRdv(id);
+
+
+     model.addAttribute("reason",reasonRdv);
+        return "reasons_rdv_ajout";
+    }
+
+    }
