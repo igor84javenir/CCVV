@@ -41,11 +41,13 @@ public class ReasonRdv {
 
     @Column(name="modified_at",nullable = false,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update current_timestamp")
     private LocalDateTime modifiedAt;
+    @Column(name = "exist")
+    private boolean exist = true;
 
     public ReasonRdv() {
     }
 
-    public ReasonRdv(String name, ReasonRdvCategorie category, String email, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt) {
+    public ReasonRdv(String name, ReasonRdvCategorie category, String email, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, boolean exist) {
         this.name = name;
         this.category = category;
         this.email = email;
@@ -55,9 +57,10 @@ public class ReasonRdv {
         this.createdAt = createdAt;
         this.modifiedBy = modifiedBy;
         this.modifiedAt = modifiedAt;
+        this.exist = exist;
     }
 
-    public ReasonRdv(Long id, String name, ReasonRdvCategorie category, String email, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt) {
+    public ReasonRdv(Long id, String name, ReasonRdvCategorie category, String email, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, boolean exist) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -68,6 +71,7 @@ public class ReasonRdv {
         this.createdAt = createdAt;
         this.modifiedBy = modifiedBy;
         this.modifiedAt = modifiedAt;
+        this.exist = exist;
     }
 
     public Long getId() {
@@ -150,6 +154,14 @@ public class ReasonRdv {
         this.modifiedAt = modifiedAt;
     }
 
+    public boolean isExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
+
     @Override
     public String toString() {
         return "ReasonRdv{" +
@@ -163,6 +175,7 @@ public class ReasonRdv {
                 ", createdAt=" + createdAt +
                 ", modifiedBy='" + modifiedBy + '\'' +
                 ", modifiedAt=" + modifiedAt +
+                ", exist=" + exist +
                 '}';
     }
 }
