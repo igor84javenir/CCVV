@@ -44,7 +44,7 @@
                 <td>[[${reason.linkDoc}]]</td>
                 <td>
                     <a href="#" class="btn btn-small btn-primary"><i class="bi bi-pencil"></i></a>
-                    <a th:href="@{'reasons_rdv/supprimer/' + ${reason.id}}" class="btn btn-small btn-danger"><i class="bi bi-trash"></i></a>
+                    <a th:href="@{'reasons_rdv/deactivate/' + ${reason.id}}" class="btn btn-small btn-danger"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         </th:block>

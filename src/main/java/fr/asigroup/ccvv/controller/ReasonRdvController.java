@@ -1,9 +1,11 @@
 package fr.asigroup.ccvv.controller;
 
+import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.service.ReasonRdvNotFoundException;
 import fr.asigroup.ccvv.service.ReasonRdvService;
 import fr.asigroup.ccvv.entity.ReasonRdv;
 
+import fr.asigroup.ccvv.service.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,5 +54,16 @@ public class ReasonRdvController {
         service.delete(id);
 
         return "redirect:/reasons_rdv";
+    }
+    @GetMapping("/reasons_rdv/deactivate/{id}")
+    public String deactivateReasons_rdv(@PathVariable("id") long id) throws UserNotFoundException {
+        ReasonRdv reasonRdv = service.getReasonRdv(id);
+
+        reasonRdv.setExist(false);
+        reasonRdv.setModifiedBy("Remover Name");
+        service.update(reasonRdv);
+
+        return "redirect:/reasons_rdv";
+
     }
 }

@@ -25,6 +25,10 @@ public class ReasonRdvService {
 
         repository.save(reasonRdv);
     }
+    public void update(ReasonRdv reasonRdv) {
+
+        repository.save(reasonRdv);
+    }
 
     public void delete(Long id) throws ReasonRdvNotFoundException {
 
