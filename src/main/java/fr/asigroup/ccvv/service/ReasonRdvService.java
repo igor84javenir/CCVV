@@ -4,6 +4,8 @@ import fr.asigroup.ccvv.entity.ReasonRdv;
 import fr.asigroup.ccvv.repository.ReasonRdvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
@@ -17,8 +19,15 @@ public class ReasonRdvService {
     public List<ReasonRdv> getAll() {
 
         List<ReasonRdv> liste = (List<ReasonRdv>) repository.findAll();
+        List<ReasonRdv> listeExist =new ArrayList<>();
+        for(ReasonRdv r:liste){
 
-        return liste;
+            if (r.isExist()) {
+
+            listeExist.add(r);
+            }
+        }
+        return listeExist;
     }
 
     public void save(ReasonRdv reasonRdv) {

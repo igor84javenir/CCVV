@@ -132,8 +132,8 @@ INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_ro
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', false, 'test@test.com', 'Système', 'test', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
 
 --INSERT INTO reasons_rdv (category,duration_minutes,email,link_doc,name) VALUES( 0, 45  , "user5@gmail.com" ,"www.link5.com" ,  "resident card" );
-insert into reasons_rdv(category,duration_minutes,email,link_doc,name,exist)values(0, 20 , 'user1@gmail.com ','www.link1.com' ,'destroy permit',true);
-insert into reasons_rdv(category,duration_minutes,email,link_doc,name,exist)values( 1 , 30 , 'user2@gmail.com ','www.link2.com' ,'grey card ',true);
-insert into reasons_rdv(category,duration_minutes,email,link_doc,name,exist)values( 0 , 45 , 'user3@gmail.com'  , 'www.link3.com','build permit',true );
-insert into reasons_rdv(category,duration_minutes,email,link_doc,name,exist)values(  1,20 , 'user4@gmail.com'  , 'www.link4.com','identity card ',true);
-insert into reasons_rdv(category,duration_minutes,email,link_doc,name,exist)values( 0, 45  , 'user5@gmail.com' ,'www.link5.com' ,  'resident card',true );
+insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values(0, 20 ,'www.kkkkk.com' ,'destroy permit',true);
+insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 1 , 30 ,'www.link2.com' ,'grey card ',true);
+insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0 , 45   , 'www.link3.com','build permit',true );
+insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values(  1,20   , 'www.link4.com','identity card ',true);
+insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0, 45  ,'www.link5.com' ,  'resident card',true );
