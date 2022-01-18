@@ -21,8 +21,6 @@ public class ReasonRdv {
     @Column(name="category",nullable=false)
     private ReasonRdvCategorie category;
 
-    @Column(name="email",nullable = false,length=100)
-    private String email;
 
     @Column(name="duration_minutes",nullable = false)
     private int durationMinutes ;
@@ -47,10 +45,9 @@ public class ReasonRdv {
     public ReasonRdv() {
     }
 
-    public ReasonRdv(String name, ReasonRdvCategorie category, String email, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, boolean exist) {
+    public ReasonRdv(String name, ReasonRdvCategorie category, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, boolean exist) {
         this.name = name;
         this.category = category;
-        this.email = email;
         this.durationMinutes = durationMinutes;
         this.linkDoc = linkDoc;
         this.createdBy = createdBy;
@@ -60,11 +57,10 @@ public class ReasonRdv {
         this.exist = exist;
     }
 
-    public ReasonRdv(Long id, String name, ReasonRdvCategorie category, String email, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, boolean exist) {
+    public ReasonRdv(Long id, String name, ReasonRdvCategorie category, int durationMinutes, String linkDoc, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, boolean exist) {
         this.id = id;
         this.name = name;
         this.category = category;
-        this.email = email;
         this.durationMinutes = durationMinutes;
         this.linkDoc = linkDoc;
         this.createdBy = createdBy;
@@ -96,14 +92,6 @@ public class ReasonRdv {
 
     public void setCategory(ReasonRdvCategorie category) {
         this.category = category;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getDurationMinutes() {
@@ -168,7 +156,6 @@ public class ReasonRdv {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", category=" + category +
-                ", email='" + email + '\'' +
                 ", durationMinutes=" + durationMinutes +
                 ", linkDoc='" + linkDoc + '\'' +
                 ", createdBy='" + createdBy + '\'' +
