@@ -130,7 +130,6 @@ INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_ro
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 'user', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 0, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
 
 
-
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', false, 'test@test.com', 'Système', 'test', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
 
 --INSERT INTO reasons_rdv (category,duration_minutes,email,link_doc,name) VALUES( 0, 45  , "user5@gmail.com" ,"www.link5.com" ,  "resident card" )
