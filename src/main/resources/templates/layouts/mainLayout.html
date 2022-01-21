@@ -51,7 +51,7 @@
 
                 <ul class="navbar-nav navbar-nav-right px-3">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/change-password/1}">Changer MDP</a>
+                        <a class="nav-link" th:href="@{/change-password/}">Changer MDP</a>
                     </li>
 
 <!--                    <li class="nav-item">-->
@@ -68,16 +68,16 @@
 
 
 <!-- Flash Attribute -->
-
-<div
-        th:if="not ${#strings.isEmpty(flash)}"
-        th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-' + ${flashType}"
-        role="alert"
->
-    <p class="m-0" th:text="${flash}"></p>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="mb-3">
+    <div
+            th:if="not ${#strings.isEmpty(flash)}"
+            th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-' + ${flashType}"
+            role="alert"
+    >
+        <p class="m-0" th:text="${flash}"></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 </div>
-
 <!-- Content Section -->
 
 <section layout:fragment="content">
