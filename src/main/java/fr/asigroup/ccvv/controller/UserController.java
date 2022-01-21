@@ -2,12 +2,16 @@ package fr.asigroup.ccvv.controller;
 
 import fr.asigroup.ccvv.entity.City;
 import fr.asigroup.ccvv.entity.User;
+import fr.asigroup.ccvv.security.UserDetailsImpl;
 import fr.asigroup.ccvv.service.CityNotFoundException;
 import fr.asigroup.ccvv.service.CityService;
 import fr.asigroup.ccvv.service.UserNotFoundException;
 import fr.asigroup.ccvv.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,9 +78,6 @@ public class UserController {
 
         User newUser = new User();
 
-        // Seulement if superadmin
-        // newUser.setUserRole(User.UserRole.ROLE_UTILISATEUR);
-
         model.addAttribute("user", newUser);
         model.addAttribute("cities", cities);
 
@@ -86,7 +87,6 @@ public class UserController {
 
     @PostMapping("/new/save")
     public String saveNewUser(User user) {
-        System.out.println(user);
         userService.save(user);
 
         return "redirect:..";
@@ -101,6 +101,13 @@ public class UserController {
             e.printStackTrace();
         }
 
+        if ((user.getUserRole().equals(User.UserRole.ROLE_ADMIN) || user.getUserRole().equals(User.UserRole.ROLE_SUPERADMIN))) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (!auth.getAuthorities().toString().contains(User.UserRole.ROLE_SUPERADMIN.toString())) {
+                throw new AccessDeniedException("403 returned");
+            }
+        }
+
         List<City> cities = null;
         try {
             cities = cityService.getAll();
@@ -111,14 +118,14 @@ public class UserController {
         model.addAttribute("cities", cities);
         model.addAttribute("user", user);
 
-        throw new AccessDeniedException("403 returned");
-        //return "users/new";
+
+        return "users/new";
     }
 
     @PostMapping("/edit/save")
     public String updateUser(User user) {
 
-        userService.update(user);
+        userService.save(user);
 
         return "redirect:..";
     }
@@ -128,8 +135,7 @@ public class UserController {
         User user = userService.getUserById(id);
 
         user.setExist(false);
-        user.setModifiedBy("Remover Name");
-        userService.update(user);
+        userService.save(user);
 
         return "redirect:..";
     }

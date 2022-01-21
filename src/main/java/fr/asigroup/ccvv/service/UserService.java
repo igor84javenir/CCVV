@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,29 +26,34 @@ public class UserService {
     }
 
     public void save(User user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         if (user.getCreatedAt() == null) {
             user.setCreatedAt(LocalDateTime.now());
         }
 
-        if (user.getModifiedAt() == null) {
-            user.setModifiedAt(LocalDateTime.now());
-        }
-
         if (user.getCreatedBy() == null) {
-            user.setCreatedBy("Creator Name");
-        }
-        if (user.getModifiedBy() == null) {
-            user.setModifiedBy("Creator Name");
+            //            user.setCreatedBy("Creator Name");
+            user.setCreatedBy(auth.getName());
         }
 
-        userRepository.save(user);
-    }
-
-    public void update(User user) {
-        user.setModifiedBy("Modifier Name");
         user.setModifiedAt(LocalDateTime.now());
+
+//            user.setModifiedBy("Creator Name");
+        user.setModifiedBy(auth.getName());
+
+
         userRepository.save(user);
     }
+
+//    public void update(User user) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        user.setModifiedBy(auth.getName());
+//
+//        user.setModifiedAt(LocalDateTime.now());
+//        userRepository.save(user);
+//    }
 
     public User getUserById(long id) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(id);

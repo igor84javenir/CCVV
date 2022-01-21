@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/mainLayout}">
 <head>
     <meta charset="UTF-8">
@@ -37,12 +38,25 @@
                         <tr>
                             <td>[[${user.id}]]</td>
                             <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{user.id}">[[${user.name}]]</a></td>
-                            <td>[[${user.userRole}]]</td>
+<!--                            <td>[[${user.userRole}]]</td>-->
+                            <td th:text="${#strings.substringAfter(user.getUserRole(), 'ROLE_')}"></td>
                             <td>[[${user.mail}]]</td>
                             <td>[[${user.city.name}]]</td>
                             <td th:if="${user.exist == true}">
-                                <a class="btn btn-warning btn-sm" th:href="@{'/main/admin/users/edit/' + ${user.id}}">Editer</a>
-                                <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
+                                <span sec:authorize="hasRole('ROLE_SUPERADMIN')">
+                                    <a class="btn btn-warning btn-sm" th:href="@{'/main/admin/users/edit/' + ${user.id}}">Editer</a>
+                                    <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
+                                </span>
+                                <span sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <span th:if="${#strings.equals(user.getUserRole(), 'ROLE_UTILISATEUR')}">
+                                        <a class="btn btn-warning btn-sm" th:href="@{'/main/admin/users/edit/' + ${user.id}}">Editer</a>
+                                        <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
+                                    </span>
+                                    <span th:unless="${#strings.equals(user.getUserRole(), 'ROLE_UTILISATEUR')}">
+                                        Accès limité
+                                    </span>
+                                </span>
+
                             </td>
                             <td th:unless="${user.exist} == true"
                                 th:text="supprimé">
@@ -60,40 +74,42 @@
                                     </div>
                                     <div class="modal-body" style="text-align: left">
                                         <div class="row">
-                                            <div class="col-3">ID : </div>
-                                            <div class="col-9">[[${user.id}]]</div>
+                                            <div class="col-4">ID : </div>
+                                            <div class="col-8">[[${user.id}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Nom : </div>
-                                            <div class="col-9">[[${user.name}]]</div>
+                                            <div class="col-4">Nom : </div>
+                                            <div class="col-8">[[${user.name}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Type : </div>
-                                            <div class="col-9">[[${user.userRole}]]</div>
+                                            <div class="col-4">Type : </div>
+                                            <div class="col-8">[[${user.userRole}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Email : </div>
-                                            <div class="col-9">[[${user.mail}]]</div>
+                                            <div class="col-4">Email : </div>
+                                            <div class="col-8">[[${user.mail}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Commune : </div>
-                                            <div class="col-9">[[${user.city.name}]]</div>
+                                            <div class="col-4">Commune : </div>
+                                            <div class="col-8">[[${user.city.name}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Créé par : </div>
-                                            <div class="col-9">[[${user.createdBy}]]</div>
+                                            <div class="col-4">Créé par : </div>
+                                            <div class="col-8">[[${user.createdBy}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Créé le : </div>
-                                            <div class="col-9">[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                            <div class="col-4">Créé le : </div>
+                                            <div class="col-8">[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Modifié par : </div>
-                                            <div class="col-9">[[${user.modifiedBy}]]</div>
+                                            <div th:if="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Modifié par : </div>
+                                            <div th:unless="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Supprimé par : </div>
+                                            <div class="col-8">[[${user.modifiedBy}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">Modifié le : </div>
-                                            <div class="col-9">[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                            <div th:if="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Modifié le : </div>
+                                            <div th:unless="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Supprimé le : </div>
+                                            <div class="col-8">[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

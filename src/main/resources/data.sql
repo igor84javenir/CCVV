@@ -127,11 +127,15 @@ INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_ro
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'renec_ccvv@prefecture.gouv.fr', 'Système', 'RenéC', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 2, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'vincenta_ccvv@prefecture.gouv.fr', 'Système', 'VincentA', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 2, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'));
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 'AlbertL', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 0, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
-INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 'user', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 0, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 's', '$2a$12$YZgY.r45Z/Pm2qcOahHqyeQrz.5LShGhfTBAmGmgg/aSMB.k/K1ZS', 0, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 'a', '$2a$12$xLkXpMJ.OJqRucthmy4aiuhYpC5wzPG7IaECOJhqcYCothYKtFPby', 1, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'albertl_ccvv@prefecture.gouv.fr', 'Système', 'u', '$2a$12$cPyg10X..TZ14j1R8eaA9O9GmlKYoA/1EbIUt3wddTnC7vsDqFz.K', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+
 
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', false, 'test@test.com', 'Système', 'test', 'root', 2, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
 
 --INSERT INTO reasons_rdv (category,duration_minutes,email,link_doc,name) VALUES( 0, 45  , "user5@gmail.com" ,"www.link5.com" ,  "resident card" );
+
 insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values(0, 20 ,'www.kkkkk.com' ,'destroy permit',true);
 insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 1 , 30 ,'www.link2.com' ,'grey card ',true);
 insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0 , 45   , 'www.link3.com','build permit',true );
