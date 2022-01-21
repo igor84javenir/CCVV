@@ -9,51 +9,91 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
 
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>€]).{8,20}$";
+    private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public void save(User user) {
+    public String save(User user) {
+        if (userRepository.findByName(user.getName()) != null) {
+            return "Un utilisateur de nom '" + user.getName() + "' existe déjà. Utilisez un autre nom";
+        }
+
+        if (user.getName().isBlank() || user.getMail().isBlank()) {
+            return "Tous les champs sont obligatoires";
+        }
+
+        if (!isValid(user.getPassword())) {
+            return "Le mot de passe doit contenir au moins un chiffre [0-9], "
+                    + "un caractère latin minuscule [a-z], un majuscule [A-Z], "
+                    + "un caractère spécial [!, @, #, &, (, ), etc.] et d'avoir une longueur "
+                    + "de 8 à 20 caractères";
+        }
+
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+
 
         if (user.getCreatedAt() == null) {
             user.setCreatedAt(LocalDateTime.now());
         }
 
         if (user.getCreatedBy() == null) {
-            //            user.setCreatedBy("Creator Name");
             user.setCreatedBy(auth.getName());
         }
 
         user.setModifiedAt(LocalDateTime.now());
 
-//            user.setModifiedBy("Creator Name");
         user.setModifiedBy(auth.getName());
 
 
         userRepository.save(user);
+
+        return "Le compte '" + user.getName() + "' a été créé avec succès";
     }
 
-//    public void update(User user) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//
-//        user.setModifiedBy(auth.getName());
-//
-//        user.setModifiedAt(LocalDateTime.now());
-//        userRepository.save(user);
-//    }
+    public String update(User user) {
+        if (userRepository.findByName(user.getName()) != null && !userRepository.findById(user.getId()).get().getName().equals(user.getName())) {
+            return "Un utilisateur de nom '" + user.getName() + "' existe déjà. Utilisez un autre nom";
+        }
+
+        if (user.getName().isBlank() || user.getMail().isBlank()) {
+            return "Tous les champs sont obligatoires";
+        }
+
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        user.setModifiedBy(auth.getName());
+
+        user.setModifiedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+
+        return "Le compte '" + user.getName() + "' a été modifié avec succès";
+    }
 
     public User getUserById(long id) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(id);
@@ -116,11 +156,26 @@ public class UserService {
 //        }
 //    }
 
-    public String updatePassword(long id, PasswordsDTO passwords) throws UserNotFoundException {
-        User user = getUserById(id);
+    public static boolean isValid(final String password) {
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 
-        if (!user.getPassword().equals(passwords.getOldPassword())) {
+    public String updatePassword(PasswordsDTO passwords) throws UserNotFoundException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByName(auth.getName());
+
+        System.out.println(isValid(passwords.getNewPassword()));
+
+        if (!BCrypt.checkpw(passwords.getOldPassword(), user.getPassword())) {
             return "Votre mot de passe actuel est incorrect";
+        }
+
+        if (!isValid(passwords.getNewPassword())) {
+            return "Le mot de passe doit contenir au moins un chiffre [0-9], "
+                    + "un caractère latin minuscule [a-z], un majuscule [A-Z], "
+                    + "un caractère spécial [!, @, #, &, (, ), etc.] et d'avoir une longueur "
+                    + "de 8 à 20 caractères";
         }
 
         if (passwords.getNewPassword() != null && passwords.getConfirmationPassword() != null && !passwords.getNewPassword().isEmpty() && !passwords.getConfirmationPassword().isEmpty()) {

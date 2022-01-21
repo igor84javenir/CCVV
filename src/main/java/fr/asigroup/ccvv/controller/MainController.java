@@ -27,42 +27,9 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("with-layout/")
+    @GetMapping("/with-layout/")
     public String showTestWithLayout() {
         return "testWithLayout";
-    }
-
-    @GetMapping("change-password/{id}")
-    public String editPassword(Model model) {
-        PasswordsDTO passwords = new PasswordsDTO();
-        model.addAttribute("passwords", passwords);
-        return "editPassword";
-    }
-
-    @PostMapping("change-password/{id}")
-    public String updatePassword(@PathVariable long id, PasswordsDTO passwords, RedirectAttributes ra) throws UserNotFoundException {
-
-        System.out.println("UpdatePassword passwords are : " + passwords);
-        System.out.println("UpdatePassword ID is : " + id);
-
-        String flash = userService.updatePassword(id, passwords);
-
-        String flashType;
-
-        if (flash.endsWith("succès")) {
-            flashType = "success";
-            ra.addFlashAttribute("flash", flash);
-            ra.addFlashAttribute("flashType", flashType);
-            return "redirect:/";
-        } else {
-            flashType = "danger";
-        }
-
-        ra.addFlashAttribute("flash", flash);
-        ra.addFlashAttribute("flashType", flashType);
-
-        return "redirect:/change-password/" + id;
-
     }
 
 }

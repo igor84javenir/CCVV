@@ -15,10 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,10 +66,6 @@ public class UserController {
 //        List<City> cities = cityService.getAll();
 //        model.addAttribute("cities", cities);
 
-
-
-
-
         return "users/show";
     }
 
@@ -78,6 +76,7 @@ public class UserController {
 
         User newUser = new User();
 
+
         model.addAttribute("user", newUser);
         model.addAttribute("cities", cities);
 
@@ -86,20 +85,34 @@ public class UserController {
     }
 
     @PostMapping("/new/save")
-    public String saveNewUser(User user) {
-        userService.save(user);
+    public String saveUser(User user, RedirectAttributes ra, Model model) throws CityNotFoundException {
+        String flash = userService.save(user);
+        String flashType;
+
+        if (flash.endsWith("Utilisez un autre nom") || flash.endsWith("de 8 à 20 caractères") || flash.endsWith("champs sont obligatoires")) {
+            flashType = "danger";
+
+            model.addAttribute("flash", flash);
+            model.addAttribute("flashType", flashType);
+
+            List<City> cities = cityService.getAll();
+
+            model.addAttribute("cities", cities);
+            model.addAttribute("user", user);
+
+            return "users/new";
+        }
+
+        flashType = "success";
+        ra.addFlashAttribute("flash", flash);
+        ra.addFlashAttribute("flashType", flashType);
 
         return "redirect:..";
     }
 
     @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") long id, Model model) {
-        User user = null;
-        try {
-            user = userService.getUserById(id);
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+    public String editUser(@PathVariable("id") long id, Model model) throws UserNotFoundException, CityNotFoundException {
+        User user = userService.getUserById(id);
 
         if ((user.getUserRole().equals(User.UserRole.ROLE_ADMIN) || user.getUserRole().equals(User.UserRole.ROLE_SUPERADMIN))) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -108,12 +121,7 @@ public class UserController {
             }
         }
 
-        List<City> cities = null;
-        try {
-            cities = cityService.getAll();
-        } catch (CityNotFoundException e) {
-            e.printStackTrace();
-        }
+        List<City> cities = cityService.getAll();
 
         model.addAttribute("cities", cities);
         model.addAttribute("user", user);
@@ -123,9 +131,27 @@ public class UserController {
     }
 
     @PostMapping("/edit/save")
-    public String updateUser(User user) {
+    public String updateUser(User user, Model model, RedirectAttributes ra) throws CityNotFoundException {
 
-        userService.save(user);
+        String flash = userService.update(user);
+        String flashType;
+
+        if (flash.endsWith("Utilisez un autre nom") || flash.endsWith("champs sont obligatoires")) {
+            flashType = "danger";
+            model.addAttribute("flash", flash);
+            model.addAttribute("flashType", flashType);
+
+            List<City> cities = cityService.getAll();
+
+            model.addAttribute("cities", cities);
+            model.addAttribute("user", user);
+
+            return "users/new";
+        }
+
+        flashType = "success";
+        ra.addFlashAttribute("flash", flash);
+        ra.addFlashAttribute("flashType", flashType);
 
         return "redirect:..";
     }
@@ -135,7 +161,7 @@ public class UserController {
         User user = userService.getUserById(id);
 
         user.setExist(false);
-        userService.save(user);
+        userService.update(user);
 
         return "redirect:..";
     }
