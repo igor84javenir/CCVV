@@ -126,7 +126,6 @@ public class UserController {
         model.addAttribute("cities", cities);
         model.addAttribute("user", user);
 
-
         return "users/new";
     }
 
