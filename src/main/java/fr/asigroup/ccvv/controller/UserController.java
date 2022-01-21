@@ -148,6 +148,7 @@ public class UserController {
             return "users/new";
         }
 
+
         flashType = "success";
         ra.addFlashAttribute("flash", flash);
         ra.addFlashAttribute("flashType", flashType);
