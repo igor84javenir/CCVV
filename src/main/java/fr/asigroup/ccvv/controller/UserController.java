@@ -7,6 +7,7 @@ import fr.asigroup.ccvv.service.CityService;
 import fr.asigroup.ccvv.service.UserNotFoundException;
 import fr.asigroup.ccvv.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +73,10 @@ public class UserController {
         List<City> cities = cityService.getAll();
 
         User newUser = new User();
+
+        // Seulement if superadmin
+        // newUser.setUserRole(User.UserRole.ROLE_UTILISATEUR);
+
         model.addAttribute("user", newUser);
         model.addAttribute("cities", cities);
 
@@ -81,7 +86,7 @@ public class UserController {
 
     @PostMapping("/new/save")
     public String saveNewUser(User user) {
-
+        System.out.println(user);
         userService.save(user);
 
         return "redirect:..";
@@ -106,7 +111,8 @@ public class UserController {
         model.addAttribute("cities", cities);
         model.addAttribute("user", user);
 
-        return "users/new";
+        throw new AccessDeniedException("403 returned");
+        //return "users/new";
     }
 
     @PostMapping("/edit/save")
