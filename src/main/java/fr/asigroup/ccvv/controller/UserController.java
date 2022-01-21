@@ -159,10 +159,8 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public String deactivateUser(@PathVariable("id") long id) throws UserNotFoundException {
         User user = userService.getUserById(id);
-
         user.setExist(false);
         userService.update(user);
-
         return "redirect:..";
     }
 
