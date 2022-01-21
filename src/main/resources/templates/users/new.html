@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/mainLayout}">
 <head>
@@ -33,19 +34,29 @@
                         <input type="text" th:field="*{name}" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group row py-1">
+                <div sec:authorize="hasRole('ROLE_SUPERADMIN')"  class="form-group row py-1">
                     <label class="col-sm-4 form-label ">Type : </label>
                         <div class="col-sm-8" th:if="${!#strings.contains(#httpServletRequest.requestURI, 'users/edit')}">
                             <select class="form-select" th:field="*{userRole}">
-                                <option th:value="SuperAdmin" th:text="SuperAdmin"></option>
-                                <option th:value="Admin" th:text="Admin"></option>
-                                <option th:value="Utilisateur" th:text="Utilisateur"></option>
+                                <option th:value="ROLE_SUPERADMIN" th:text="SuperAdmin"></option>
+                                <option th:value="ROLE_ADMIN" th:text="Admin"></option>
+                                <option th:value="ROLE_UTILISATEUR" th:text="Utilisateur"></option>
                             </select>
                         </div>
+
                         <div class="col-sm-8" th:unless="${!#strings.contains(#httpServletRequest.requestURI, 'users/edit')}">
                             <input type="hidden" th:field="*{userRole}" th:text="*{userRole}" />
                         </div>
                 </div>
+
+                <div  class="form-group row py-1" sec:authorize="!hasRole('ROLE_SUPERADMIN')" >
+                    <input type="hidden" th:id="userRole" th:name="userRole" th:value="ROLE_UTILISATEUR" />
+                    <label class="col-sm-4 form-label ">Type : </label>
+                    <div class="col-sm-8 text-left">
+                        Utilisateur
+                    </div>
+                </div>
+
                 <div class="form-group row py-1">
                     <label class="col-sm-4 form-label ">Commune : </label>
                     <div class="col-sm-8">

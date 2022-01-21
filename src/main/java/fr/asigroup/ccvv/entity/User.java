@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class User {
 
     public enum UserRole {
-        SuperAdmin, Admin, Utilisateur
+        ROLE_SUPERADMIN, ROLE_ADMIN, ROLE_UTILISATEUR
     }
 
     @Id
