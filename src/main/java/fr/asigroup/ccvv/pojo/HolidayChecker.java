@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Holiday {
+public class HolidayChecker {
 
     public String isHoliday(LocalDate localDate) {
-        String isHoliday = "No";
+        String isHoliday = "no";
 
         Map<String, LocalDate> holidaysOfYear = getHolidaysOfYear(localDate.getYear());
 

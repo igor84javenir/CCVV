@@ -1,6 +1,6 @@
 package fr.asigroup.ccvv.controller;
 
-import fr.asigroup.ccvv.pojo.Holiday;
+import fr.asigroup.ccvv.pojo.HolidayChecker;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +20,8 @@ public class TempControllerHoliday {
     public String findPath(Model model, @ModelAttribute("returnedCheckDate") String returnedCheckDate) {
 
         if (returnedCheckDate != null && !returnedCheckDate.isEmpty()) {
-            Holiday holiday = new Holiday();
-            String isHoliday = new Holiday().isHoliday(LocalDate.parse(returnedCheckDate));
+            HolidayChecker holiday = new HolidayChecker();
+            String isHoliday = new HolidayChecker().isHoliday(LocalDate.parse(returnedCheckDate));
             String result;
 
             if (!isHoliday.equals("No")) {
