@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/mainLayout}">
 <head>
@@ -13,10 +13,27 @@
         <div class="text-center">
             <h1>CALENDAR PAGE</h1>
 
-<!--            <a class="btn btn-warning btn" th:href="@{'find-path/'}">Recherche d'itinéraire</a>-->
-<!--            <a class="btn btn-warning btn" th:href="@{'main/admin/users/'}">Les utilisateurs</a>-->
-<!--            <a class="btn btn-warning btn" th:href="@{'holiday/'}">Jours fériés</a>-->
-<!--            <a class="btn btn-warning btn" th:href="@{'with-layout/'}">Layout</a>-->
+            <div class="row">
+                <a class="bg-light text-dark page-link a-border-pageable col-2" th:href="@{/(offset=${offset - 1})}">Précédent</a>
+                <h2 class="col-8" th:text="${month.toString()}"></h2>
+                <a class="bg-light text-dark page-link a-border-pageable col-2" th:href="@{/(offset=${offset + 1})}">Prochain</a>
+            </div>
+
+
+
+            <tbody>
+            <tr th:each="instance : ${calendar}">
+                <td th:text="${instance.key.getDayOfMonth()}"></td>
+                <td th:each="insideInstance : ${instance.value}">
+                    <span th:text="${insideInstance.key}"></span>
+                    <span> // </span>
+                    <span th:text="${insideInstance.value}"></span>
+                </td>
+                <br>
+            </tr>
+
+            </tbody>
+
 
         </div>
     </div>
