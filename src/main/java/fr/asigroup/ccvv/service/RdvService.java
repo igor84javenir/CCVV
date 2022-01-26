@@ -5,6 +5,7 @@ import fr.asigroup.ccvv.repository.RdvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,9 @@ public class RdvService {
         return (List<Rdv>) rdvrepo.findAll();
     }
 
+    public List<Rdv> listRdvsByDate(LocalDate localDate) {
+        return (List<Rdv>) rdvrepo.findAllByDateAndTime(localDate);
+    }
     public void enregistrer(Rdv rdv) {
         rdv.setCreatedAt(LocalDateTime.now());
         rdv.setCreatedBy("moi");

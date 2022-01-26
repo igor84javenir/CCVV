@@ -1,42 +1,83 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mainLayout}">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>Calendrier</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+    <style>
+        .bordure {
+            border: solid 1px red;
+        }
+        .navigation {
+            display: flex;
+        }
+        .mois {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .entete, .jours {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .jour {
+            flex: 0 0 calc(100%/7);
+            color : #282828;
+        }
+        .entete .jour {
+            height: 30px;
+        }
+        .jours .jour {
+            height: 80px;
+        }
+        .weekend {
+            background-color : lightgray;
+        }
+
+        .ferie {
+            background-color : lightgray;
+        }
+        .cliquable {
+            text-decoration: none;
+            color : #080808;
+        }
+    </style>
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="container my-2">
-        <div class="text-center">
-            <h1>CALENDAR PAGE</h1>
+<div class="container">
+    <h1>Calendrier</h1>
 
-            <div class="row">
-                <a class="bg-light text-dark page-link a-border-pageable col-2" th:href="@{/(offset=${offset - 1})}">Précédent</a>
-                <h2 class="col-8" th:text="${month.toString()}"></h2>
-                <a class="bg-light text-dark page-link a-border-pageable col-2" th:href="@{/(offset=${offset + 1})}">Prochain</a>
-            </div>
+    <nav class="navigation bordure">
+        <a th:href="@{/(offset=${offset - 1})}" class="bordure"><i class="bi bi-arrow-left bordure"></i></a>
+        <h2 class="bordure">[[${month.toString()}]]</h2>
+        <a th:href="@{/(offset=${offset + 1})}" class="bordure"><i class="bi bi-arrow-right bordure"></i></a>
+    </nav>
 
+    <div class="mois bordure">
+        <div class="entete bordure">
+            <span class="jour bordure">Lundi</span>
+            <span class="jour bordure">Mardi</span>
+            <span class="jour bordure">Mercredi</span>
+            <span class="jour bordure">Jeudi</span>
+            <span class="jour bordure">Vendredi</span>
+            <span class="jour bordure">Samedi</span>
+            <span class="jour bordure">Dimanche</span>
+        </div>
+        <div class="jours bordure">
+            <th:block th:each="date : ${calendar}">
 
+                <span th:if="${!date.value.isCliquable()}" th:href="@{'/calendrier-detail/' + ${date.key}}" th:class="'jour bordure ' + ${date.value.getClasseCSS()}">[[${date.key.getDayOfMonth()}]]<br />[[${date.value.getTexte()}]]</span>
 
-            <tbody>
-            <tr th:each="instance : ${calendar}">
-                <td th:text="${instance.key.getDayOfMonth()}"></td>
-                <td th:each="insideInstance : ${instance.value}">
-                    <span th:text="${insideInstance.key}"></span>
-                    <span> // </span>
-                    <span th:text="${insideInstance.value}"></span>
-                </td>
-                <br>
-            </tr>
+                <a th:if="${date.value.isCliquable()}"  th:href="@{'/calendrier-detail/' + ${date.key}}" th:class="'jour bordure ' + ${date.value.getClasseCSS()}">[[${date.key.getDayOfMonth()}]]<br />[[${date.value.getTexte()}]]</a>
 
-            </tbody>
-
-
+            </th:block>
         </div>
     </div>
+
+
 </div>
+
 </body>
 </html>
