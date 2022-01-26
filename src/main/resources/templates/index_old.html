@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container my-2">
+        <div class="text-center">
+            <h1>CALENDAR PAGE</h1>
+
+            <div class="row">
+                <a class="bg-light text-dark page-link a-border-pageable col-2" th:href="@{/(offset=${offset - 1})}">Précédent</a>
+                <h2 class="col-8" th:text="${month.toString()}"></h2>
+                <a class="bg-light text-dark page-link a-border-pageable col-2" th:href="@{/(offset=${offset + 1})}">Prochain</a>
+            </div>
+
+
+
+            <tbody>
+            <tr th:each="instance : ${calendar}">
+                <td th:text="${instance.key.getDayOfMonth()}"></td>
+                <td th:each="insideInstance : ${instance.value}">
+                    <span th:text="${insideInstance.key}"></span>
+                    <span> // </span>
+                    <span th:text="${insideInstance.value}"></span>
+                </td>
+                <br>
+            </tr>
+
+            </tbody>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -141,3 +141,6 @@ insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 1 
 insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0 , 45   , 'www.link3.com','build permit',true );
 insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values(  1,20   , 'www.link4.com','identity card ',true);
 insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0, 45  ,'www.link5.com' ,  'resident card',true );
+
+insert into rdvs(date_and_time, first_name, name, path_duration, phone, status, id_city, id_reason) VALUES ('2022-01-01', 'test', 'test', 0, '99 99 99 99 99', 1, 1, 1);
+insert into rdvs(date_and_time, first_name, name, path_duration, phone, status, id_city, id_reason) VALUES ('2022-01-02', 'test', 'test', 0, '99 99 99 99 99', 1, 1, 1);
