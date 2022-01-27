@@ -56,7 +56,7 @@ public class RdvController {
     public String chooseHour(Rdv rdv, Model model) throws PathNotFoundException {
         newRdv = rdv;
 
-        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity());
+        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getReasonRdv().getDurationMinutes());
 
 //        List<String> mylist = new ArrayList<>();
 //        mylist.add("11:00");
