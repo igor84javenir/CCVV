@@ -66,3 +66,11 @@ table.table-bordered > thead > tr > th{
 .col-size-editer-supprimer {
     width: 16%;
 }
+
+.hours-page {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

@@ -4,6 +4,7 @@ import fr.asigroup.ccvv.entity.City;
 import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.entity.ReasonRdv;
 import fr.asigroup.ccvv.entity.User;
+import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,17 +53,21 @@ public class RdvController {
     }
 
     @PostMapping("/rdvs/new/hour")
-    public String chooseHour(Rdv rdv, Model model)  {
+    public String chooseHour(Rdv rdv, Model model) throws PathNotFoundException {
         newRdv = rdv;
 
-//        List<AvailableRdvTime> availability = rdvService.getAvailabiltyOfDay(rdv.getDate());
+        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity());
 
-        List<String> mylist = new ArrayList<>();
-        mylist.add("11:00");
-        mylist.add("12:00");
-        mylist.add("13:00");
-        mylist.add("14:00");
-        model.addAttribute("myList", mylist);
+//        List<String> mylist = new ArrayList<>();
+//        mylist.add("11:00");
+//        mylist.add("12:00");
+//        mylist.add("13:00");
+//        mylist.add("14:00");
+
+
+        model.addAttribute("date", rdv.getDate());
+        model.addAttribute("city", rdv.getCity().getName());
+        model.addAttribute("availabilityOfDay", availabilityOfDay);
 
         return "rdvs/hour";
     }

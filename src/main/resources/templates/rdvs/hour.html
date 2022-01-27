@@ -10,22 +10,34 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <form th:action="@{hour/save}" method="post" th:object="${rdv}" style="max-width: 500px; margin: 0 auto;">
+
+    <div class="text-center">
+        <h1>Le [[${#temporals.format(date, 'dd MMM yyyy')}]] à [[${city}]]</h1>
+    </div>
+
+    <form th:action="@{hour/save}" method="post" th:object="${rdv}" style="max-width: 550px; margin: 0 auto;">
         <div class="border border-secondary rounded p-3">
-
-            <div th:each="element: ${myList}">
-
-                <input type="radio" class="btn-check" name="time" th:id="${element}" th:value="${element}" autocomplete="off">
-                <label class="btn btn-outline-warning m-2" th:for="${element}">[[${element}]]</label>
-
+            <div class="hours-page">
+                <div class="hours-page"  th:each="element: ${availabilityOfDay}">
+                    <div class="col-sm-8" th:if="${element.available}">
+                        <input type="radio" class="btn-check" name="time" th:id="${element}" th:value="${element.getTime}" autocomplete="off">
+                        <label class="btn btn-outline-warning m-2" th:for="${element}">[[${element.time}]]</label>
+                    </div>
+                    <div class="col-sm-8" th:unless="${element.available}">
+                        <input type="radio" class="btn-check" name="time" th:id="${element}" th:value="${element.getTime}" autocomplete="off" disabled>
+                        <label class="btn btn-outline-secondary m-2" th:for="${element}">[[${element.time}]]</label>
+                    </div>
+                </div>
             </div>
-
 
             <div class="text-center py-2">
                 <button class="btn btn-warning m-2" type="submit">Sauvgarder</button>
                 <a class="btn btn-secondary m-2" th:href="@{..}">Abandonner</a>
             </div>
+
+
         </div>
+
     </form>
 </div>
 </body>
