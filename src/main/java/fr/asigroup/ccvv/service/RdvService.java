@@ -1,7 +1,6 @@
 package fr.asigroup.ccvv.service;
 
 import fr.asigroup.ccvv.entity.Rdv;
-import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.repository.RdvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,15 +50,15 @@ public class RdvService {
 
         if (optionalRdv.isPresent()) {
             Rdv rdv = optionalRdv.get();
-            rdv.setExist(false);
+            rdv.setStatus(Rdv.Status.Cancelled);
             rdvRepository.save(rdv);
         }
 
 
     }
 
-    public List<Rdv> getAllExist(boolean oui){
-        return rdvRepository.findAllByExist(oui);
+    public List<Rdv> getAllByStatus(Rdv.Status status){
+        return rdvRepository.findAllByStatus(status);
     }
 
     public Rdv getRdv(Long id) throws RdvNotFoundException {

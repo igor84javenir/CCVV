@@ -10,7 +10,8 @@ import java.util.List;
 public interface RdvRepository extends JpaRepository<Rdv, Long> {
 
     Long countById(Long id);
-    List<Rdv> findAllByExist(boolean exist);
+//    List<Rdv> findAllByExist(boolean exist);
+    List<Rdv> findAllByStatus(Rdv.Status status);
 
     @Query(value="SELECT r FROM Rdv r")
     List<Rdv> findAllByDateAndTime(LocalDate localDate);
