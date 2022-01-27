@@ -136,11 +136,13 @@ INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_ro
 
 --INSERT INTO reasons_rdv (category,duration_minutes,email,link_doc,name) VALUES( 0, 45  , "user5@gmail.com" ,"www.link5.com" ,  "resident card" );
 
-insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values(0, 20 ,'www.kkkkk.com' ,'destroy permit',true);
-insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 1 , 30 ,'www.link2.com' ,'grey card ',true);
-insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0 , 45   , 'www.link3.com','build permit',true );
-insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values(  1,20   , 'www.link4.com','identity card ',true);
-insert into reasons_rdv(category,duration_minutes,link_doc,name,exist)values( 0, 45  ,'www.link5.com' ,  'resident card',true );
+insert into reasons_rdv (category, duration_minutes, link_doc, name, exist) values (0, 20, 'www.kkkkk.com', 'suppression de permis', true);
+insert into reasons_rdv (category, duration_minutes, link_doc, name, exist) values (1, 30, 'www.link2.com', 'carte grise', true);
+insert into reasons_rdv (category, duration_minutes, link_doc, name, exist) values (0, 45, 'www.link3.com', 'permis de construire', true);
+insert into reasons_rdv (category, duration_minutes, link_doc, name, exist) values (1, 20, 'www.link4.com', 'carte d`identité', true);
+insert into reasons_rdv (category, duration_minutes, link_doc, name, exist) values (0, 45, 'www.link5.com', 'carte de résident', true);
 
-insert into rdvs(date_and_time, first_name, name, path_duration, phone, status, id_city, id_reason) VALUES ('2022-01-01', 'test', 'test', 0, '99 99 99 99 99', 1, 1, 1);
-insert into rdvs(date_and_time, first_name, name, path_duration, phone, status, id_city, id_reason) VALUES ('2022-01-02', 'test', 'test', 0, '99 99 99 99 99', 1, 1, 1);
+--insert into rdvs(date_and_time, first_name, name, path_duration, phone, status, id_city, id_reason) VALUES ('2022-01-01', 'test', 'test', 0, '99 99 99 99 99', 1, 1, 1);
+--insert into rdvs(date_and_time, first_name, name, path_duration, phone, status, id_city, id_reason) VALUES ('2022-01-02', 'test', 'test', 0, '99 99 99 99 99', 1, 1, 1);
+
+INSERT INTO rdvs(name, first_name, phone_number, email, date, time, exist, status, rdv_reason_id, city_id, created_by, modified_by) VALUES ('DOE', 'John', '01 02 03 04 05', 'johnd@gmail.com', '2022-01-31', '14:30', true, 0, (SELECT id FROM reasons_rdv WHERE name = 'carte grise'), (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'),'Système', 'Système');

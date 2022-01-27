@@ -14,7 +14,8 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/holiday/")
-public class TempControllerHoliday {
+public class
+TempControllerHoliday {
 
     @GetMapping("/")
     public String findPath(Model model, @ModelAttribute("returnedCheckDate") String returnedCheckDate) {

@@ -1,130 +1,82 @@
 package fr.asigroup.ccvv.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 @Entity
 @Table(name="rdvs", indexes = {
-        @Index(columnList = "idReason"),
-        @Index(columnList = "idCity"),
+        @Index(columnList = "rdv_reason_id"),
+        @Index(columnList = "city_id"),
         @Index(columnList = "name"),
-        @Index(columnList = "firstName"),
-        @Index(columnList = "name, firstName"),
+        @Index(columnList = "first_name"),
+        @Index(columnList = "name, first_name"),
         @Index(columnList = "email"),
-        @Index(columnList = "dateAndTime"),
         @Index(columnList = "status"),
 })
 public class Rdv {
     public enum Status{
-        Actif, Annulé, Passé
+        Active, Past, Cancelled
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @ManyToOne()
-    @JoinColumn(name = "idReason", nullable = false)
-    private ReasonRdv reasonRdv;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCity", nullable = false)
-    private City city;
-
-    @Column(nullable = false,length = 70)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false,length = 70)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false,length = 70)
-    private String phone;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
-    @Column(nullable = true)
+    @Column(name = "email")
     private String email;
 
-    @Column(nullable = false)
-    private LocalDateTime dateAndTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+
+    @Column(name = "time", nullable = false)
+    private LocalTime time;
 
     @Column(name="exist")
     private boolean exist = true;
 
-    @Column(nullable = false)
-    private int pathDuration;
+//    @Column(name = "path_duration", nullable = false)
+//    private int pathDuration;
 
-   /* @ManyToOne()
-    @JoinColumn(name = "idCreatedBy")
-    private User createdBy;*/
-
-    @Column(name="creatd_by")
-    private String createdBy;
-
-    @Column(nullable = true, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
-
-   /* @ManyToOne()
-    @JoinColumn(name = "idModifiedBy", nullable = true)
-    private User modifiedBy;*/
-
-    @Column(name="modified_by", nullable = true)
-    private String modifiedBy;
-
-    @Column(nullable = true, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime modifiedAt;
-
-    @Column(nullable = false)
+    @Column(name = "status",  nullable = false)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "rdv_reason_id", nullable = false)
+    private ReasonRdv reasonRdv;
 
-/*    @Column(nullable = false,name="user_creation",columnDefinition = "VARCHAR(20) DEFAULT 'root'")
-    private String utilisateurCreation;
-    @Column(nullable = false,name="date_creation",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDate dateCreation;
-    @Column(nullable = false,name="user_maj",length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'root'")
-    private String utilisateurMAJ;
-    @Column(nullable = false,name="date_maj", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDate dateMAJ;*/
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
+
+    @Column(name = "modified_by")
+    private String modifiedBy;
+
+    @Column(name = "modified_at",  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime modifiedAt;
 
     public Rdv() {
-    }
-
-    public Rdv(ReasonRdv reasonRdv, City city, String name, String firstName, String phone, String email, LocalDateTime dateAndTime, boolean exist, int pathDuration, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Status status) {
-        this.reasonRdv = reasonRdv;
-        this.city = city;
-        this.name = name;
-        this.firstName = firstName;
-        this.phone = phone;
-        this.email = email;
-        this.dateAndTime = dateAndTime;
-        this.exist = exist;
-        this.pathDuration = pathDuration;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.modifiedBy = modifiedBy;
-        this.modifiedAt = modifiedAt;
-        this.status = status;
-    }
-
-    public Rdv(Long id, ReasonRdv reasonRdv, City city, String name, String firstName, String phone, String email, LocalDateTime dateAndTime, boolean exist, int pathDuration, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Status status) {
-        this.id = id;
-        this.reasonRdv = reasonRdv;
-        this.city = city;
-        this.name = name;
-        this.firstName = firstName;
-        this.phone = phone;
-        this.email = email;
-        this.dateAndTime = dateAndTime;
-        this.exist = exist;
-        this.pathDuration = pathDuration;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.modifiedBy = modifiedBy;
-        this.modifiedAt = modifiedAt;
-        this.status = status;
     }
 
     public Long getId() {
@@ -167,12 +119,12 @@ public class Rdv {
         this.firstName = firstName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -183,12 +135,12 @@ public class Rdv {
         this.email = email;
     }
 
-    public LocalDateTime getDateAndTime() {
-        return dateAndTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateAndTime(LocalDateTime dateAndTime) {
-        this.dateAndTime = dateAndTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public boolean isExist() {
@@ -197,14 +149,6 @@ public class Rdv {
 
     public void setExist(boolean exist) {
         this.exist = exist;
-    }
-
-    public int getPathDuration() {
-        return pathDuration;
-    }
-
-    public void setPathDuration(int pathDuration) {
-        this.pathDuration = pathDuration;
     }
 
     public String getCreatedBy() {
@@ -247,24 +191,32 @@ public class Rdv {
         this.status = status;
     }
 
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Rdv{" +
                 "id=" + id +
-                ", reasonRdv=" + reasonRdv +
-                ", city=" + city +
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", phone='" + phone + '\'' +
+                ", phone='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", dateAndTime=" + dateAndTime +
+                ", date=" + date +
+                ", time=" + time +
                 ", exist=" + exist +
-                ", pathDuration=" + pathDuration +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdAt=" + createdAt +
                 ", modifiedBy='" + modifiedBy + '\'' +
                 ", modifiedAt=" + modifiedAt +
                 ", status=" + status +
+                ", reasonRdv=" + reasonRdv +
+                ", city=" + city +
                 '}';
     }
 }

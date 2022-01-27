@@ -4,6 +4,7 @@ import fr.asigroup.ccvv.entity.City;
 import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.entity.ReasonRdv;
 import fr.asigroup.ccvv.entity.User;
+import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,15 +12,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Controller
 public class RdvController {
 
+    private Rdv newRdv;
+
     @Autowired
-    private RdvService rdvservice;
+    private RdvService rdvService;
     @Autowired
     private CityService cityService;
     @Autowired
@@ -29,52 +35,66 @@ public class RdvController {
 
     @GetMapping("/rdvs")
     public String showRdvs(Model model) {
-        List<Rdv> rdvs = rdvservice.getAllExist(true);
-        System.out.println(rdvs);
+        List<Rdv> rdvs = rdvService.getAllExist(true);
         model.addAttribute("rdvs", rdvs);
-        return "rdvs";
+        return "rdvs/showRdvs";
     }
 
-    @GetMapping("/rdvs/nouveau")
-    public String showNouveaRdv(Model model) throws CityNotFoundException, UserNotFoundException {
+    @GetMapping("/rdvs/new")
+    public String newRdv(Model model) throws CityNotFoundException, UserNotFoundException {
         List<City> cities = cityService.getAll();
         List<ReasonRdv> reasonsRdv = reasonRdvService.getAll();
-        List<User> users = userService.getAll();
         Rdv rdv = new Rdv();
 
         model.addAttribute("rdv",rdv);
         model.addAttribute("cities",cities);
         model.addAttribute("reasonsRdv",reasonsRdv);
-        model.addAttribute("users", users);
-        return"nouveaurdv";
+        return"rdvs/newRdv";
     }
 
-    @PostMapping("/rdvs/enregistrer")
-    public String enregistrer(Model model, Rdv rdv)  {
-        System.out.println("on est dans enregistrer post rdv");
-        rdvservice.enregistrer(rdv);
+    @PostMapping("/rdvs/new/hour")
+    public String chooseHour(Rdv rdv, Model model)  {
+        newRdv = rdv;
+
+//        List<AvailableRdvTime> availability = rdvService.getAvailabiltyOfDay(rdv.getDate());
+
+        List<String> mylist = new ArrayList<>();
+        mylist.add("11:00");
+        mylist.add("12:00");
+        mylist.add("13:00");
+        mylist.add("14:00");
+        model.addAttribute("myList", mylist);
+
+        return "rdvs/hour";
+    }
+
+    @PostMapping("/rdvs/new/hour/save")
+    public String saveRdv(@RequestParam String time)  {
+        LocalTime localTime = LocalTime.parse(time);
+        Rdv rdv = newRdv;
+        rdv.setTime(localTime);
+        rdvService.save(rdv);
         return "redirect:/rdvs";
     }
 
-    @GetMapping("/rdvs/supprimer/{id}")
-    public String supprimerRdv(@PathVariable Long id) throws RdvNotFoundException {
-        System.out.println("on est dans supprimer rdv");
-        rdvservice.supprimer(id);
+    @GetMapping("/rdvs/delete/{id}")
+    public String deactivateRdv(@PathVariable Long id) throws RdvNotFoundException {
+        rdvService.supprimer(id);
         return "redirect:/rdvs";
     }
 
-    @GetMapping("/rdvs/modifier/{id}")
-    public String modifierRdv(@PathVariable Long id, Model model) throws RdvNotFoundException, CityNotFoundException, UserNotFoundException {
+    @GetMapping("/rdvs/edit/{id}")
+    public String editRdv(@PathVariable Long id, Model model) throws RdvNotFoundException, CityNotFoundException, UserNotFoundException {
         List<City> cities = cityService.getAll();
         List<ReasonRdv> reasonsRdv = reasonRdvService.getAll();
         List<User> users = userService.getAll();
-        Rdv rdv = rdvservice.getRdv(id);
+        Rdv rdv = rdvService.getRdv(id);
         model.addAttribute("rdv", rdv);
         model.addAttribute("cities",cities);
         model.addAttribute("reasonsRdv",reasonsRdv);
         model.addAttribute("users", users);
 
-        return "nouveaurdv";
+        return "rdvs/newRdv";
     }
 
 }
