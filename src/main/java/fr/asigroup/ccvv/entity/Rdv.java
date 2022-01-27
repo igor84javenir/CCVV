@@ -47,8 +47,8 @@ public class Rdv {
     @Column(name = "time", nullable = false)
     private LocalTime time;
 
-    @Column(name="exist")
-    private boolean exist = true;
+//    @Column(name="exist")
+//    private boolean exist = true;
 
 //    @Column(name = "path_duration", nullable = false)
 //    private int pathDuration;
@@ -143,13 +143,13 @@ public class Rdv {
         this.date = date;
     }
 
-    public boolean isExist() {
-        return exist;
-    }
+//    public boolean isExist() {
+//        return exist;
+//    }
 
-    public void setExist(boolean exist) {
-        this.exist = exist;
-    }
+//    public void setExist(boolean exist) {
+//        this.exist = exist;
+//    }
 
     public String getCreatedBy() {
         return createdBy;
@@ -209,7 +209,6 @@ public class Rdv {
                 ", email='" + email + '\'' +
                 ", date=" + date +
                 ", time=" + time +
-                ", exist=" + exist +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdAt=" + createdAt +
                 ", modifiedBy='" + modifiedBy + '\'' +

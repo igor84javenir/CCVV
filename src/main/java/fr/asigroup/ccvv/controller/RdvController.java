@@ -4,7 +4,6 @@ import fr.asigroup.ccvv.entity.City;
 import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.entity.ReasonRdv;
 import fr.asigroup.ccvv.entity.User;
-import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class RdvController {
 
     @GetMapping("/rdvs")
     public String showRdvs(Model model) {
-        List<Rdv> rdvs = rdvService.getAllExist(true);
+        List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Active);
         model.addAttribute("rdvs", rdvs);
         return "rdvs/showRdvs";
     }
