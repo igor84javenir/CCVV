@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{hour/save}" method="post" th:object="${rdv}" style="max-width: 500px; margin: 0 auto;">
+        <div class="border border-secondary rounded p-3">
+
+            <div th:each="element: ${myList}">
+
+                <input type="radio" class="btn-check" name="time" th:id="${element}" th:value="${element}" autocomplete="off">
+                <label class="btn btn-outline-warning m-2" th:for="${element}">[[${element}]]</label>
+
+            </div>
+
+
+            <div class="text-center py-2">
+                <button class="btn btn-warning m-2" type="submit">Sauvgarder</button>
+                <a class="btn btn-secondary m-2" th:href="@{..}">Abandonner</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
