@@ -26,11 +26,12 @@
 <body>
 <div layout:fragment="content">
 
-    <div class="container text-center">
+    <div class="container-fluid text-center px-5">
+
 
     <div class="row text-center">
         <div class="col-3"><a class="btn btn-warning btn-md" th:href="@{/reasons_rdv/ajout/}">Ajouter un motif</a></div>
-        <div class="col-6"><h1>Motifs de rendez-vous</h1></div>
+        <div class="col-6"><h1>Motifs de RDV</h1></div>
         <div class="col-3"></div>
     </div>
 
@@ -53,9 +54,9 @@
                     <td>[[${reason.category}]]</td>
                     <td>[[${reason.durationMinutes}]]</td>
                     <td>[[${reason.linkDoc}]]</td>
-                    <td>
-                        <a class="btn btn-warning btn-sm" th:href="@{'reasons_rdv/edit/' + ${reason.id}}">Editer</a>
-                        <a class="btn btn-danger btn-sm" th:attr="onclick=|return confirm('Confirmez-vous la suppression du motif \u00AB${reason.name}\u00BB')|"  th:href="@{'reasons_rdv/deactivate/' + ${reason.id}}">Supprimer</a>
+                    <td class="pt-0 pb-1">
+                        <a class="btn btn-warning btn-sm mt-1 btn-size-custom-small" th:href="@{'reasons_rdv/edit/' + ${reason.id}}">Editer</a>
+                        <a class="btn btn-danger btn-sm mt-1 btn-size-custom-small" th:attr="onclick=|return confirm('Confirmez-vous la suppression du motif \u00AB${reason.name}\u00BB')|"  th:href="@{'reasons_rdv/deactivate/' + ${reason.id}}">Supprimer</a>
                     </td>
                 </tr>
             </th:block>

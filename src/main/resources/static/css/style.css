@@ -72,3 +72,11 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.btn-size-custom-large {
+    width: 11rem !important;
+}
+
+.btn-size-custom-small {
+    width: 5rem !important;
+}
