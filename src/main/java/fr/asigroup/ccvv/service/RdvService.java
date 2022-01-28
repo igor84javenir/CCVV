@@ -50,7 +50,7 @@ public class RdvService {
         rdvRepository.save(rdv);
     }
 
-    public void supprimer(Long id) throws RdvNotFoundException {
+    public void cancel(Long id) throws RdvNotFoundException {
         Long count = rdvRepository.countById(id);
         if (count == null || count == 0) {
             throw new RdvNotFoundException("le RDV " + id + "exists pas");

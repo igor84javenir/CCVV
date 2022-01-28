@@ -52,7 +52,9 @@
                 <div  class="form-group row py-1" sec:authorize="hasRole('ROLE_ADMIN')" >
                     <input type="hidden" th:id="userRole" th:name="userRole" th:value="ROLE_UTILISATEUR"/>
                     <label class="col-sm-4 form-label ">Type : </label>
-                    <div class="col-sm-8 text-left" th:text="${#strings.substringAfter(user.getUserRole(), 'ROLE_')}"></div>
+<!--                    <div class="col-sm-8 text-left" th:text="${#strings.substringAfter(user.getUserRole(), 'ROLE_')}"></div>-->
+                    <div class="col-sm-8 text-left" th:text="Utilisateur"></div>
+
                 </div>
 
                 <div class="form-group row py-1">

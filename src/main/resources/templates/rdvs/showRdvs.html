@@ -11,30 +11,37 @@
 <div layout:fragment="content">
     <div class="container-fluid">
         <div class="text-center">
-            <div><h1>Gestion des RDVs</h1></div>
-            <div class="mb-3"><a th:href="@{/rdvs/new}" class="h4">Ajouter un RDV</a></div>
+
+            <div class="row">
+                <div class="col-4"><a class="btn btn-warning btn-md" th:href="@{/rdvs/new}">Ajouter un RDV</a></div>
+                <div class="col-4"><h1>Gestion des RDV</h1></div>
+                <div class="col-4">
+                    <a class="btn btn-secondary btn-md m-1" th:href="@{/rdvs/new}">Voir les RDV passés</a>
+                    <a class="btn btn-secondary btn-md m-1" th:href="@{/rdvs/new}">Voir les RDV annulés</a>
+                </div>
+            </div>
 
             <div th:if="${message}" class="alert alert-success text-center my-2">
                 [[${message}]]
             </div>
 
             <div>
-                <table class="table table-bordered">
-                    <thead class="table-danger">
+                <table class="table my-0">
+                    <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>motif</th>
-                        <th>commune</th>
-                        <th>nom</th>
-                        <th>prenom</th>
-                        <th>telephone</th>
-                        <th>email</th>
-                        <th>date</th>
-                        <th>heure</th>
-                        <th>Utilisateur</th>
-                        <th>heure de creation</th>
-                        <th>modifié par</th>
-                        <th>heure de modification</th>
+                        <th>ID</th>
+                        <th>Motif</th>
+                        <th>Commune</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Créé par</th>
+                        <th>Créé le</th>
+                        <th>Modifié par</th>
+                        <th>Modifié le</th>
                         <th>Statut</th>
                         <th></th>
                     </tr>
@@ -57,8 +64,8 @@
                             <td>[[${rdv.modifiedAt}]]</td>
                             <td>[[${rdv.status}]]</td>
                             <td>
-                                <a class="btn btn-primary btn-sm" th:href="@{'/rdvs/modifier/' + ${rdv.id}}">Editer</a>
-                                <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/supprimer/' + ${rdv.id}}">Supprimer</a>
+                                <a class="btn btn-primary btn-sm" th:href="@{'/rdvs/edit/' + ${rdv.id}}">Editer</a>
+                                <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/cancel/' + ${rdv.id}}">Annuler</a>
                             </td>
                         </tr>
 

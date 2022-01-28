@@ -66,7 +66,7 @@ public class UserController {
 //        List<City> cities = cityService.getAll();
 //        model.addAttribute("cities", cities);
 
-        return "users/show";
+        return "users/showUsers";
     }
 
     @GetMapping("/new/")
@@ -80,7 +80,7 @@ public class UserController {
         model.addAttribute("user", newUser);
         model.addAttribute("cities", cities);
 
-        return "users/new";
+        return "users/newUser";
 
     }
 
@@ -100,7 +100,7 @@ public class UserController {
             model.addAttribute("cities", cities);
             model.addAttribute("user", user);
 
-            return "users/new";
+            return "users/newUser";
         }
 
         flashType = "success";
@@ -126,7 +126,7 @@ public class UserController {
         model.addAttribute("cities", cities);
         model.addAttribute("user", user);
 
-        return "users/new";
+        return "users/newUser";
     }
 
     @PostMapping("/edit/save")
@@ -145,7 +145,7 @@ public class UserController {
             model.addAttribute("cities", cities);
             model.addAttribute("user", user);
 
-            return "users/new";
+            return "users/newUser";
         }
 
 
@@ -187,6 +187,6 @@ public class UserController {
 //        model.addAttribute("user", newUser);
 //        model.addAttribute("cities", cities);
 
-        return "users/show";
+        return "users/showUsers";
     }
 }

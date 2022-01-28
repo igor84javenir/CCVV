@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -74,9 +73,9 @@ public class RdvController {
         return "redirect:/rdvs";
     }
 
-    @GetMapping("/rdvs/delete/{id}")
-    public String deactivateRdv(@PathVariable Long id) throws RdvNotFoundException {
-        rdvService.supprimer(id);
+    @GetMapping("/rdvs/cancel/{id}")
+    public String cancelRdv(@PathVariable Long id) throws RdvNotFoundException {
+        rdvService.cancel(id);
         return "redirect:/rdvs";
     }
 
