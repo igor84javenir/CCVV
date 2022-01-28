@@ -9,7 +9,7 @@
     color: #c16b24 !important; // Define your own color's darkening/lightening in your CSS
 }
 
-nav {
+.nav-custom-color {
 /*    background-color: #c16b24; */
     background-color: #F59E0B;
 }
@@ -25,13 +25,11 @@ nav {
 }
 
 
-table.table-bordered > thead > tr > th{
-/*    border:1px solid #c16b24; */
+/* table.table-bordered > thead > tr > th{
     border:1px solid #F59E0B;
     color: white;
-/*    background-color: #c16b24; */
     background-color: #F59E0B;
-}
+} */
 
 .centered {
     display: flex;
