@@ -10,14 +10,12 @@
 </head>
 <body>
 <div layout:fragment="content">
-<!--<div class="container-fluid">-->
-    <div class="container">
-        <div class="text-center">
+<div class="container-fluid text-center px-5">
 
             <div class="row">
-                <div class="col-3"><a class="btn btn-warning btn-md" th:href="@{/main/admin/users/new/}">Créer un compte</a></div>
+                <div class="col-3"><a class="btn btn-warning btn-md m-1 btn-size-custom-large" th:href="@{/main/admin/users/new/}">Créer un compte</a></div>
                 <div class="col-6"><h1>Gestion des utilisteurs</h1></div>
-                <div class="col-3"><a class="btn btn-outline-secondary btn-md m-1" th:href="@{'/main/admin/users/deleted-users/'}">Voir les effacés</a></div>
+                <div class="col-3"><a class="btn btn-outline-warning btn-md m-1 btn-size-custom-large" th:href="@{'/main/admin/users/deleted-users/'}">Voir les effacés</a></div>
             </div>
 
             <div class="my-1">
@@ -30,7 +28,6 @@
                         <th class="col-size-email">Email</th>
                         <th class="col-size-commune">Commune</th>
                         <th class="col-size-editer-supprimer" th:if="${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Statut</th>
-<!--                        <th class="col-size-editer-supprimer" th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}"><a class="btn btn-light btn-sm" th:href="@{'/main/admin/users/deleted-users/'}">Voir les effacés</a></th>-->
                         <th class="col-size-editer-supprimer" th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Gestion</th>
                     </tr>
                     </thead>
@@ -39,19 +36,19 @@
                         <tr>
                             <td>[[${user.id}]]</td>
                             <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{user.id}">[[${user.name}]]</a></td>
-<!--                            <td>[[${user.userRole}]]</td>-->
                             <td th:text="${#strings.substringAfter(user.getUserRole(), 'ROLE_')}"></td>
                             <td>[[${user.mail}]]</td>
                             <td>[[${user.city.name}]]</td>
-                            <td th:if="${user.exist == true}">
+                            <td class="pt-0 pb-1" th:if="${user.exist == true}">
                                 <span sec:authorize="hasRole('ROLE_SUPERADMIN')">
                                     <a class="btn btn-warning btn-sm" th:href="@{'/main/admin/users/edit/' + ${user.id}}">Editer</a>
                                     <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
                                 </span>
                                 <span sec:authorize="hasRole('ROLE_ADMIN')">
                                     <span th:if="${#strings.equals(user.getUserRole(), 'ROLE_UTILISATEUR')}">
-                                        <a class="btn btn-warning btn-sm" th:href="@{'/main/admin/users/edit/' + ${user.id}}">Editer</a>
-                                        <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
+                                        <!----------- for use mt-1 for <a></a> <td></td> should be pt-0 pb-1 ----------->
+                                        <a class="btn btn-warning btn-sm mt-1 btn-size-custom-small" th:href="@{'/main/admin/users/edit/' + ${user.id}}">Editer</a>
+                                        <a class="btn btn-danger btn-sm mt-1 btn-size-custom-small"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'utilisateur \u00AB${user.name}\u00BB')|" th:href="@{'/main/admin/users/delete/' + ${user.id}}">Supprimer</a>
                                     </span>
                                     <span th:unless="${#strings.equals(user.getUserRole(), 'ROLE_UTILISATEUR')}">
                                         Accès limité
@@ -159,7 +156,6 @@
                 </div>
             </div>
 
-        </div>
     </div>
 </div>
 </body>
