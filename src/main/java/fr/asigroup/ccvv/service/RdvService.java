@@ -41,7 +41,7 @@ public class RdvService {
     }
     public void save(Rdv rdv) {
 
-        rdv.setStatus(Rdv.Status.Active);
+        rdv.setStatus(Rdv.Status.Actif);
         rdv.setCreatedAt(LocalDateTime.now());
         rdv.setCreatedBy("System Create");
         rdv.setModifiedBy("System Edit");
@@ -59,7 +59,7 @@ public class RdvService {
 
         if (optionalRdv.isPresent()) {
             Rdv rdv = optionalRdv.get();
-            rdv.setStatus(Rdv.Status.Cancelled);
+            rdv.setStatus(Rdv.Status.Annulé);
             rdvRepository.save(rdv);
         }
 
@@ -82,7 +82,7 @@ public class RdvService {
     }
 
     public List<AvailableRdvTime> getDailySchedule(LocalDate date, City destination, int durationOfNewRdv) throws PathNotFoundException {
-        List<Rdv> alreadyExistingRdvOfDay = rdvRepository.findAllByDateAndStatus(date, Rdv.Status.Active);
+        List<Rdv> alreadyExistingRdvOfDay = rdvRepository.findAllByDateAndStatus(date, Rdv.Status.Actif);
         List<AvailableRdvTime> rdvTimes = getAllRdvAvailable();
 
         if (!alreadyExistingRdvOfDay.isEmpty()) {

@@ -25,7 +25,7 @@
                         <th class="col-size-id">ID</th>
                         <th class="col-size-nom">Nom</th>
                         <th class="col-size-type">Type</th>
-                        <th class="col-size-email">Email</th>
+                        <th class="col-size-email">Mail</th>
                         <th class="col-size-commune">Commune</th>
                         <th class="col-size-editer-supprimer" th:if="${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Statut</th>
                         <th class="col-size-editer-supprimer" th:if="not ${#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}">Gestion</th>
@@ -84,7 +84,7 @@
                                             <div class="col-8">[[${user.userRole}]]</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4">Email : </div>
+                                            <div class="col-4">Mail : </div>
                                             <div class="col-8">[[${user.mail}]]</div>
                                         </div>
                                         <div class="row">
