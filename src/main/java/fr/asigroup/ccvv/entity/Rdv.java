@@ -16,12 +16,12 @@ import java.time.LocalTime;
         @Index(columnList = "name"),
         @Index(columnList = "first_name"),
         @Index(columnList = "name, first_name"),
-        @Index(columnList = "email"),
+        @Index(columnList = "mail"),
         @Index(columnList = "status"),
 })
 public class Rdv {
     public enum Status{
-        Active, Past, Cancelled
+        Actif, Passé, Annulé
     }
 
     @Id
@@ -37,8 +37,8 @@ public class Rdv {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "mail")
+    private String mail;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date", nullable = false)
@@ -127,12 +127,12 @@ public class Rdv {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public LocalDate getDate() {
@@ -206,7 +206,7 @@ public class Rdv {
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", phone='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
+                ", email='" + mail + '\'' +
                 ", date=" + date +
                 ", time=" + time +
                 ", createdBy='" + createdBy + '\'' +

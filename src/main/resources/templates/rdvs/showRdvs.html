@@ -14,8 +14,8 @@
                 <div class="col-4"><a class="btn btn-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/new}">Ajouter un RDV</a></div>
                 <div class="col-4"><h1>Gestion des RDV</h1></div>
                 <div class="col-4">
-                    <a class="btn btn-outline-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/new}">Voir les RDV passés</a>
-                    <a class="btn btn-outline-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/new}">Voir les RDV annulés</a>
+                    <a class="btn btn-outline-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/passed}">Voir les RDV passés</a>
+                    <a class="btn btn-outline-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/cancelled}">Voir les RDV annulés</a>
                 </div>
             </div>
 
@@ -28,45 +28,107 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Motif</th>
-                        <th>Commune</th>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
+                        <th>Commune</th>
+                        <th>Motif</th>
                         <th>Date</th>
                         <th>Heure</th>
-                        <th>Créé par</th>
-                        <th>Créé le</th>
-                        <th>Modifié par</th>
-                        <th>Modifié le</th>
                         <th>Statut</th>
-                        <th></th>
+                        <th
+                                th:if="${not #strings.contains(#httpServletRequest.requestURI, 'rdvs/cancelled')
+                                AND not #strings.contains(#httpServletRequest.requestURI, 'rdvs/passed')}"
+                        >Gestion</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="rdv : ${rdvs}">
+<!--                    <th:block th:each="rdv : ${rdvs}">-->
+                    <th:block th:each="rdv : ${#lists.sort(rdvs, rdvComparator)}">
                         <tr>
                             <td>[[${rdv.id}]]</td>
-                            <td>[[${rdv.reasonRdv.name}]]</td>
-                            <td>[[${rdv.city.name}]]</td>
-                            <td>[[${rdv.name}]]</td>
+                            <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{rdv.id}">[[${rdv.name}]]</a></td>
                             <td>[[${rdv.firstName}]]</td>
-                            <td>[[${rdv.phoneNumber}]]</td>
-                            <td>[[${rdv.email}]]</td>
+                            <td>[[${rdv.city.name}]]</td>
+                            <td>[[${rdv.reasonRdv.name}]]</td>
                             <td>[[${rdv.date}]]</td>
                             <td>[[${rdv.time}]]</td>
-                            <td>[[${rdv.createdBy}]]</td>
-                            <td>[[${rdv.createdAt}]]</td>
-                            <td>[[${rdv.modifiedBy}]]</td>
-                            <td>[[${rdv.modifiedAt}]]</td>
                             <td>[[${rdv.status}]]</td>
-                            <td class="pt-0 pb-1">
+                            <td class="pt-0 pb-1"
+                                th:if="${not #strings.contains(#httpServletRequest.requestURI, 'rdvs/cancelled')
+                                AND not #strings.contains(#httpServletRequest.requestURI, 'rdvs/passed')}">
                                 <!----------- for use mt-1 for <a></a> <td></td> should be pt-0 pb-1 ----------->
                                 <a class="btn btn-warning btn-sm mt-1 btn-size-custom-small" th:href="@{'/rdvs/edit/' + ${rdv.id}}">Editer</a>
                                 <a class="btn btn-danger btn-sm mt-1 btn-size-custom-small"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/cancel/' + ${rdv.id}}">Annuler</a>
                             </td>
                         </tr>
+
+                        <!----------------- MODAL - START ----------------->
+
+                        <div class="modal fade" th:attr="id='exampleModal' + *{rdv.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">[[${rdv.name}]]</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="text-align: left">
+                                        <div class="row">
+                                            <div class="col-4">Nom : </div>
+                                            <div class="col-8">[[${rdv.name}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Prénom : </div>
+                                            <div class="col-8">[[${rdv.firstName}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Commune : </div>
+                                            <div class="col-8">[[${rdv.city.name}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Motif : </div>
+                                            <div class="col-8">[[${rdv.reasonRdv.name}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Date et l'heure : </div>
+                                            <div class="col-8">[[${#temporals.format(rdv.date,'dd/MM/yyyy')}]] à [[${rdv.time}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Téléphone : </div>
+                                            <div class="col-8">[[${rdv.phoneNumber}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Mail : </div>
+                                            <div class="col-8">[[${rdv.mail}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Status : </div>
+                                            <div class="col-8">[[${rdv.status}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Créé par : </div>
+                                            <div class="col-8">[[${rdv.createdBy}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Créé le : </div>
+                                            <div class="col-8">[[${#temporals.format(rdv.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Modifié par : </div>
+                                            <div class="col-8">[[${rdv.modifiedBy}]]</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">Modifié le : </div>
+                                            <div class="col-8">[[${#temporals.format(rdv.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!----------------- MODAL - END ----------------->
 
                     </th:block>
                     </tbody>
