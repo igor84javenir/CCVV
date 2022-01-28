@@ -58,13 +58,6 @@ public class RdvController {
 
         List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getReasonRdv().getDurationMinutes());
 
-//        List<String> mylist = new ArrayList<>();
-//        mylist.add("11:00");
-//        mylist.add("12:00");
-//        mylist.add("13:00");
-//        mylist.add("14:00");
-
-
         model.addAttribute("date", rdv.getDate());
         model.addAttribute("city", rdv.getCity().getName());
         model.addAttribute("availabilityOfDay", availabilityOfDay);
