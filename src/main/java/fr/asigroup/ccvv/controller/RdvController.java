@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -26,6 +27,7 @@ import java.util.List;
 public class RdvController {
 
     private Rdv newRdv;
+    private RdvComparator rdvComparator = new RdvComparator();
 
     @Autowired
     private RdvService rdvService;
@@ -41,7 +43,7 @@ public class RdvController {
         List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Actif);
 
 
-        RdvComparator rdvComparator = new RdvComparator();
+//        RdvComparator rdvComparator = new RdvComparator();
         model.addAttribute("rdvComparator", rdvComparator);
 
         model.addAttribute("rdvs", rdvs);
@@ -110,6 +112,9 @@ public class RdvController {
     @GetMapping("/rdvs/passed")
     public String showPassed(Model model) {
         List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Passé);
+
+        model.addAttribute("rdvComparator", rdvComparator.reversed());
+
         model.addAttribute("rdvs", rdvs);
         return "rdvs/showRdvs";
     }
@@ -117,6 +122,9 @@ public class RdvController {
     @GetMapping("/rdvs/cancelled")
     public String showCancelled(Model model) {
         List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Annulé);
+
+        model.addAttribute("rdvComparator", rdvComparator.reversed());
+
         model.addAttribute("rdvs", rdvs);
         return "rdvs/showRdvs";
     }
