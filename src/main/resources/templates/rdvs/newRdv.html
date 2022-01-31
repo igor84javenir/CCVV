@@ -50,22 +50,34 @@
                         </div>
                     </div>
 
+                    <!------------  Bad practise of option, do not reuse  ------------>
+
                     <div class="form-group row py-1">
                         <label class="col-sm-4 form-label ">Commune : </label>
                         <div class="col-sm-8">
 
-                            <select class="form-select" th:field="*{city}">
-                                <option th:each="city: ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+                            <select class="form-select" th:field="*{city}"/>
+                                <option th:each="city: ${cities}"
+                                        th:value="${city.id}"
+                                        th:text="${city.name}"
+                                        th:selected="${city.id == selectedCityId}"
+                                ></option>
                             </select>
                         </div>
                     </div>
+
+                    <!------------  END Bad practise of option, do not reuse  ------------>
 
                     <div class="form-group row py-1">
                         <label class="col-sm-4 form-label ">Motif : </label>
                         <div class="col-sm-8">
 
                             <select class="form-select" th:field="*{reasonRdv}">
-                                <option th:each="reasonRdv: ${reasonsRdv}" th:value="${reasonRdv.id}" th:text="${reasonRdv.name}"></option>
+                                <option th:each="reasonRdv: ${reasonsRdv}"
+                                        th:value="${reasonRdv.id}"
+                                        th:text="${reasonRdv.name}"
+                                        th:selected="${rdv.reasonRdv}"
+                                ></option>
                             </select>
                         </div>
                     </div>

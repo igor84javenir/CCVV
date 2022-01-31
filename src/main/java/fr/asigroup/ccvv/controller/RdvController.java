@@ -7,6 +7,7 @@ import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.pojo.RdvComparator;
 import fr.asigroup.ccvv.service.*;
+import nonapi.io.github.classgraph.json.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
@@ -31,10 +35,13 @@ public class RdvController {
 
     @Autowired
     private RdvService rdvService;
+
     @Autowired
     private CityService cityService;
+
     @Autowired
     private ReasonRdvService reasonRdvService;
+
     @Autowired
     private UserService userService;
 
@@ -42,8 +49,6 @@ public class RdvController {
     public String showRdvs(Model model) {
         List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Actif);
 
-
-//        RdvComparator rdvComparator = new RdvComparator();
         model.addAttribute("rdvComparator", rdvComparator);
 
         model.addAttribute("rdvs", rdvs);
@@ -51,22 +56,71 @@ public class RdvController {
     }
 
     @GetMapping("/rdvs/new")
-    public String newRdv(Model model) throws CityNotFoundException, UserNotFoundException {
+    public String newRdv(Model model, @RequestParam(required = false) String redirectCheck) throws CityNotFoundException, UserNotFoundException {
+
         List<City> cities = cityService.getAll();
         List<ReasonRdv> reasonsRdv = reasonRdvService.getAll();
-        Rdv rdv = new Rdv();
 
-        model.addAttribute("rdv",rdv);
         model.addAttribute("cities",cities);
         model.addAttribute("reasonsRdv",reasonsRdv);
+
+        if ("redirect".equals(redirectCheck)) {
+            model.addAttribute("rdv",newRdv);
+
+            // Bad practise, do not use
+            Long selectedCityId = newRdv.getCity().getId();
+            model.addAttribute("selectedCityId", selectedCityId);
+            // END Bad practise, do not use
+            return"rdvs/newRdv";
+        }
+
+        Rdv rdv = new Rdv();
+        model.addAttribute("rdv",rdv);
+
         return"rdvs/newRdv";
     }
 
     @PostMapping("/rdvs/new/hour")
-    public String chooseHour(Rdv rdv, Model model) throws PathNotFoundException {
+    public String chooseHour(Rdv rdv, Model model, RedirectAttributes ra) throws PathNotFoundException, CityNotFoundException {
         newRdv = rdv;
+        String flashType;
+        String flash;
+
+        System.out.println(rdv);
+
+        if (newRdv.getFirstName().isBlank() || newRdv.getName().isBlank() || newRdv.getPhoneNumber().isBlank() || newRdv.getDate() == null) {
+            flashType = "danger";
+            flash = "Tous les champs sont obligatoires";
+            ra.addFlashAttribute("flash", flash);
+            ra.addFlashAttribute("flashType", flashType);
+            String redirectCheck = "redirect";
+            ra.addAttribute("redirectCheck", redirectCheck);
+            return"redirect:/rdvs/new";
+        }
 
         List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getReasonRdv().getDurationMinutes());
+
+        boolean isAvailableTimePresent = false;
+
+        for (AvailableRdvTime availableRdvTime : availabilityOfDay) {
+            if (availableRdvTime.isAvailable()) {
+                isAvailableTimePresent = true;
+                break;
+            }
+        }
+
+
+
+        if (!isAvailableTimePresent) {
+            flashType = "danger";
+            flash = "Il n'y a pas de créneau disponible pour la date choisie. Choisissez une autre date";
+            ra.addFlashAttribute("flash", flash);
+            ra.addFlashAttribute("flashType", flashType);
+            String redirectCheck = "redirect";
+            ra.addAttribute("redirectCheck", redirectCheck);
+            return"redirect:/rdvs/new";
+        }
+
 
         model.addAttribute("date", rdv.getDate());
         model.addAttribute("city", rdv.getCity().getName());

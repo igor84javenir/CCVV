@@ -19,7 +19,7 @@ public class ReasonRdvService {
     public List<ReasonRdv> getAll() {
 
         List<ReasonRdv> liste = (List<ReasonRdv>) repository.findAll();
-        List<ReasonRdv> listeExist =new ArrayList<>();
+        List<ReasonRdv> listeExist = new ArrayList<>();
         for(ReasonRdv r:liste){
 
             if (r.isExist()) {
