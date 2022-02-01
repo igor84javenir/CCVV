@@ -120,7 +120,9 @@ public class RdvController {
 
         rdv.setNoMail(hasNoMail);
 
-        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getRdvDuration());
+        System.out.println(rdv);
+
+        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getRdvDuration(), rdv.getId());
 
         boolean isAvailableTimePresent = false;
 
@@ -177,6 +179,11 @@ public class RdvController {
         List<City> cities = cityService.getAll();
         List<ReasonRdv> reasonsRdv = reasonRdvService.getAll();
         List<User> users = userService.getAll();
+
+        // Bad practise, do not use
+        Long selectedCityId = rdv.getCity().getId();
+        model.addAttribute("selectedCityId", selectedCityId);
+        // END Bad practise, do not use
 
         model.addAttribute("rdv", rdv);
         model.addAttribute("cities",cities);
