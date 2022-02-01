@@ -45,7 +45,7 @@ public class MainController {
     public String index(@RequestParam(required = false, defaultValue = "0") Integer offset, Model model) {
         System.out.println("offset = " + offset);
 
-        MonthCalendarGenerator generator = new MonthCalendarGenerator();
+        MonthCalendarGenerator generator = new MonthCalendarGenerator(rdvRepository);
         Map<LocalDate, DateCalendrier> calendar = generator.getMonthCalendar(offset);
 
         model.addAttribute("calendar", calendar);

@@ -14,6 +14,8 @@ public interface RdvRepository extends JpaRepository<Rdv, Long> {
     List<Rdv> findAllByStatus(Rdv.Status status);
     List<Rdv> findAllByDateAndStatus(LocalDate date, Rdv.Status status);
 
-    @Query(value="SELECT r FROM Rdv r")
-    List<Rdv> findAllByDateAndTime(LocalDate localDate);
+    @Query(value="SELECT r FROM Rdv r WHERE r.date = ?1")
+    List<Rdv> findAllByDateAndTime(LocalDate date);
+
+
 }

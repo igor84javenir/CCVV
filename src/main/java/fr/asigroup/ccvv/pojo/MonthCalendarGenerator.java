@@ -1,20 +1,27 @@
 package fr.asigroup.ccvv.pojo;
 
 import fr.asigroup.ccvv.entity.DateCalendrier;
+import fr.asigroup.ccvv.entity.Rdv;
+import fr.asigroup.ccvv.repository.RdvRepository;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class MonthCalendarGenerator {
+    private RdvRepository rdvRepository;
     HolidayChecker holidayChecker = new HolidayChecker();
+
+    public MonthCalendarGenerator(RdvRepository rdvRepository) {
+        this.rdvRepository = rdvRepository;
+    }
+
 
     public Map<LocalDate, DateCalendrier> getMonthCalendar(int monthOffset) {
         //Map<LocalDate, Map<String, String>> monthCalendar = new LinkedHashMap<>();
@@ -33,33 +40,49 @@ public class MonthCalendarGenerator {
         for (int i = 0; i < 42; i++) {
             String availability = getAvailability(localDate);
             String classeCSS = "";
-            String Texte = "";
+            String texte = "";
             boolean cliquable = false;
 
             if (isWeekEnd(localDate)) {
                 // Week-end
                 classeCSS += "weekend ";
-                Texte += "";
+                texte += "";
             }
 
             if (isFerie(localDate)) {
                 // Férie
                 classeCSS += "ferie ";
-                Texte += getJourFerie(localDate);
+                texte += getJourFerie(localDate);
             }
 
             if (isDisponible(localDate)) {
                 // Diponibilité
                 classeCSS += "disponible cliquable ";
-                Texte += "";
+                texte += "";
                 cliquable = true;
             }
-            monthCalendar.put(localDate, new DateCalendrier(Texte, classeCSS, cliquable));
+
+
+            List<Rdv> liste = rdvRepository.findAllByDateAndTime(localDate);
+            //System.out.println("---------------" + localDate + "--------------------");
+            //System.out.println(liste);
+            if (liste.size()>1)
+                texte += ((texte.length()==0?"":"<br />") + liste.size() + " rendez-vous");
+            else if (liste.size()==1) {
+                texte += ((texte.length() == 0 ? "" : "<br />") + "1 rendez-vous");
+                texte += ((texte.length()==0?"":"<br />") + liste.get(0).getTime() + " " + liste.get(0).getCity().getName());
+            }
+//            for (Rdv rdv: liste
+//                 ) {
+//                texte+=((texte.length()==0?"":"<br />") + rdv.getTime() + " " + rdv.getCity().getName());
+//            }
+
+            monthCalendar.put(localDate, new DateCalendrier(texte, classeCSS, cliquable));
 
             localDate = localDate.plusDays(1);
         }
 
-        System.out.println(monthCalendar);
+        //System.out.println(monthCalendar);
         return monthCalendar;
     }
 
