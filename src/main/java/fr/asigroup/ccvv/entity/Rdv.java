@@ -20,6 +20,8 @@ import java.time.LocalTime;
         @Index(columnList = "status"),
 })
 public class Rdv {
+    private static final int CREATION_MAIL_TIME = 10;
+
     public enum Status{
         Actif, Passé, Annulé
     }
@@ -40,6 +42,9 @@ public class Rdv {
     @Column(name = "mail")
     private String mail;
 
+    @Column(name = "no_mail", nullable = false)
+    private boolean noMail = false;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -49,9 +54,6 @@ public class Rdv {
 
 //    @Column(name="exist")
 //    private boolean exist = true;
-
-//    @Column(name = "path_duration", nullable = false)
-//    private int pathDuration;
 
     @Column(name = "status",  nullable = false)
     private Status status;
@@ -199,23 +201,39 @@ public class Rdv {
         this.time = time;
     }
 
+    public boolean isNoMail() {
+        return noMail;
+    }
+
+    public void setNoMail(boolean noMail) {
+        this.noMail = noMail;
+    }
+
+    public int getRdvDuration() {
+        if (!noMail) {
+            return reasonRdv.getDurationMinutes();
+        } else {
+            return reasonRdv.getDurationMinutes() + CREATION_MAIL_TIME;
+        }
+    }
+
+
     @Override
     public String toString() {
         return "Rdv{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", phone='" + phoneNumber + '\'' +
-                ", email='" + mail + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mail='" + mail + '\'' +
+                ", noMail=" + noMail +
                 ", date=" + date +
                 ", time=" + time +
+                ", status=" + status +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdAt=" + createdAt +
                 ", modifiedBy='" + modifiedBy + '\'' +
                 ", modifiedAt=" + modifiedAt +
-                ", status=" + status +
-                ", reasonRdv=" + reasonRdv +
-                ", city=" + city +
                 '}';
     }
 }

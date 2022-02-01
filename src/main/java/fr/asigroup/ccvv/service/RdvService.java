@@ -88,7 +88,10 @@ public class RdvService {
         if (!alreadyExistingRdvOfDay.isEmpty()) {
             for (Rdv existingRdv : alreadyExistingRdvOfDay) {
                 LocalTime existingRdvStart = existingRdv.getTime();
-                LocalTime existingRdvEnd = existingRdvStart.plusMinutes(existingRdv.getReasonRdv().getDurationMinutes());
+                LocalTime existingRdvEnd = existingRdvStart.plusMinutes(existingRdv.getRdvDuration());
+
+                System.out.println("RDV END TIME : " + existingRdvEnd.toString());
+
                 Map<List<String>, Integer> travelFromExistingRdvToNext = pathFinder.findPath(existingRdv.getCity().getName(), destination.getName());
                 Map<List<String>, Integer> travelFromNextRdvToExisting = pathFinder.findPath(destination.getName(), existingRdv.getCity().getName());
 
