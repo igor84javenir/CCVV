@@ -50,7 +50,7 @@
                             <td>[[${rdv.firstName}]]</td>
                             <td>[[${rdv.city.name}]]</td>
                             <td>[[${rdv.reasonRdv.name}]]</td>
-                            <td>[[${rdv.date}]]</td>
+                            <td>[[${#temporals.format(rdv.date,'dd-MM-yyyy')}]]</td>
                             <td>[[${rdv.time}]]</td>
                             <td>[[${rdv.status}]]</td>
                             <td class="pt-0 pb-1"
@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-4">Date et l'heure : </div>
-                                            <div class="col-8">[[${#temporals.format(rdv.date,'dd/MM/yyyy')}]] à [[${rdv.time}]]</div>
+                                            <div class="col-8">[[${#temporals.format(rdv.date,'dd-MM-yyyy')}]] à [[${rdv.time}]]</div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4">Téléphone : </div>
@@ -110,7 +110,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-4">Créé le : </div>
-                                            <div class="col-8">[[${#temporals.format(rdv.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                            <div class="col-8">[[${#temporals.format(rdv.createdAt,'dd-MM-yyyy HH:mm')}]]</div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4">Modifié par : </div>
@@ -118,7 +118,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-4">Modifié le : </div>
-                                            <div class="col-8">[[${#temporals.format(rdv.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                            <div class="col-8">[[${#temporals.format(rdv.modifiedAt,'dd-MM-yyyy HH:mm')}]]</div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
