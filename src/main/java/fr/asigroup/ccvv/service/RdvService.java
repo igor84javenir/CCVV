@@ -23,6 +23,8 @@ public class RdvService {
     private static final LocalTime END_OF_WORKING_MORNING = LocalTime.parse("12:00");
     private static final LocalTime START_OF_WORKING_AFTERNOON = LocalTime.parse("14:00");
     private static final LocalTime END_OF_WORKING_AFTERNOON = LocalTime.parse("17:00");
+    private static final int TIME_RADIUS_FROM_FIRST_RDV_IN_MIN = 30;
+    private static final String HOME_CITY_NAME = "Vaison-la-Romaine";
 
 
     private RdvRepository rdvRepository;
@@ -82,11 +84,46 @@ public class RdvService {
         return rdvRepository.findAll();
     }
 
-    public List<AvailableRdvTime> getDailySchedule(LocalDate date, City destination, int durationOfNewRdv, Long actualRdvId) throws PathNotFoundException {
+    public List<AvailableRdvTime> getDailySchedule(LocalDate date, City destinationCity, int durationOfNewRdv, Long actualRdvId) throws PathNotFoundException {
         List<Rdv> alreadyExistingRdvOfDay = rdvRepository.findAllByDateAndStatus(date, Rdv.Status.Actif);
         List<AvailableRdvTime> rdvTimes = getAllRdvAvailable();
 
         if (!alreadyExistingRdvOfDay.isEmpty()) {
+
+            Rdv firstGottenRdv = null;
+            Rdv lastRdvOfTheDay = null;
+            int rdvCounter = 0;
+            for (Rdv existingRdv : alreadyExistingRdvOfDay) {
+                if (rdvCounter == 0) {
+                    firstGottenRdv = existingRdv;
+                    lastRdvOfTheDay = existingRdv;
+                } else {
+                    if (existingRdv.getCreatedAt().isBefore(firstGottenRdv.getCreatedAt())) {
+                        firstGottenRdv = existingRdv;
+                    }
+                    if (existingRdv.getTime().isAfter(lastRdvOfTheDay.getTime())) {
+                        lastRdvOfTheDay = existingRdv;
+                    }
+                }
+                rdvCounter = rdvCounter + 1;
+            }
+
+            boolean isInRadiusOfTheFirstGottenRdv = travelDuration(firstGottenRdv.getCity().getName(), destinationCity.getName()) <= TIME_RADIUS_FROM_FIRST_RDV_IN_MIN;
+
+//            System.out.println("isInRadiusOfTheFirstGottenRdv : " + isInRadiusOfTheFirstGottenRdv);
+
+            boolean isOnTheWayBackHome = checkPresenceOnWay(HOME_CITY_NAME, lastRdvOfTheDay.getCity().getName(), destinationCity.getName());
+
+//            System.out.println("isOnTheWayBackHome : " + isOnTheWayBackHome);
+
+            if (!isInRadiusOfTheFirstGottenRdv && !isOnTheWayBackHome) {
+                for (AvailableRdvTime availableRdvTime : rdvTimes) {
+                    availableRdvTime.setAvailable(false);
+                }
+
+                return rdvTimes;
+            }
+
             for (Rdv existingRdv : alreadyExistingRdvOfDay) {
 
                 if (Objects.equals(existingRdv.getId(), actualRdvId)) {
@@ -95,20 +132,23 @@ public class RdvService {
                 LocalTime existingRdvStart = existingRdv.getTime();
                 LocalTime existingRdvEnd = existingRdvStart.plusMinutes(existingRdv.getRdvDuration());
 
-                Map<List<String>, Integer> travelFromExistingRdvToNext = pathFinder.findPath(existingRdv.getCity().getName(), destination.getName());
-                Map<List<String>, Integer> travelFromNextRdvToExisting = pathFinder.findPath(destination.getName(), existingRdv.getCity().getName());
+//                Map<List<String>, Integer> travelFromExistingRdvToNext = pathFinder.findPath(existingRdv.getCity().getName(), destination.getName());
+//                Map<List<String>, Integer> travelFromNextRdvToExisting = pathFinder.findPath(destination.getName(), existingRdv.getCity().getName());
 
-                int travelDurationFromExistingToNext = travelFromExistingRdvToNext
-                        .values()
-                        .stream()
-                        .findFirst()
-                        .orElseThrow(() -> new PathNotFoundException("Path not found from " + existingRdv.getCity().getName() + " to " + destination.getName()));
+//                int travelDurationFromExistingToNext = travelFromExistingRdvToNext
+//                        .values()
+//                        .stream()
+//                        .findFirst()
+//                        .orElseThrow(() -> new PathNotFoundException("Path not found from " + existingRdv.getCity().getName() + " to " + destination.getName()));
 
-                int travelDurationFromNextToExisting = travelFromNextRdvToExisting
-                        .values()
-                        .stream()
-                        .findFirst()
-                        .orElseThrow(() -> new PathNotFoundException("Path not found from " + destination.getName() + " to " + existingRdv.getCity().getName()));
+//                int travelDurationFromNextToExisting = travelFromNextRdvToExisting
+//                        .values()
+//                        .stream()
+//                        .findFirst()
+//                        .orElseThrow(() -> new PathNotFoundException("Path not found from " + destination.getName() + " to " + existingRdv.getCity().getName()));
+
+                int travelDurationFromExistingToNext = travelDuration(existingRdv.getCity().getName(), destinationCity.getName());
+                int travelDurationFromNextToExisting = travelDuration(destinationCity.getName(), existingRdv.getCity().getName());
 
                 LocalTime possibleStartAfterRdv = existingRdvEnd.plusMinutes(travelDurationFromExistingToNext);
                 LocalTime possibleStartBeforeRdv = existingRdvStart.minusMinutes(travelDurationFromNextToExisting).minusMinutes(durationOfNewRdv);
@@ -121,6 +161,30 @@ public class RdvService {
 
         }
         return rdvTimes;
+    }
+
+    private boolean checkPresenceOnWay(String homeCityName, String startCityName, String cityForCheck) {
+        Map<List<String>, Integer> travel = pathFinder.findPath(startCityName, homeCityName);
+        boolean isCityOnTheWay = false;
+        for (Map.Entry<List<String>, Integer> entry : travel.entrySet()) {
+            for (String cityOnTheWay : entry.getKey()) {
+                if (cityOnTheWay.equals(cityForCheck)) {
+                    isCityOnTheWay = true;
+                    break;
+                }
+            }
+        }
+
+        return isCityOnTheWay;
+    }
+
+    private int travelDuration(String firstCityName, String secondCityName) throws PathNotFoundException {
+        Map<List<String>, Integer> travel = pathFinder.findPath(firstCityName, secondCityName);
+        return travel
+                .values()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new PathNotFoundException("Path not found from " + firstCityName + " to " + secondCityName));
     }
 
     private boolean checkTimeAvailability(LocalTime possibleStartAfterRdv,

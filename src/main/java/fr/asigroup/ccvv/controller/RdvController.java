@@ -51,7 +51,14 @@ public class RdvController {
     private UserService userService;
 
     @GetMapping("/rdvs")
-    public String showRdvs(Model model) {
+    public String showRdvs(@RequestParam(required = false) String date, Model model) {
+
+        if (date != null) {
+            LocalDate localDate = LocalDate.parse(date);
+            System.out.println(localDate);
+        }
+
+
         List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Actif);
 
         model.addAttribute("rdvComparator", rdvComparator);
@@ -119,8 +126,6 @@ public class RdvController {
         }
 
         rdv.setNoMail(hasNoMail);
-
-        System.out.println(rdv);
 
         List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getRdvDuration(), rdv.getId());
 
