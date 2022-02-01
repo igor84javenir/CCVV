@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
@@ -31,6 +32,8 @@ import java.util.List;
 public class RdvController {
 
     private static final int TIME_FOR_MAIL_CREATION = 10;
+    private static final int MAXIMUM_MONTHS_FOR_GET_RDV = 3;
+    private static final int MINIMUM_DAYS_FOR_GET_RDV = 1;
 
     private Rdv newRdv;
     private RdvComparator rdvComparator = new RdvComparator();
@@ -97,6 +100,17 @@ public class RdvController {
                 || ((newRdv.getMail() == null || newRdv.getMail().isBlank()) && !hasNoMail)) {
             flashType = "danger";
             flash = "Tous les champs sont obligatoires";
+            ra.addFlashAttribute("flash", flash);
+            ra.addFlashAttribute("flashType", flashType);
+            String redirectCheck = "redirect";
+            ra.addAttribute("redirectCheck", redirectCheck);
+            return"redirect:/rdvs/new";
+        }
+
+        if (newRdv.getDate().isAfter(LocalDate.now().plusMonths(MAXIMUM_MONTHS_FOR_GET_RDV))
+                || newRdv.getDate().isBefore(LocalDate.now().plusDays(MINIMUM_DAYS_FOR_GET_RDV))) {
+            flashType = "danger";
+            flash = "Les délais minimum / maximum de prise de rendez-vous en ligne sont 1 jour / 3 mois";
             ra.addFlashAttribute("flash", flash);
             ra.addFlashAttribute("flashType", flashType);
             String redirectCheck = "redirect";
