@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Main</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
 </head>
 <body>
 <div layout:fragment="content">
@@ -39,9 +40,19 @@
                     <div class="form-group row py-1">
                         <label class="col-sm-4 form-label">Mail : </label>
                         <div class="col-sm-8">
-                            <input type="text" th:field="*{mail}" class="form-control"/>
+                            <input type="text" th:field="*{mail}" class="form-control" id="mailField"/>
                         </div>
                     </div>
+
+                    <div class="form-group row py-1">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8 text-start">
+                            <label class="form-check-label" for="noMail">
+                            <input class="form-check-input" id="noMail" type="checkbox" name="hasNoMail" th:checked="${hasNoMail}"
+                                   onchange="document.getElementById('mailField').disabled = this.checked" /> Pas d'adresse mail</label>
+                        </div>
+                    </div>
+
 
                     <div class="form-group row py-1">
                         <label for="holiday" class="col-sm-4 form-label">Date : </label>
@@ -82,8 +93,21 @@
                         </div>
                     </div>
 
+                    <div class="form-group row py-1 mx-1">
+                        Conformément le règlement général sur la protection des données, j'ai informé personne concerné de sauvegarde des données personnelles pendant 30 jours
+                    </div>
+
+                    <div class="form-group row py-1">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8 text-start">
+                            <label class="form-check-label" for="RGPDid">
+                                <input class="form-check-input" type="checkbox" value="" id="RGPDid"
+                                       onchange="document.getElementById('trouvezUnCreneau').disabled = !this.checked"> Je confirme</label>
+                        </div>
+                    </div>
+
                     <div class="text-center py-2">
-                        <button class="btn btn-warning m-2" type="submit">Trouvez un créneau</button>
+                        <button id="trouvezUnCreneau" disabled class="btn btn-warning m-2" type="submit">Trouvez un créneau</button>
                         <a class="btn btn-secondary m-2" th:href="@{..}">Abandonner</a>
                     </div>
                 </div>
