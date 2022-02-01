@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-4">Créé le : </div>
-                                            <div class="col-8">[[${#temporals.format(user.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                            <div class="col-8">[[${#temporals.format(user.createdAt,'dd-MM-yyyy HH:mm')}]]</div>
                                         </div>
                                         <div class="row">
                                             <div th:if="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Modifié par : </div>
@@ -107,7 +107,7 @@
                                         <div class="row">
                                             <div th:if="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Modifié le : </div>
                                             <div th:unless="${!#strings.contains(#httpServletRequest.requestURI, 'users/deleted-users')}" class="col-4">Supprimé le : </div>
-                                            <div class="col-8">[[${#temporals.format(user.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                            <div class="col-8">[[${#temporals.format(user.modifiedAt,'dd-MM-yyyy HH:mm')}]]</div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
