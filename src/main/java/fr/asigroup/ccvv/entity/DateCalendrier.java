@@ -15,6 +15,7 @@ public class DateCalendrier {
     }
 
     public String getTexte() {
+        System.out.println(texte);
         return texte;
     }
 

@@ -1,90 +1,104 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mainLayout}">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Calendrier</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
-    <div layout:fragment="head">
+    <style>
+        .bordure {
+            border: solid 1px red;
+        }
+        .navigation {
+            display: flex;
+        }
+        .mois {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .entete, .jours {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .jour {
+            flex: 0 0 calc(100%/7);
+            color : #282828;
+        }
+        .entete .jour {
+            height: 30px;
+        }
+        .jours .jour {
+            /*height: 80px;*/
+            height: 6.5vw;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            padding: 5px;
+        }
+        .jours .jour span, .jours .jour a {
+            flex: 1;
+            text-decoration: none;
+        }
+        .jours .jour span h3, .jours .jour a h3 {
+            font-size: 20px;
+            color: #000000;
+        }
+        .weekend {
+            background-color : lightgray;
+        }
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        .ferie {
+            background-color : lightgray;
+        }
+        .cliquable {
+            text-decoration: none;
+            color : #080808;
+        }
+        .ajout {
+            position: absolute;
+            top:5px;
+            right:5px;
+            font-size: 20px;
 
-        <style>
-            .bordure {
-                border: solid 1px red;
-            }
-            .navigation {
-                display: flex;
-            }
-            .mois {
-                display: flex;
-                flex-wrap: wrap;
-            }
-            .entete, .jours {
-                display: flex;
-                flex-wrap: wrap;
-                width: 100%;
-            }
-            .jour {
-                flex: 0 0 calc(100%/7);
-                color : #282828;
-            }
-            .entete .jour {
-                height: 30px;
-            }
-            .jours .jour {
-                height: 80px;
-            }
-            .weekend {
-                background-color : lightgray;
-            }
-
-            .ferie {
-                background-color : lightgray;
-            }
-            .cliquable {
-                text-decoration: none;
-                color : #080808;
-            }
-        </style>
-    </div>
+        }
+    </style>
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="container">
-        <h1>Calendrier</h1>
+<div class="container">
+    <h1>Calendrier</h1>
 
-        <nav class="navigation bordure">
-            <a th:href="@{/(offset=${offset - 1})}" class="bordure"><i class="bi bi-arrow-left bordure"></i></a>
-            <h2 class="bordure">[[${month.toString()}]]</h2>
-            <a th:href="@{/(offset=${offset + 1})}" class="bordure"><i class="bi bi-arrow-right bordure"></i></a>
-        </nav>
+    <nav class="navigation bordure">
+        <a th:href="@{/(offset=${offset - 1})}" class="bordure"><i class="bi bi-arrow-left bordure"></i></a>
+        <h2 class="bordure">[[${month.toString()}]]</h2>
+        <a th:href="@{/(offset=${offset + 1})}" class="bordure"><i class="bi bi-arrow-right bordure"></i></a>
+    </nav>
 
-        <div class="mois bordure">
-            <div class="entete bordure">
-                <span class="jour bordure">Lundi</span>
-                <span class="jour bordure">Mardi</span>
-                <span class="jour bordure">Mercredi</span>
-                <span class="jour bordure">Jeudi</span>
-                <span class="jour bordure">Vendredi</span>
-                <span class="jour bordure">Samedi</span>
-                <span class="jour bordure">Dimanche</span>
-            </div>
-            <div class="jours bordure">
-                <th:block th:each="date : ${calendar}">
-
-                    <span th:if="${!date.value.isCliquable()}" th:href="@{'/calendrier-detail/' + ${date.key}}" th:class="'jour bordure ' + ${date.value.getClasseCSS()}">[[${date.key.getDayOfMonth()}]]<br />[[${date.value.getTexte()}]]</span>
-
-                    <a th:if="${date.value.isCliquable()}"  th:href="@{'/calendrier-detail/' + ${date.key}}" th:class="'jour bordure ' + ${date.value.getClasseCSS()}">[[${date.key.getDayOfMonth()}]]<br />[[${date.value.getTexte()}]]</a>
-
-                </th:block>
-            </div>
+    <div class="mois bordure">
+        <div class="entete bordure">
+            <span class="jour bordure">Lundi</span>
+            <span class="jour bordure">Mardi</span>
+            <span class="jour bordure">Mercredi</span>
+            <span class="jour bordure">Jeudi</span>
+            <span class="jour bordure">Vendredi</span>
+            <span class="jour bordure">Samedi</span>
+            <span class="jour bordure">Dimanche</span>
         </div>
+        <div class="jours bordure">
+            <th:block th:each="date : ${calendar}">
+                <div th:class="'jour bordure ' + ${date.value.getClasseCSS()}">
+                    <span th:if="${!date.value.isCliquable()}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></span>
 
-
+                    <a th:if="${date.value.isCliquable()}"  th:href="@{'/calendrier-detail/' + ${date.key}}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></a>
+                    <a th:if="${date.value.isCliquable()}"  th:href="@{'/rdvs/new/' + ${date.key}}" class="ajout"><i class="bi bi-plus-circle"></i></a>
+                </div>
+            </th:block>
+        </div>
     </div>
+
+
 </div>
+
 </body>
 </html>
