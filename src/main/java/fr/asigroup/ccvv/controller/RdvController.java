@@ -30,6 +30,8 @@ import java.util.List;
 @Controller
 public class RdvController {
 
+    private static final int TIME_FOR_MAIL_CREATION = 10;
+
     private Rdv newRdv;
     private RdvComparator rdvComparator = new RdvComparator();
 
@@ -86,20 +88,13 @@ public class RdvController {
 
     @PostMapping("/rdvs/new/hour")
     public String chooseHour(Rdv rdv, Model model, RedirectAttributes ra, boolean hasNoMail) throws PathNotFoundException, CityNotFoundException {
-        System.out.println("HAS NO MAIL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + hasNoMail);
-
-
-
         newRdv = rdv;
         String flashType;
         String flash;
 
-        System.out.println(rdv);
-        System.out.println(newRdv);
-
         if (newRdv.getFirstName().isBlank() || newRdv.getName().isBlank()
                 || newRdv.getPhoneNumber().isBlank() || newRdv.getDate() == null
-                || (newRdv.getMail() == null && !hasNoMail)) {
+                || ((newRdv.getMail() == null || newRdv.getMail().isBlank()) && !hasNoMail)) {
             flashType = "danger";
             flash = "Tous les champs sont obligatoires";
             ra.addFlashAttribute("flash", flash);
@@ -109,7 +104,9 @@ public class RdvController {
             return"redirect:/rdvs/new";
         }
 
-        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getReasonRdv().getDurationMinutes());
+        rdv.setNoMail(hasNoMail);
+
+        List<AvailableRdvTime> availabilityOfDay = rdvService.getDailySchedule(rdv.getDate(), rdv.getCity(), rdv.getRdvDuration());
 
         boolean isAvailableTimePresent = false;
 
@@ -130,6 +127,10 @@ public class RdvController {
             return"redirect:/rdvs/new";
         }
 
+        if (hasNoMail) {
+            newRdv.setMail("Pas d'adresse mail");
+        }
+
         model.addAttribute("date", rdv.getDate());
         model.addAttribute("city", rdv.getCity().getName());
         model.addAttribute("availabilityOfDay", availabilityOfDay);
@@ -139,9 +140,9 @@ public class RdvController {
 
     @PostMapping("/rdvs/new/hour/save")
     public String saveRdv(@RequestParam String time)  {
-        LocalTime localTime = LocalTime.parse(time);
+        LocalTime rdvStartTime = LocalTime.parse(time);
         Rdv rdv = newRdv;
-        rdv.setTime(localTime);
+        rdv.setTime(rdvStartTime);
         rdvService.save(rdv);
         return "redirect:/rdvs";
     }
