@@ -71,6 +71,10 @@ public class RdvController {
             Long selectedCityId = newRdv.getCity().getId();
             model.addAttribute("selectedCityId", selectedCityId);
             // END Bad practise, do not use
+
+            boolean hasNoMail = false;
+            model.addAttribute("hasNoMail", hasNoMail);
+
             return"rdvs/newRdv";
         }
 
@@ -81,14 +85,21 @@ public class RdvController {
     }
 
     @PostMapping("/rdvs/new/hour")
-    public String chooseHour(Rdv rdv, Model model, RedirectAttributes ra) throws PathNotFoundException, CityNotFoundException {
+    public String chooseHour(Rdv rdv, Model model, RedirectAttributes ra, boolean hasNoMail) throws PathNotFoundException, CityNotFoundException {
+        System.out.println("HAS NO MAIL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + hasNoMail);
+
+
+
         newRdv = rdv;
         String flashType;
         String flash;
 
         System.out.println(rdv);
+        System.out.println(newRdv);
 
-        if (newRdv.getFirstName().isBlank() || newRdv.getName().isBlank() || newRdv.getPhoneNumber().isBlank() || newRdv.getDate() == null) {
+        if (newRdv.getFirstName().isBlank() || newRdv.getName().isBlank()
+                || newRdv.getPhoneNumber().isBlank() || newRdv.getDate() == null
+                || (newRdv.getMail() == null && !hasNoMail)) {
             flashType = "danger";
             flash = "Tous les champs sont obligatoires";
             ra.addFlashAttribute("flash", flash);
@@ -109,8 +120,6 @@ public class RdvController {
             }
         }
 
-
-
         if (!isAvailableTimePresent) {
             flashType = "danger";
             flash = "Il n'y a pas de créneau disponible pour la date choisie. Choisissez une autre date";
@@ -120,7 +129,6 @@ public class RdvController {
             ra.addAttribute("redirectCheck", redirectCheck);
             return"redirect:/rdvs/new";
         }
-
 
         model.addAttribute("date", rdv.getDate());
         model.addAttribute("city", rdv.getCity().getName());
