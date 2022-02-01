@@ -16,8 +16,10 @@
             <div>
                 <h1>Prendre RDV</h1>
             </div>
-            <form th:action="@{new/hour}" method="post" th:object="${rdv}" style="max-width: 500px; margin: 0 auto;">
+            <form th:action="@{/rdvs/new/hour}" method="post" th:object="${rdv}" style="max-width: 500px; margin: 0 auto;">
                 <div class="border border-secondary rounded p-3">
+
+                    <input type="hidden" th:field="*{id}">
 
                     <div class="form-group row py-1">
                         <label class="col-sm-4 form-label">Nom : </label>

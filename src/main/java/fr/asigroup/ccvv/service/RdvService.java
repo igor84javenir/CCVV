@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -81,16 +82,18 @@ public class RdvService {
         return rdvRepository.findAll();
     }
 
-    public List<AvailableRdvTime> getDailySchedule(LocalDate date, City destination, int durationOfNewRdv) throws PathNotFoundException {
+    public List<AvailableRdvTime> getDailySchedule(LocalDate date, City destination, int durationOfNewRdv, Long actualRdvId) throws PathNotFoundException {
         List<Rdv> alreadyExistingRdvOfDay = rdvRepository.findAllByDateAndStatus(date, Rdv.Status.Actif);
         List<AvailableRdvTime> rdvTimes = getAllRdvAvailable();
 
         if (!alreadyExistingRdvOfDay.isEmpty()) {
             for (Rdv existingRdv : alreadyExistingRdvOfDay) {
+
+                if (Objects.equals(existingRdv.getId(), actualRdvId)) {
+                    continue;
+                }
                 LocalTime existingRdvStart = existingRdv.getTime();
                 LocalTime existingRdvEnd = existingRdvStart.plusMinutes(existingRdv.getRdvDuration());
-
-                System.out.println("RDV END TIME : " + existingRdvEnd.toString());
 
                 Map<List<String>, Integer> travelFromExistingRdvToNext = pathFinder.findPath(existingRdv.getCity().getName(), destination.getName());
                 Map<List<String>, Integer> travelFromNextRdvToExisting = pathFinder.findPath(destination.getName(), existingRdv.getCity().getName());
