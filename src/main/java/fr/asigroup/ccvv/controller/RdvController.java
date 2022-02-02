@@ -51,15 +51,22 @@ public class RdvController {
     private UserService userService;
 
     @GetMapping("/rdvs")
-    public String showRdvs(@RequestParam(required = false) String date, Model model) {
+    public String showRdvs(@RequestParam(required = false) String date, Model model, RedirectAttributes ra) {
+
+        List<Rdv> rdvs;
 
         if (date != null) {
-            LocalDate localDate = LocalDate.parse(date);
-            System.out.println(localDate);
+            LocalDate dateOfSearchedRdvs = LocalDate.parse(date);
+            if (dateOfSearchedRdvs.isAfter(LocalDate.now()) || dateOfSearchedRdvs.equals(LocalDate.now())) {
+                rdvs = rdvService.getAllByDateAndStatus(dateOfSearchedRdvs, Rdv.Status.Actif);
+            } else {
+                ra.addAttribute("dateOfSearchedRdvs", dateOfSearchedRdvs);
+                return "redirect:/rdvs/passed";
+            }
+
+        } else {
+            rdvs = rdvService.getAllByStatus(Rdv.Status.Actif);
         }
-
-
-        List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Actif);
 
         model.addAttribute("rdvComparator", rdvComparator);
 
@@ -199,8 +206,15 @@ public class RdvController {
     }
 
     @GetMapping("/rdvs/passed")
-    public String showPassed(Model model) {
-        List<Rdv> rdvs = rdvService.getAllByStatus(Rdv.Status.Passé);
+    public String showPassed(Model model, @RequestParam(required = false) LocalDate dateOfSearchedRdvs) {
+
+        List<Rdv> rdvs;
+
+        if (dateOfSearchedRdvs != null) {
+            rdvs = rdvService.getAllByDateAndStatus(dateOfSearchedRdvs, Rdv.Status.Passé);
+        } else {
+            rdvs = rdvService.getAllByStatus(Rdv.Status.Passé);
+        }
 
         model.addAttribute("rdvComparator", rdvComparator.reversed());
 

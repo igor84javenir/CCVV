@@ -73,6 +73,10 @@ public class RdvService {
         return rdvRepository.findAllByStatus(status);
     }
 
+    public List<Rdv> getAllByDateAndStatus(LocalDate date, Rdv.Status status) {
+        return rdvRepository.findAllByDateAndStatus(date, status);
+    }
+
     public Rdv getRdv(Long id) throws RdvNotFoundException {
         Optional<Rdv> rdv = rdvRepository.findById(id);
         if(rdv.isPresent())
