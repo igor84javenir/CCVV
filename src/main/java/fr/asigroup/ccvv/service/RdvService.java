@@ -40,7 +40,7 @@ public class RdvService {
     }
 
     public List<Rdv> listRdvsByDate(LocalDate localDate) {
-        return (List<Rdv>) rdvRepository.findAllByDateAndTime(localDate);
+        return (List<Rdv>) rdvRepository.findAllActiveAndPastByDate(localDate);
     }
     public void save(Rdv rdv) {
 
