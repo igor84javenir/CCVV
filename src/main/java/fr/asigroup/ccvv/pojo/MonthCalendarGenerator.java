@@ -63,7 +63,7 @@ public class MonthCalendarGenerator {
             }
 
 
-            List<Rdv> liste = rdvRepository.findAllByDateAndTime(localDate);
+            List<Rdv> liste = rdvRepository.findAllActiveAndPastByDate(localDate);
             //System.out.println("---------------" + localDate + "--------------------");
             //System.out.println(liste);
             if (liste.size()>1)

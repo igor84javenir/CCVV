@@ -59,7 +59,7 @@ public class MainController {
     public String calendrierDetail(@PathVariable String date, Model model) {
         LocalDate localDate = LocalDate.parse(date);
 
-        List<Rdv> liste = rdvRepository.findAllByDateAndTime(localDate);
+        List<Rdv> liste = rdvRepository.findAllActiveAndPastByDate(localDate);
 
         model.addAttribute("liste", liste);
         model.addAttribute("date", localDate);
