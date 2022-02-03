@@ -47,7 +47,18 @@
                     <th:block th:each="rdv : ${#lists.sort(rdvs, rdvComparator)}">
                         <tr>
                             <td>[[${rdv.id}]]</td>
-                            <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{rdv.id}">[[${rdv.name}]]</a></td>
+
+                            <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')">
+                                <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{rdv.id}">[[${rdv.name}]]</a></td>
+                            </span>
+                            <span sec:authorize="hasRole('ROLE_UTILISATEUR')">
+                                <span th:if="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{rdv.id}">[[${rdv.name}]]</a></td>
+                                </span>
+                                <span th:unless="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td>Accès limité</td>
+                                </span>
+                            </span>
 
                             <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')">
                                 <td>[[${rdv.firstName}]]</td>
@@ -78,13 +89,31 @@
                             <td>[[${#temporals.format(rdv.date,'dd-MM-yyyy')}]]</td>
                             <td>[[${rdv.time}]]</td>
                             <td>[[${rdv.status}]]</td>
-                            <td class="pt-0 pb-1"
-                                th:if="${not #strings.contains(#httpServletRequest.requestURI, 'rdvs/cancelled')
-                                AND not #strings.contains(#httpServletRequest.requestURI, 'rdvs/passed')}">
-                                <!----------- for use mt-1 for <a></a> <td></td> should be pt-0 pb-1 ----------->
-                                <a class="btn btn-warning btn-sm mt-1 btn-size-custom-small" th:href="@{'/rdvs/edit/' + ${rdv.id}}">Editer</a>
-                                <a class="btn btn-danger btn-sm mt-1 btn-size-custom-small"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/cancel/' + ${rdv.id}}">Annuler</a>
-                            </td>
+
+                            <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')">
+                                <td class="pt-0 pb-1"
+                                    th:if="${not #strings.contains(#httpServletRequest.requestURI, 'rdvs/cancelled')
+                                    AND not #strings.contains(#httpServletRequest.requestURI, 'rdvs/passed')}">
+                                    <!----------- for use mt-1 for <a></a> <td></td> should be pt-0 pb-1 ----------->
+                                    <a class="btn btn-warning btn-sm mt-1 btn-size-custom-small" th:href="@{'/rdvs/edit/' + ${rdv.id}}">Editer</a>
+                                    <a class="btn btn-danger btn-sm mt-1 btn-size-custom-small"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/cancel/' + ${rdv.id}}">Annuler</a>
+                                </td>
+                            </span>
+                            <span sec:authorize="hasRole('ROLE_UTILISATEUR')">
+                                <span th:if="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td class="pt-0 pb-1"
+                                        th:if="${not #strings.contains(#httpServletRequest.requestURI, 'rdvs/cancelled')
+                                    AND not #strings.contains(#httpServletRequest.requestURI, 'rdvs/passed')}">
+                                    <!----------- for use mt-1 for <a></a> <td></td> should be pt-0 pb-1 ----------->
+                                    <a class="btn btn-warning btn-sm mt-1 btn-size-custom-small" th:href="@{'/rdvs/edit/' + ${rdv.id}}">Editer</a>
+                                    <a class="btn btn-danger btn-sm mt-1 btn-size-custom-small"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'rdv \'${rdv.name}\'')|" th:href="@{'/rdvs/cancel/' + ${rdv.id}}">Annuler</a>
+                                </td>
+                                </span>
+                                <span th:unless="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td>Accès limité</td>
+                                </span>
+                            </span>
+
                         </tr>
 
                         <!----------------- MODAL - START ----------------->
