@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/mainLayout}">
 <head>
     <meta charset="UTF-8">
@@ -47,9 +48,33 @@
                         <tr>
                             <td>[[${rdv.id}]]</td>
                             <td><a href="#" class="a-text-orange" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + *{rdv.id}">[[${rdv.name}]]</a></td>
-                            <td>[[${rdv.firstName}]]</td>
+
+                            <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')">
+                                <td>[[${rdv.firstName}]]</td>
+                            </span>
+                            <span sec:authorize="hasRole('ROLE_UTILISATEUR')">
+                                <span th:if="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td>[[${rdv.firstName}]]</td>
+                                </span>
+                                <span th:unless="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td>Accès limité</td>
+                                </span>
+                            </span>
+
                             <td>[[${rdv.city.name}]]</td>
-                            <td>[[${rdv.reasonRdv.name}]]</td>
+
+                            <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')">
+                                <td>[[${rdv.reasonRdv.name}]]</td>
+                            </span>
+                            <span sec:authorize="hasRole('ROLE_UTILISATEUR')">
+                                <span th:if="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td>[[${rdv.reasonRdv.name}]]</td>
+                                </span>
+                                <span th:unless="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
+                                    <td>Accès limité</td>
+                                </span>
+                            </span>
+
                             <td>[[${#temporals.format(rdv.date,'dd-MM-yyyy')}]]</td>
                             <td>[[${rdv.time}]]</td>
                             <td>[[${rdv.status}]]</td>

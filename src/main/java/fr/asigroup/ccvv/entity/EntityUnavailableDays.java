@@ -18,7 +18,7 @@ public class EntityUnavailableDays {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date", nullable = false)
     private LocalDate date;
 

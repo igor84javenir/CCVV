@@ -6,12 +6,10 @@ import fr.asigroup.ccvv.entity.ReasonRdv;
 import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.pojo.RdvComparator;
+import fr.asigroup.ccvv.repository.UserRepository;
+import fr.asigroup.ccvv.security.CurrentUser;
 import fr.asigroup.ccvv.service.*;
-import nonapi.io.github.classgraph.json.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -37,6 +32,9 @@ public class RdvController {
 
     private Rdv newRdv;
     private RdvComparator rdvComparator = new RdvComparator();
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RdvService rdvService;
@@ -53,6 +51,10 @@ public class RdvController {
     @GetMapping("/rdvs")
     public String showRdvs(@RequestParam(required = false) String date, Model model, RedirectAttributes ra) {
 
+        User currentUser = userRepository.findByName(CurrentUser.getCurrentUserDetails().getUsername());
+        String currentUserCityName = currentUser.getCity().getName();
+        String currentUserName = currentUser.getName();
+
         List<Rdv> rdvs;
 
         if (date != null) {
@@ -68,8 +70,10 @@ public class RdvController {
             rdvs = rdvService.getAllByStatus(Rdv.Status.Actif);
         }
 
-        model.addAttribute("rdvComparator", rdvComparator);
+        model.addAttribute("currentUserCityName", currentUserCityName);
+        model.addAttribute("currentUserName", currentUserName);
 
+        model.addAttribute("rdvComparator", rdvComparator);
         model.addAttribute("rdvs", rdvs);
         return "rdvs/showRdvs";
     }
@@ -183,7 +187,7 @@ public class RdvController {
 
     @GetMapping("/rdvs/edit/{id}")
     public String editRdv(@PathVariable Long id, Model model) throws RdvNotFoundException, CityNotFoundException, UserNotFoundException {
-        Rdv rdv = rdvService.getRdv(id);
+        Rdv rdv = rdvService.getRdvById(id);
 
         if (rdv.getStatus() != Rdv.Status.Actif) {
             throw new IllegalAccessError();

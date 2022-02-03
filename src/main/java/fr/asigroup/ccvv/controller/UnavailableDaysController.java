@@ -26,14 +26,22 @@ public class UnavailableDaysController {
 
     @GetMapping("/indisponible/new")
     public String newUnavailable(Model model){
-        model.addAttribute("entityUnavailableDays", new EntityUnavailableDays());
+        EntityUnavailableDays entityUnavailableDays = new EntityUnavailableDays();
+
+        System.out.println("entityUnavailableDays before : " + entityUnavailableDays);
+
+        model.addAttribute("entityUnavailableDays", entityUnavailableDays);
+
+//        model.addAttribute("entityUnavailableDays", new EntityUnavailableDays());
         model.addAttribute("pageTitle", "Rajouter des jours non-disponible");
         return "newindisponible";
     }
 
     @PostMapping("/indisponible/save")
     public String saveUnavailable(EntityUnavailableDays entityUnavailableDays){
-        System.out.println(entityUnavailableDays);
+
+        System.out.println("THIS IS entityUnavailableDays : " + entityUnavailableDays);
+
         service.save(entityUnavailableDays);
         return "redirect:/indisponible";
     }

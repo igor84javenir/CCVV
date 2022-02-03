@@ -112,6 +112,7 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable("id") long id, Model model) throws UserNotFoundException, CityNotFoundException {
+
         User user = userService.getUserById(id);
 
         if ((user.getUserRole().equals(User.UserRole.ROLE_ADMIN) || user.getUserRole().equals(User.UserRole.ROLE_SUPERADMIN))) {
