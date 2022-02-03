@@ -14,10 +14,11 @@
     <form th:action="@{/indisponible/save}" method="post" th:object="${entityUnavailableDays}"
           style="max-width: 500px; margin: 0 auto;">
         <input type="hidden" th:field="*{id}">
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Date</label>
+
+        <div class="form-group row py-1">
+            <label class="col-sm-4 form-label">Date : </label>
             <div class="col-sm-8">
-                <input type="date" data-date="" data-date-format="YYYY MM DD" th:field="*{date}" class="form-control" required>
+                <input type="date" data-date="" data-date-format="YYYY MM DD" class="form-control" th:field="*{date}">
             </div>
         </div>
 

@@ -40,6 +40,7 @@
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/main/admin/users/'}">Gestion des utilisteurs</a></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/rdvs/'}">Gestion des RDV</a></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/reasons_rdv'}">Motifs des RDV</a></li>
+                            <li><a class="dropdown-item custom-color-a" th:href="@{'/indisponible'}">Jours d'indisponibilité</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/find-path/'}">Recherche d'itinéraire</a></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/holiday/'}">Jours fériés</a></li>
@@ -48,6 +49,15 @@
                     </li>
                 </ul>
 
+<!--                TEMPORAL NAME OF ACTUAL USER-->
+                <ul class="navbar-nav mx-auto px-3">
+                    <li class="nav-item">
+                        <span>Technical data: connected User name [</span>
+                        <span sec:authentication="name"></span>
+                        <span>]</span>
+                    </li>
+                </ul>
+<!--                END TEMPORAL NAME OF ACTUAL USER-->
 
 
                 <ul class="navbar-nav navbar-nav-right px-3">

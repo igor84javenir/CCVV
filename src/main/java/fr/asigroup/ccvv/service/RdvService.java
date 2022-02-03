@@ -5,6 +5,7 @@ import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.pojo.PathFinder;
 import fr.asigroup.ccvv.repository.RdvRepository;
+import fr.asigroup.ccvv.security.CurrentUser;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -44,10 +45,20 @@ public class RdvService {
     }
     public void save(Rdv rdv) {
 
+//        System.out.println("rdv.getCreatedBy()" + rdv.getCreatedBy());
+
         rdv.setStatus(Rdv.Status.Actif);
-        rdv.setCreatedAt(LocalDateTime.now());
-        rdv.setCreatedBy("System Create");
-        rdv.setModifiedBy("System Edit");
+
+//        rdv.setCreatedBy("System Create");
+//        rdv.setModifiedBy("System Edit");
+//
+//        System.out.println("rdv.getCreatedBy()" + rdv.getCreatedBy());
+        if (rdv.getCreatedBy() == null || rdv.getCreatedBy().isBlank()) {
+            rdv.setCreatedBy(CurrentUser.getCurrentUserDetails().getUsername());
+            rdv.setCreatedAt(LocalDateTime.now());
+        }
+
+        rdv.setModifiedBy(CurrentUser.getCurrentUserDetails().getUsername());
         rdv.setModifiedAt(LocalDateTime.now());
 
         rdvRepository.save(rdv);
@@ -77,7 +88,7 @@ public class RdvService {
         return rdvRepository.findAllByDateAndStatus(date, status);
     }
 
-    public Rdv getRdv(Long id) throws RdvNotFoundException {
+    public Rdv getRdvById(Long id) throws RdvNotFoundException {
         Optional<Rdv> rdv = rdvRepository.findById(id);
         if(rdv.isPresent())
             return rdv.get();
