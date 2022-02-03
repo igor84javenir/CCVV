@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Les jours Non-Disponible</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div><h1>Les jours Non Disponible</h1></div>
+    <div class="m-4">
+        <a class="h2" th:href="@{/indisponible/new}">Ajouter les jours non disponible</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center my-2">
+        [[${message}]]
+    </div>
+
+
+    <table class="table table-borderless">
+        <thead class="table my-0">
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Disponibilité</th>
+          <!--  <th>Utilisateur</th>
+            <th>Date de creation</th>
+            <th>Utilisateur/modificateur</th>
+            <th>Date de modification</th>-->
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="entityUnavailableDays : ${listDays}">
+                <tr>
+                    <td>[[${entityUnavailableDays.id}]]</td>
+                    <td>[[${entityUnavailableDays.date}]]</td>
+                   <!-- <td>[[${entityUnavailableDays.createdBy}]]</td>
+                    <td>[[${entityUnavailableDays.createdAt}]]</td>
+                    <td>[[${entityUnavailableDays.modifiedBy}]]</td>
+                    <td>[[${entityUnavailableDays.modifiedAt}]]</td>-->
+                    <td>[[${entityUnavailableDays.dispo}]]</td>
+
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{'/indisponible/modifier/' + ${entityUnavailableDays.id}}">Modifier</a>
+                        <a class="btn btn-danger btn-sm"  th:attr="onclick=|return confirm('Confirmez-vous la suppression de l\'indisponibilite \'${entityUnavailableDays.createdBy}\'')|" th:href="@{'/indisponible/cancel/' + ${entityUnavailableDays.id}}">Annuler</a>
+
+                    </td>
+                </tr>
+
+
+                <!--<div class="modal fade" th:attr="id='exampleModal' + *{entityUnavailableDays.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                               &lt;!&ndash; <h5 class="modal-title" id="exampleModalLabel">[[${entityUnavailableDays.createdBy}]]</h5>&ndash;&gt;
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="text-align: left">
+
+                                <div class="row">
+                                    <div class="col-4">Date: </div>
+                                    <div class="col-8">[[${#temporals.format(entityUnavailableDays.date,'dd/MM/yyyy')}]]</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4">Créé par : </div>
+                                    <div class="col-8">[[${entityUnavailableDays.createdBy}]]</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Créé le : </div>
+                                    <div class="col-8">[[${#temporals.format(entityUnavailableDays.createdAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Modifié par : </div>
+                                    <div class="col-8">[[${entityUnavailableDays.modifiedBy}]]</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Modifié le : </div>
+                                    <div class="col-8">[[${#temporals.format(entityUnavailableDays.modifiedAt,'dd/MM/yyyy HH:mm')}]]</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Disponibilité : </div>
+                                    <div class="col-8">[[${entityUnavailableDays.dispo}]]</div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </th:block>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>
