@@ -104,6 +104,15 @@ public class UserService {
         }
     }
 
+    public User getUserByName(String userName) throws UserNotFoundException {
+        User user = userRepository.findByName(userName);
+        if (user != null && user.isExist()) {
+            return user;
+        } else {
+            throw new UserNotFoundException("User with name " + userName + " not found");
+        }
+    }
+
 
     public List<User> getAll() throws UserNotFoundException {
 

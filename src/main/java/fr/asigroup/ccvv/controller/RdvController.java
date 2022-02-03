@@ -189,6 +189,10 @@ public class RdvController {
     public String editRdv(@PathVariable Long id, Model model) throws RdvNotFoundException, CityNotFoundException, UserNotFoundException {
         Rdv rdv = rdvService.getRdvById(id);
 
+        boolean isCurrentUserHaveAccessRights = CurrentUser.checkAccessRights(rdv);
+
+        System.out.println("isCurrentUserHaveAccessRights : " + isCurrentUserHaveAccessRights);
+
         if (rdv.getStatus() != Rdv.Status.Actif) {
             throw new IllegalAccessError();
         }
