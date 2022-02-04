@@ -178,6 +178,67 @@ public class RdvService {
         return rdvTimes;
     }
 
+    public void doRGPD() {
+        System.out.println("doRGPD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        String rgpd = "RGPD";
+
+        List<Rdv> rdvs = rdvRepository.findAll();
+
+        for (Rdv rdv : rdvs) {
+
+            boolean isChangesRequired = false;
+
+            if (rdv.getDate().plusDays(30).isAfter(LocalDate.now())) {
+                continue;
+            }
+
+            if (!rdv.getName().equals(rgpd)) {
+                isChangesRequired = true;
+                rdv.setName(rgpd);
+            }
+
+            if (!rdv.getFirstName().equals(rgpd)) {
+                isChangesRequired = true;
+                rdv.setFirstName(rgpd);
+            }
+
+            if (!rdv.getPhoneNumber().equals(rgpd)) {
+                isChangesRequired = true;
+                rdv.setPhoneNumber(rgpd);
+            }
+
+            if (!rdv.getMail().equals(rgpd)) {
+                isChangesRequired = true;
+                rdv.setNoMail(false);
+                rdv.setMail(rgpd);
+            }
+
+            if (isChangesRequired) {
+                rdvRepository.save(rdv);
+            }
+        }
+    }
+
+    public void doPastRdv() {
+        System.out.println("doPastRdv !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        Rdv.Status past = Rdv.Status.Passé;
+
+        List<Rdv> rdvs = rdvRepository.findAllByStatus(Rdv.Status.Actif);
+
+        for (Rdv rdv : rdvs) {
+
+            if (rdv.getDate().plusDays(1).isAfter(LocalDate.now())) {
+                continue;
+            }
+
+            rdv.setStatus(past);
+
+            rdvRepository.save(rdv);
+        }
+    }
+
     private boolean checkPresenceOnWay(String homeCityName, String startCityName, String cityForCheck) {
         Map<List<String>, Integer> travel = pathFinder.findPath(startCityName, homeCityName);
         boolean isCityOnTheWay = false;
