@@ -21,10 +21,22 @@ public class UnavailableDaysService {
         return (List<EntityUnavailableDays>) repo.findAll();
     }
 
-    public void save(EntityUnavailableDays entityUnavailableDays) {
-        entityUnavailableDays.setCreatedBy(CurrentUser.getCurrentUserDetails().getUsername());
-        entityUnavailableDays.setCreatedAt(LocalDateTime.now());
-        repo.save(entityUnavailableDays);
+    public String save(EntityUnavailableDays entityUnavailableDays) {
+        LocalDate newEntityUnavailabledaysDate = entityUnavailableDays.getDate();
+
+        EntityUnavailableDays existingEntityUnavailableDays = repo.findByDate(newEntityUnavailabledaysDate);
+
+        if (existingEntityUnavailableDays == null) {
+            entityUnavailableDays.setCreatedBy(CurrentUser.getCurrentUserDetails().getUsername());
+            entityUnavailableDays.setCreatedAt(LocalDateTime.now());
+            repo.save(entityUnavailableDays);
+            return "ok";
+        } else {
+            return "exist deja";
+        }
+
+
+
     }
 
     public EntityUnavailableDays get(Long id) throws EntityUnavailableDaysNotFoundException{

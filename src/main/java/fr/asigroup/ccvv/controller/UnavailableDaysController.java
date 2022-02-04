@@ -47,19 +47,26 @@ public class UnavailableDaysController {
         String flashType;
         String flash;
 
+        String serviceResponse = service.save(entityUnavailableDays);
 
-        if (){
+        if (serviceResponse.equals("ok")) {
+            return "redirect:/indisponible";
+        } else {
             System.out.println("c'est egale");
             flashType = "danger";
             flash = "Cette date est déja choisi";
             String redirectCheck = "redirect";
             ra.addAttribute("redirectCheck", redirectCheck);
+
+            ra.addFlashAttribute("flashType", flashType);
+            ra.addFlashAttribute("flash", flash);
+            return "redirect:/indisponible/new";
         }
 
-            service.save(entityUnavailableDays);
 
 
-        return "redirect:/indisponible";
+
+
     }
 
  /*   @GetMapping("/indisponible/modifier/{id}")
