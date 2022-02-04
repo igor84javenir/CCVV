@@ -80,3 +80,29 @@
 .btn-size-custom-small {
     width: 5rem !important;
 }
+
+/*************************JOURS NON DISPONIBLES************************/
+
+.linkjoursnondispo{
+     color:#000;
+     text-decoration:none;
+     padding:0.6rem;
+     border-radius:4px;
+     background-color: #f59e0b;
+     font-size:1.2rem;
+}
+
+.linkjoursnondispo:hover{
+    color:#fff;
+}
+
+.joursnondispo{
+    margin:2rem;
+    font-size:2rem;
+}
+
+.pageTitle{
+    font-size:1.2rem;
+    color:#f59e0b;
+    margin:2rem;
+}

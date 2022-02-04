@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      layout:decorate="~{layouts/mainLayout}">
 <head>
     <meta charset="UTF-8">
     <title>[[${pageTitle}]]</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
+<div layout:fragment="content">
 <div class="container-fluid text-center">
-    <div><h2>[[${pageTitle}]]</h2></div>
+    <div><h2 class="pageTitle">[[${pageTitle}]]</h2></div>
 
     <form th:action="@{/indisponible/save}" method="post" th:object="${entityUnavailableDays}"
           style="max-width: 500px; margin: 0 auto;">
@@ -18,7 +20,7 @@
         <div class="form-group row py-1">
             <label class="col-sm-4 form-label">Date : </label>
             <div class="col-sm-8">
-                <input type="date" data-date="" data-date-format="YYYY MM DD" class="form-control" th:field="*{date}">
+                <input type="date" data-date="" data-date-format="YYYY MM DD" class="form-control" th:field="*{date}" th:required="true">
             </div>
         </div>
 
@@ -64,5 +66,6 @@
     window.location = "[[@{/indisponible}]]";
     }
 </script>
+</div>
 </body>
 </html>

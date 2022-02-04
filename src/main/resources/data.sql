@@ -159,4 +159,4 @@ INSERT INTO rdvs(name, first_name, phone_number, mail, no_mail, date, time, stat
 INSERT INTO rdvs(name, first_name, phone_number, mail, no_mail, date, time, status, rdv_reason_id, city_id, created_by, modified_by) VALUES ('DE SAINT-EXUPERY', 'Antoine', '41 42 43 44 45', 'de.saint-exuperya@gmail.com', false, '2022-01-25', '10:30', 2, (SELECT id FROM reasons_rdv WHERE name = 'suppression de permis'), (SELECT id FROM cities WHERE name = 'Faucon'),'Système', 'Système');
 
 
-INSERT INTO unavailable_days(dispo,date,created_by,created_at,modified_by,modified_at) VALUES (1,'2022-04-05','Système','2022-04-05 10:20','Système','2022-04-05 10:20');
+INSERT INTO unavailable_days(date,created_by,created_at) VALUES ('2022-04-05','Système','2022-04-05 10:20');

@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Table(name = "unavailable_days")
 public class EntityUnavailableDays {
 
-    public enum Dispo{
+   /* public enum Dispo{
         DISPONIBLE, INDISPONIBLE
-    }
+    }*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,37 +35,31 @@ public class EntityUnavailableDays {
     /*@ManyToOne()
     @JoinColumn(name = "modified_by", nullable = true)
     private User modifiedBy;*/
-    @Column(name = "modified_by")
+   /* @Column(name = "modified_by")
     private String modifiedBy;
 
     @Column(name = "modified_at",  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime modifiedAt;
+    private LocalDateTime modifiedAt;*/
 
-    @Column(name = "dispo",  nullable = false)
-    private Dispo dispo;
+   /* @Column(name = "dispo",  nullable = false)
+    private Dispo dispo;*/
 
 
 
     public EntityUnavailableDays() {
     }
 
-    public EntityUnavailableDays(LocalDate date, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Dispo dispo) {
+    public EntityUnavailableDays(LocalDate date, String createdBy, LocalDateTime createdAt) {
         this.date = date;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
-        this.modifiedBy = modifiedBy;
-        this.modifiedAt = modifiedAt;
-        this.dispo = dispo;
     }
 
-    public EntityUnavailableDays(Long id, LocalDate date, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Dispo dispo) {
+    public EntityUnavailableDays(Long id, LocalDate date, String createdBy, LocalDateTime createdAt) {
         this.id = id;
         this.date = date;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
-        this.modifiedBy = modifiedBy;
-        this.modifiedAt = modifiedAt;
-        this.dispo = dispo;
     }
 
     public Long getId() {
@@ -100,30 +94,6 @@ public class EntityUnavailableDays {
         this.createdAt = createdAt;
     }
 
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public LocalDateTime getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(LocalDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
-
-    public Dispo getDispo() {
-        return dispo;
-    }
-
-    public void setDispo(Dispo dispo) {
-        this.dispo = dispo;
-    }
-
     @Override
     public String toString() {
         return "EntityUnavailableDays{" +
@@ -131,9 +101,6 @@ public class EntityUnavailableDays {
                 ", date=" + date +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdAt=" + createdAt +
-                ", modifiedBy='" + modifiedBy + '\'' +
-                ", modifiedAt=" + modifiedAt +
-                ", dispo=" + dispo +
                 '}';
     }
 }
