@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface UnavailableDaysRepository extends JpaRepository<EntityUnavailableDays, Long> {
-    public Long countById(Long id);
+    Long countById(Long id);
+
+    EntityUnavailableDays findByDate(LocalDate localDate);
    /* List<EntityUnavailableDays> findAllByDispo(EntityUnavailableDays.Dispo dispo);*/
 }
