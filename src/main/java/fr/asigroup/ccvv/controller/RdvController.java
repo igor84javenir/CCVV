@@ -60,6 +60,7 @@ public class RdvController {
         if (date != null) {
             LocalDate dateOfSearchedRdvs = LocalDate.parse(date);
             if (dateOfSearchedRdvs.isAfter(LocalDate.now()) || dateOfSearchedRdvs.equals(LocalDate.now())) {
+                model.addAttribute("dateOfSearchedRdvs", dateOfSearchedRdvs);
                 rdvs = rdvService.getAllByDateAndStatus(dateOfSearchedRdvs, Rdv.Status.Actif);
             } else {
                 ra.addAttribute("dateOfSearchedRdvs", dateOfSearchedRdvs);
@@ -180,7 +181,15 @@ public class RdvController {
     }
 
     @GetMapping("/rdvs/cancel/{id}")
-    public String cancelRdv(@PathVariable Long id) throws RdvNotFoundException {
+    public String cancelRdv(@PathVariable Long id) throws RdvNotFoundException, UserNotFoundException {
+        Rdv rdv = rdvService.getRdvById(id);
+
+        boolean isCurrentUserHaveAccessRights = CurrentUser.checkAccessRights(rdv);
+
+        if (!isCurrentUserHaveAccessRights) {
+            throw new IllegalAccessError();
+        }
+
         rdvService.cancel(id);
         return "redirect:/rdvs";
     }
@@ -191,9 +200,7 @@ public class RdvController {
 
         boolean isCurrentUserHaveAccessRights = CurrentUser.checkAccessRights(rdv);
 
-        System.out.println("isCurrentUserHaveAccessRights : " + isCurrentUserHaveAccessRights);
-
-        if (rdv.getStatus() != Rdv.Status.Actif) {
+        if (rdv.getStatus() != Rdv.Status.Actif || !isCurrentUserHaveAccessRights) {
             throw new IllegalAccessError();
         }
         List<City> cities = cityService.getAll();
