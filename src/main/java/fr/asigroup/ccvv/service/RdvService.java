@@ -179,7 +179,6 @@ public class RdvService {
     }
 
     public void doRGPD() {
-        System.out.println("doRGPD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         String rgpd = "RGPD";
 
@@ -221,7 +220,6 @@ public class RdvService {
     }
 
     public void doPastRdv() {
-        System.out.println("doPastRdv !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         Rdv.Status past = Rdv.Status.Passé;
 
