@@ -21,11 +21,11 @@
                 <div class="hours-page"  th:each="element: ${availabilityOfDay}">
                     <div class="col-sm-8" th:if="${element.available}">
                         <input type="radio" class="btn-check" name="time" th:id="${element}" th:value="${element.getTime}" autocomplete="off">
-                        <label class="btn btn-outline-warning m-2" th:for="${element}">[[${element.time}]]</label>
+                        <label class="btn btn-outline-warning m-2 btn-size-custom-small" th:for="${element}">[[${element.time}]]</label>
                     </div>
                     <div class="col-sm-8" th:unless="${element.available}">
                         <input type="radio" class="btn-check" name="time" th:id="${element}" th:value="${element.getTime}" autocomplete="off" disabled>
-                        <label class="btn btn-outline-secondary m-2" th:for="${element}">[[${element.time}]]</label>
+                        <label class="btn btn-outline-secondary m-2 btn-size-custom-small" th:for="${element}">[[${element.time}]]</label>
                     </div>
                 </div>
             </div>
