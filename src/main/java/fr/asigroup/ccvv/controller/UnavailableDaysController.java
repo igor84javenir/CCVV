@@ -40,13 +40,13 @@ public class UnavailableDaysController {
     @PostMapping("/indisponible/save")
     public String saveUnavailable(EntityUnavailableDays entityUnavailableDays){
 
-        System.out.println("THIS IS entityUnavailableDays : " + entityUnavailableDays);
+       /* System.out.println("THIS IS entityUnavailableDays : " + entityUnavailableDays);*/
 
         service.save(entityUnavailableDays);
         return "redirect:/indisponible";
     }
 
-    @GetMapping("/indisponible/modifier/{id}")
+ /*   @GetMapping("/indisponible/modifier/{id}")
     public String showEdit(@PathVariable("id") Long id, Model model){
         try {
             EntityUnavailableDays entityUnavailableDays = service.get(id);
@@ -58,12 +58,12 @@ public class UnavailableDaysController {
             return "redirect:/indisponible";
         }
 
-    }
+    }*/
 
     @GetMapping("/indisponible/supprimer/{id}")
     public String showdelete(@PathVariable("id") Long id){
         try {
-            service.cancel(id);
+            service.delete(id);
         } catch (EntityUnavailableDaysNotFoundException e) {
             e.printStackTrace();
 

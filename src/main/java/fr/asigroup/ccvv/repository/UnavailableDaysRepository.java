@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface UnavailableDaysRepository extends JpaRepository<EntityUnavailableDays, Long> {
     public Long countById(Long id);
-    List<EntityUnavailableDays> findAllByDispo(EntityUnavailableDays.Dispo dispo);
+   /* List<EntityUnavailableDays> findAllByDispo(EntityUnavailableDays.Dispo dispo);*/
 }
