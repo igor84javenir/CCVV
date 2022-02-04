@@ -116,7 +116,9 @@
                                         </td>
                                         </span>
                                         <span th:unless="${rdv.city.getName()} == ${currentUserCityName} or ${rdv.createdBy} == ${currentUserName} or ${rdv.modifiedBy} == ${currentUserName}">
-                                            <td>Accès limité</td>
+                                            <td class="pt-0 pb-1"
+                                                th:if="${not #strings.contains(#httpServletRequest.requestURI, 'rdvs/cancelled')
+                                            AND not #strings.contains(#httpServletRequest.requestURI, 'rdvs/passed')}">Accès limité</td>
                                         </span>
                                     </span>
 

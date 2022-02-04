@@ -231,6 +231,12 @@ public class RdvController {
             rdvs = rdvService.getAllByStatus(Rdv.Status.Passé);
         }
 
+        User currentUser = userRepository.findByName(CurrentUser.getCurrentUserDetails().getUsername());
+        String currentUserCityName = currentUser.getCity().getName();
+        String currentUserName = currentUser.getName();
+        model.addAttribute("currentUserCityName", currentUserCityName);
+        model.addAttribute("currentUserName", currentUserName);
+
         model.addAttribute("rdvComparator", rdvComparator.reversed());
 
         model.addAttribute("rdvs", rdvs);
