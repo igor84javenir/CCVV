@@ -9,7 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,7 +33,7 @@ public class UnavailableDaysController {
     public String newUnavailable(Model model){
         EntityUnavailableDays entityUnavailableDays = new EntityUnavailableDays();
 
-        System.out.println("entityUnavailableDays before : " + entityUnavailableDays);
+        /*System.out.println("entityUnavailableDays before : " + entityUnavailableDays);*/
 
         model.addAttribute("entityUnavailableDays", entityUnavailableDays);
 
@@ -38,11 +43,22 @@ public class UnavailableDaysController {
     }
 
     @PostMapping("/indisponible/save")
-    public String saveUnavailable(EntityUnavailableDays entityUnavailableDays){
+    public String saveUnavailable(EntityUnavailableDays entityUnavailableDays, RedirectAttributes ra){
+        String flashType;
+        String flash;
 
-       /* System.out.println("THIS IS entityUnavailableDays : " + entityUnavailableDays);*/
 
-        service.save(entityUnavailableDays);
+        if (){
+            System.out.println("c'est egale");
+            flashType = "danger";
+            flash = "Cette date est déja choisi";
+            String redirectCheck = "redirect";
+            ra.addAttribute("redirectCheck", redirectCheck);
+        }
+
+            service.save(entityUnavailableDays);
+
+
         return "redirect:/indisponible";
     }
 
