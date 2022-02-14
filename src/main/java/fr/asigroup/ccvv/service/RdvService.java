@@ -20,10 +20,10 @@ import java.util.Optional;
 
 @Service
 public class RdvService {
-    private static final LocalTime START_OF_WORKING_MORNING = LocalTime.parse("08:00");
+    private static final LocalTime START_OF_WORKING_MORNING = LocalTime.parse("09:00");
     private static final LocalTime END_OF_WORKING_MORNING = LocalTime.parse("12:00");
-    private static final LocalTime START_OF_WORKING_AFTERNOON = LocalTime.parse("14:00");
-    private static final LocalTime END_OF_WORKING_AFTERNOON = LocalTime.parse("17:00");
+    private static final LocalTime START_OF_WORKING_AFTERNOON = LocalTime.parse("13:30");
+    private static final LocalTime END_OF_WORKING_AFTERNOON = LocalTime.parse("17:30");
     private static final int TIME_RADIUS_FROM_FIRST_RDV_IN_MIN = 30;
     private static final String HOME_CITY_NAME = "Vaison-la-Romaine";
 
