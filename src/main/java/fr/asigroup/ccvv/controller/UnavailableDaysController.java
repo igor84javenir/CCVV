@@ -52,9 +52,8 @@ public class UnavailableDaysController {
         if (serviceResponse.equals("ok")) {
             return "redirect:/indisponible";
         } else {
-            System.out.println("c'est egale");
             flashType = "danger";
-            flash = "Cette date est déja choisi";
+            flash = "Cette date est déja choisie";
             String redirectCheck = "redirect";
             ra.addAttribute("redirectCheck", redirectCheck);
 
