@@ -18,101 +18,101 @@ INSERT INTO cities (name) VALUES ('Savoillan');
 INSERT INTO cities (name) VALUES ('Séguret');
 INSERT INTO cities (name) VALUES ('Villedieu');
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 11, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 13, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 9, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 7, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 12, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 15, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 9, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 12, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 19, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 19, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 15, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 34, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 17, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 20, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 18, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 20, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Savoillan', 6, (SELECT id FROM cities WHERE name = 'Brantes'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Léger-du-Ventoux', 9, (SELECT id FROM cities WHERE name = 'Brantes'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Savoillan', 14, (SELECT id FROM cities WHERE name = 'Brantes'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Léger-du-Ventoux', 17, (SELECT id FROM cities WHERE name = 'Brantes'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 7, (SELECT id FROM cities WHERE name = 'Buisson'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 15, (SELECT id FROM cities WHERE name = 'Buisson'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 8, (SELECT id FROM cities WHERE name = 'Buisson'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 12, (SELECT id FROM cities WHERE name = 'Buisson'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Roman-de-Malegarde', 6, (SELECT id FROM cities WHERE name = 'Buisson'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 15, (SELECT id FROM cities WHERE name = 'Buisson'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 20, (SELECT id FROM cities WHERE name = 'Buisson'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 16, (SELECT id FROM cities WHERE name = 'Buisson'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 20, (SELECT id FROM cities WHERE name = 'Buisson'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Roman-de-Malegarde', 13, (SELECT id FROM cities WHERE name = 'Buisson'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Roman-de-Malegarde', 12, (SELECT id FROM cities WHERE name = 'Cairanne'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 9, (SELECT id FROM cities WHERE name = 'Cairanne'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Sablet', 16, (SELECT id FROM cities WHERE name = 'Cairanne'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Roman-de-Malegarde', 20, (SELECT id FROM cities WHERE name = 'Cairanne'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 16, (SELECT id FROM cities WHERE name = 'Cairanne'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Sablet', 26, (SELECT id FROM cities WHERE name = 'Cairanne'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 25, (SELECT id FROM cities WHERE name = 'Crestet'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 12, (SELECT id FROM cities WHERE name = 'Crestet'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 10, (SELECT id FROM cities WHERE name = 'Crestet'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 12, (SELECT id FROM cities WHERE name = 'Crestet'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 27, (SELECT id FROM cities WHERE name = 'Crestet'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 17, (SELECT id FROM cities WHERE name = 'Crestet'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 16, (SELECT id FROM cities WHERE name = 'Crestet'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 17, (SELECT id FROM cities WHERE name = 'Crestet'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 14, (SELECT id FROM cities WHERE name = 'Entrechaux'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Mollans-sur-Ouvèze', 10, (SELECT id FROM cities WHERE name = 'Entrechaux'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 10, (SELECT id FROM cities WHERE name = 'Entrechaux'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 9, (SELECT id FROM cities WHERE name = 'Entrechaux'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 14, (SELECT id FROM cities WHERE name = 'Entrechaux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 18, (SELECT id FROM cities WHERE name = 'Entrechaux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Mollans-sur-Ouvèze', 16, (SELECT id FROM cities WHERE name = 'Entrechaux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 17, (SELECT id FROM cities WHERE name = 'Entrechaux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 17, (SELECT id FROM cities WHERE name = 'Entrechaux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 21, (SELECT id FROM cities WHERE name = 'Entrechaux'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Mollans-sur-Ouvèze', 9, (SELECT id FROM cities WHERE name = 'Faucon'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 14, (SELECT id FROM cities WHERE name = 'Faucon'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 14, (SELECT id FROM cities WHERE name = 'Faucon'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 6, (SELECT id FROM cities WHERE name = 'Faucon'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 5, (SELECT id FROM cities WHERE name = 'Faucon'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Mollans-sur-Ouvèze', 16, (SELECT id FROM cities WHERE name = 'Faucon'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 18, (SELECT id FROM cities WHERE name = 'Faucon'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 19, (SELECT id FROM cities WHERE name = 'Faucon'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 14, (SELECT id FROM cities WHERE name = 'Faucon'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 13, (SELECT id FROM cities WHERE name = 'Faucon'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Léger-du-Ventoux', 12, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Léger-du-Ventoux', 22, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'));
 INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 16, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 6, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 16, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 6, (SELECT id FROM cities WHERE name = 'Puyméras'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 5, (SELECT id FROM cities WHERE name = 'Puyméras'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 14, (SELECT id FROM cities WHERE name = 'Puyméras'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 16, (SELECT id FROM cities WHERE name = 'Puyméras'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 13, (SELECT id FROM cities WHERE name = 'Puyméras'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 13, (SELECT id FROM cities WHERE name = 'Puyméras'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 19, (SELECT id FROM cities WHERE name = 'Puyméras'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 25, (SELECT id FROM cities WHERE name = 'Puyméras'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 14, (SELECT id FROM cities WHERE name = 'Rasteau'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 6, (SELECT id FROM cities WHERE name = 'Rasteau'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 16, (SELECT id FROM cities WHERE name = 'Rasteau'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Sablet', 10, (SELECT id FROM cities WHERE name = 'Rasteau'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Cairanne', 9, (SELECT id FROM cities WHERE name = 'Rasteau'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Roman-de-Malegarde', 14, (SELECT id FROM cities WHERE name = 'Rasteau'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 20, (SELECT id FROM cities WHERE name = 'Rasteau'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 14, (SELECT id FROM cities WHERE name = 'Rasteau'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 20, (SELECT id FROM cities WHERE name = 'Rasteau'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Sablet', 20, (SELECT id FROM cities WHERE name = 'Rasteau'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Cairanne', 16, (SELECT id FROM cities WHERE name = 'Rasteau'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Roman-de-Malegarde', 19, (SELECT id FROM cities WHERE name = 'Rasteau'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 8, (SELECT id FROM cities WHERE name = 'Roaix'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 11, (SELECT id FROM cities WHERE name = 'Roaix'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 12, (SELECT id FROM cities WHERE name = 'Roaix'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 7, (SELECT id FROM cities WHERE name = 'Roaix'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 16, (SELECT id FROM cities WHERE name = 'Roaix'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 18, (SELECT id FROM cities WHERE name = 'Roaix'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 15, (SELECT id FROM cities WHERE name = 'Roaix'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 14, (SELECT id FROM cities WHERE name = 'Roaix'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 12, (SELECT id FROM cities WHERE name = 'Sablet'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 9, (SELECT id FROM cities WHERE name = 'Sablet'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 22, (SELECT id FROM cities WHERE name = 'Sablet'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Séguret', 19, (SELECT id FROM cities WHERE name = 'Sablet'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Brantes', 9, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Mollans-sur-Ouvèze', 16, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Brantes', 17, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Mollans-sur-Ouvèze', 22, (SELECT id FROM cities WHERE name = 'Saint-Léger-du-Ventoux'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 9, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 10, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 12, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 9, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 32, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 17, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 16, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 34, (SELECT id FROM cities WHERE name = 'Saint-Marcellin-lès-Vaison'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 7, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 7, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 18, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 9, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 12, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 18, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 13, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Faucon', 14, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Entrechaux', 22, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Marcellin-lès-Vaison', 32, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 15, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Villedieu', 22, (SELECT id FROM cities WHERE name = 'Saint-Romain-en-Viennois'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 6, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 13, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Cairanne', 10, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 13, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 19, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Cairanne', 20, (SELECT id FROM cities WHERE name = 'Saint-Roman-de-Malegarde'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Brantes', 6, (SELECT id FROM cities WHERE name = 'Savoillan'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Brantes', 14, (SELECT id FROM cities WHERE name = 'Savoillan'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 19, (SELECT id FROM cities WHERE name = 'Séguret'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 23, (SELECT id FROM cities WHERE name = 'Séguret'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Sablet', 9, (SELECT id FROM cities WHERE name = 'Séguret'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 14, (SELECT id FROM cities WHERE name = 'Séguret'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 10, (SELECT id FROM cities WHERE name = 'Séguret'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 20, (SELECT id FROM cities WHERE name = 'Séguret'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Crestet', 27, (SELECT id FROM cities WHERE name = 'Séguret'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Sablet', 20, (SELECT id FROM cities WHERE name = 'Séguret'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Rasteau', 20, (SELECT id FROM cities WHERE name = 'Séguret'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 15, (SELECT id FROM cities WHERE name = 'Séguret'));
 
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 16, (SELECT id FROM cities WHERE name = 'Villedieu'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 15, (SELECT id FROM cities WHERE name = 'Villedieu'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 13, (SELECT id FROM cities WHERE name = 'Villedieu'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 8, (SELECT id FROM cities WHERE name = 'Villedieu'));
-INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 7, (SELECT id FROM cities WHERE name = 'Villedieu'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Puyméras', 25, (SELECT id FROM cities WHERE name = 'Villedieu'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Saint-Romain-en-Viennois', 22, (SELECT id FROM cities WHERE name = 'Villedieu'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Vaison-la-Romaine', 19, (SELECT id FROM cities WHERE name = 'Villedieu'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Roaix', 16, (SELECT id FROM cities WHERE name = 'Villedieu'));
+INSERT INTO itineraries (name_of_direction, duration_of_travel, city_id) VALUES ('Buisson', 15, (SELECT id FROM cities WHERE name = 'Villedieu'));
 
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'emmanuelm_ccvv@prefecture.gouv.fr', 'Système', 'EmmanuelM', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 0, (SELECT id FROM cities WHERE name = 'Vaison-la-Romaine'));
 INSERT INTO users (created_by, exist, mail, modified_by, name, password, user_role, city_id) VALUES ('Système', true, 'francoish_ccvv@prefecture.gouv.fr', 'Système', 'FrançoisH', '$2a$12$lWBJfRHMMNjqS4sS.6owhOoa6WDD6jVCpCu8yvjEKW4kgaT9JB/2y', 0, (SELECT id FROM cities WHERE name = 'Mollans-sur-Ouvèze'));
