@@ -21,7 +21,8 @@
 
 <!-- Main Navigation -->
     <nav class="navbar navbar-expand-md navbar-dark mb-3 nav-custom-color" >
-            <a class="navbar-brand px-3" th:href="@{/}">CCVV</a>
+        <!--<a class="navbar-brand px-3" th:href="@{/}">CCVV</a>-->
+            <a class="navbar-brand px-3" th:href="@{/}"><img th:src="@{/images/logo.jpg}" alt="FranceServiceLogo" class="logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,22 +42,22 @@
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/rdvs/'}">Gestion des RDV</a></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/reasons_rdv'}">Motifs des RDV</a></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/indisponible'}">Jours d'indisponibilité</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                           <!-- <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/find-path/'}">Recherche d'itinéraire</a></li>
                             <li><a class="dropdown-item custom-color-a" th:href="@{'/holiday/'}">Jours fériés</a></li>
-                            <li><a class="dropdown-item custom-color-a" th:href="@{'/with-layout/'}">Layout</a></li>
+                            <li><a class="dropdown-item custom-color-a" th:href="@{'/with-layout/'}">Layout</a></li>-->
                         </ul>
                     </li>
                 </ul>
 
 <!--                TEMPORAL NAME OF ACTUAL USER-->
-                <ul class="navbar-nav mx-auto px-3">
+                <!--<ul class="navbar-nav mx-auto px-3">
                     <li class="nav-item">
                         <span>Technical data: connected User name [</span>
                         <span sec:authentication="name"></span>
                         <span>]</span>
                     </li>
-                </ul>
+                </ul>-->
 <!--                END TEMPORAL NAME OF ACTUAL USER-->
 
 
