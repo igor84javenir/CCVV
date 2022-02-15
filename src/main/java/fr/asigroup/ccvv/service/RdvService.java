@@ -2,20 +2,18 @@ package fr.asigroup.ccvv.service;
 
 import fr.asigroup.ccvv.entity.City;
 import fr.asigroup.ccvv.entity.Rdv;
+import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.pojo.AvailableRdvTime;
 import fr.asigroup.ccvv.pojo.PathFinder;
 import fr.asigroup.ccvv.repository.RdvRepository;
+import fr.asigroup.ccvv.repository.UserRepository;
 import fr.asigroup.ccvv.security.CurrentUser;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -30,10 +28,16 @@ public class RdvService {
 
     private RdvRepository rdvRepository;
     private PathFinder pathFinder;
+    private UserRepository userRepository;
+    private UserService userService;
+    private MailService mailService;
 
-    public RdvService(RdvRepository rdvRepository, PathFinder pathFinder) {
+    public RdvService(RdvRepository rdvRepository, PathFinder pathFinder,UserRepository userRepository,UserService userService,MailService mailService) {
         this.rdvRepository = rdvRepository;
         this.pathFinder = pathFinder;
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.mailService = mailService;
     }
 
     public List<Rdv> listRdvs() {
@@ -62,6 +66,29 @@ public class RdvService {
         rdv.setModifiedAt(LocalDateTime.now());
 
         rdvRepository.save(rdv);
+
+        List<User> usercree = new ArrayList<>();
+        List<User> utilisateurs = new ArrayList<>();
+        try {
+            utilisateurs = userService.getAll();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            for (User user : utilisateurs) {
+                if(user.getUserRole() == User.UserRole.ROLE_ADMIN) {
+                    usercree.add(user);
+                }else {
+                    if(user.getUserRole() == User.UserRole.ROLE_UTILISATEUR && user.getCity() == rdv.getCity()){
+                        usercree.add(user);
+                    }
+                }
+
+            }
+        }
+
+        for(User user: utilisateurs)
+        mailService.envoiEmail("utilisateurs", "rendez-vous avec france  itinerance","Vous venez de prendre un rdv avec France Itinerance");
+
+
     }
 
     public void cancel(Long id) throws RdvNotFoundException {
