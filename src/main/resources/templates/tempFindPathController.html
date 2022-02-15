@@ -1,65 +1,65 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mainLayout}">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{layouts/mainLayout}">-->
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />-->
 
-    <title>Title</title>
+<!--    <title>Title</title>-->
 
-</head>
-<body>
-<div layout:fragment="content">
-    <div class="container m-lg-5">
-        <div>
-            <div class = "text-center"><h1>Recherche d'itinéraire</h1></div>
+<!--</head>-->
+<!--<body>-->
+<!--<div layout:fragment="content">-->
+<!--    <div class="container m-lg-5">-->
+<!--        <div>-->
+<!--            <div class = "text-center"><h1>Recherche d'itinéraire</h1></div>-->
 
-            <form th:action="@{find/}" th:object="${namesOfStartEndCities}" method="post">
+<!--            <form th:action="@{find/}" th:object="${namesOfStartEndCities}" method="post">-->
 
-                <div class="border border-secondary rounded p-3 m-5">
+<!--                <div class="border border-secondary rounded p-3 m-5">-->
 
-                    <div class="col-lg-3 py-1 mx-auto" th:object="${citiesNames}">
-                    <!-- for parsing "name" should be the same as in DTO class -->
-                        <select class="form-control" id="firstCity" name="startCityName">
-                            <option value="">Commune de depart</option>
-                            <option th:each="cityName: ${citiesNames}"
-                                    th:value="${cityName}"
-                                    th:text="${cityName}"></option>
-                        </select>
-                    </div>
+<!--                    <div class="col-lg-3 py-1 mx-auto" th:object="${citiesNames}">-->
+<!--                    &lt;!&ndash; for parsing "name" should be the same as in DTO class &ndash;&gt;-->
+<!--                        <select class="form-control" id="firstCity" name="startCityName">-->
+<!--                            <option value="">Commune de depart</option>-->
+<!--                            <option th:each="cityName: ${citiesNames}"-->
+<!--                                    th:value="${cityName}"-->
+<!--                                    th:text="${cityName}"></option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
-                    <div class="col-lg-3 py-1 mx-auto" th:object="${citiesNames}">
-                        <!-- for parsing "name" should be the same as in DTO class -->
-                        <select class="form-control" id="secondCity" name="destinationCityName">
-                            <option value="">Commune de destination</option>
-                            <option th:each="cityName: ${citiesNames}"
-                                    th:value="${cityName}"
-                                    th:text="${cityName}"></option>
-                        </select>
-                    </div>
+<!--                    <div class="col-lg-3 py-1 mx-auto" th:object="${citiesNames}">-->
+<!--                        &lt;!&ndash; for parsing "name" should be the same as in DTO class &ndash;&gt;-->
+<!--                        <select class="form-control" id="secondCity" name="destinationCityName">-->
+<!--                            <option value="">Commune de destination</option>-->
+<!--                            <option th:each="cityName: ${citiesNames}"-->
+<!--                                    th:value="${cityName}"-->
+<!--                                    th:text="${cityName}"></option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
-                    <div class = "text-center" th:each="element : ${pathReadable}">
-                        <span th:each="mapKey : ${element.key}">
-                            <span th:text="${mapKey}"></span>
-                            <span th:if="${mapKey} != ${element.key.get(element.key.size() - 1)}">>>></span>
-                        </span>
-                        </br>
-                        Durée de trajet :
-                        <span th:text="${element.value}"></span>
-                    </div>
+<!--                    <div class = "text-center" th:each="element : ${pathReadable}">-->
+<!--                        <span th:each="mapKey : ${element.key}">-->
+<!--                            <span th:text="${mapKey}"></span>-->
+<!--                            <span th:if="${mapKey} != ${element.key.get(element.key.size() - 1)}">>>></span>-->
+<!--                        </span>-->
+<!--                        </br>-->
+<!--                        Durée de trajet :-->
+<!--                        <span th:text="${element.value}"></span>-->
+<!--                    </div>-->
 
-                    <div class="text-center py-2">
-                        <button class="btn btn-warning m-2" type="submit">On y vas</button>
-                        <a class="btn btn-secondary m-2" th:href="@{/}" >Pas aujourd'hui</a>
-                    </div>
-                </div>
-            </form>
+<!--                    <div class="text-center py-2">-->
+<!--                        <button class="btn btn-warning m-2" type="submit">On y vas</button>-->
+<!--                        <a class="btn btn-secondary m-2" th:href="@{/}" >Pas aujourd'hui</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
 
-        </div>
-    </div>
-</div>
-</body>
-</html>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
