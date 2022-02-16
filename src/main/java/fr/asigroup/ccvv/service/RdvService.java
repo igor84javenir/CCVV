@@ -73,7 +73,9 @@ public class RdvService {
             utilisateurs = userService.getAll();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
+        }
             for (User user : utilisateurs) {
+
                 if(user.getUserRole() == User.UserRole.ROLE_ADMIN) {
                     mailRecipients.add(user);
                 }else {
@@ -82,7 +84,7 @@ public class RdvService {
                     }
                 }
             }
-        }
+
 
         System.out.println("admins + secretaires = " + mailRecipients);
 
