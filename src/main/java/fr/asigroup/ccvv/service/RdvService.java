@@ -67,7 +67,7 @@ public class RdvService {
 
         rdvRepository.save(rdv);
 
-        List<User> usercree = new ArrayList<>();
+        List<User> mailRecipients = new ArrayList<>();
         List<User> utilisateurs = new ArrayList<>();
         try {
             utilisateurs = userService.getAll();
@@ -75,21 +75,27 @@ public class RdvService {
             e.printStackTrace();
             for (User user : utilisateurs) {
                 if(user.getUserRole() == User.UserRole.ROLE_ADMIN) {
-                    usercree.add(user);
+                    mailRecipients.add(user);
                 }else {
                     if(user.getUserRole() == User.UserRole.ROLE_UTILISATEUR && user.getCity() == rdv.getCity()){
-                        usercree.add(user);
+                        mailRecipients.add(user);
                     }
                 }
-
             }
         }
 
-        for(User user: utilisateurs)
-        mailService.envoiEmail("utilisateurs", "rendez-vous avec france  itinerance","Vous venez de prendre un rdv avec France Itinerance");
+        System.out.println("admins + secretaires = " + mailRecipients);
 
+        for(User user: mailRecipients){
+           String receivers = user.getMail();
+            mailService.envoiEmail(receivers, "Prise de rendez-vous","Vous venez de prendre un rdv pour un citoyen !");
+        }
+
+        String ownreceivers = rdv.getMail();
+        mailService.envoiEmail(ownreceivers, "Votre rendez-vous avec Vaison Ventoux","Vous venez de prendre un rdv avec l'un des agents de Vaison Ventoux");
 
     }
+
 
     public void cancel(Long id) throws RdvNotFoundException {
         Long count = rdvRepository.countById(id);

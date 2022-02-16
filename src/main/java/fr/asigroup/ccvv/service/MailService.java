@@ -14,7 +14,7 @@ public class MailService{
     public void envoiEmail(String destinataire, String sujet, String texte) {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("philippe.kurz@javenir84.com");  // Expéditeur
+        simpleMailMessage.setFrom("samia.zaboub@javenir84.com");  // Expéditeur
         simpleMailMessage.setTo(destinataire);  // Destinataire
         simpleMailMessage.setSubject(sujet);
         simpleMailMessage.setText(texte);
