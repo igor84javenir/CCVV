@@ -3,6 +3,7 @@ package fr.asigroup.ccvv.pojo;
 import fr.asigroup.ccvv.entity.DateCalendrier;
 import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.repository.RdvRepository;
+import fr.asigroup.ccvv.service.UnavailableDaysService;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -16,10 +17,12 @@ import java.util.Map;
 
 public class MonthCalendarGenerator {
     private RdvRepository rdvRepository;
+    private UnavailableDaysService service;
     HolidayChecker holidayChecker = new HolidayChecker();
 
-    public MonthCalendarGenerator(RdvRepository rdvRepository) {
+    public MonthCalendarGenerator(RdvRepository rdvRepository, UnavailableDaysService service) {
         this.rdvRepository = rdvRepository;
+        this.service = service;
     }
 
 
@@ -121,8 +124,11 @@ public class MonthCalendarGenerator {
         return !"no".equals(holidayChecker.isHoliday(localDate));
     }
 
+    private boolean isUnavailable(LocalDate localDate) {
+        return (service.getByDate(localDate) !=  null);
+    }
     private boolean isDisponible(LocalDate localDate) {
-        if (isWeekEnd(localDate) || isFerie(localDate))
+        if (isWeekEnd(localDate) || isFerie(localDate) || isUnavailable(localDate))
             return false;
         else
 

@@ -46,7 +46,12 @@ public class UnavailableDaysService {
         }
         throw new EntityUnavailableDaysNotFoundException("RAS");
 
+    }
 
+    public EntityUnavailableDays getByDate(LocalDate localDate) {
+        EntityUnavailableDays result = repo.findByDate(localDate);
+
+            return result;
     }
 
     public void delete(Long id) throws EntityUnavailableDaysNotFoundException{

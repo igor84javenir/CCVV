@@ -13,5 +13,6 @@ public interface UnavailableDaysRepository extends JpaRepository<EntityUnavailab
     Long countById(Long id);
 
     EntityUnavailableDays findByDate(LocalDate localDate);
+
    /* List<EntityUnavailableDays> findAllByDispo(EntityUnavailableDays.Dispo dispo);*/
 }

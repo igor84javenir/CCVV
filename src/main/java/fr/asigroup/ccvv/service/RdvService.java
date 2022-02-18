@@ -84,12 +84,8 @@ public class RdvService {
                     }
                 }
             }
-
-
-        System.out.println("admins + secretaires = " + mailRecipients);
-
-        for(User user: mailRecipients){
-           String receivers = user.getMail();
+            for(User user: mailRecipients){
+            String receivers = user.getMail();
             mailService.envoiEmail(receivers, "Prise de rendez-vous","Vous venez de prendre un rdv pour un citoyen !");
         }
 
