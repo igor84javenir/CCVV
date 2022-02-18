@@ -132,8 +132,6 @@ public class MonthCalendarGenerator {
             return false;
         else
 
-
-
             return true;
     }
 

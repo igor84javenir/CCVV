@@ -62,10 +62,6 @@ public class UnavailableDaysController {
             return "redirect:/indisponible/new";
         }
 
-
-
-
-
     }
 
  /*   @GetMapping("/indisponible/modifier/{id}")

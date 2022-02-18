@@ -79,11 +79,12 @@ public class RdvController {
         return "rdvs/showRdvs";
     }
 
-    @GetMapping("/rdvs/new/{date}")
+    @GetMapping(value ={"/rdvs/new", "/rdvs/new/{date}"})
     public String newRdv(Model model, @RequestParam(required = false) String redirectCheck) throws CityNotFoundException, UserNotFoundException {
 
         List<City> cities = cityService.getAll();
         List<ReasonRdv> reasonsRdv = reasonRdvService.getAll();
+
 
         model.addAttribute("cities",cities);
         model.addAttribute("reasonsRdv",reasonsRdv);
@@ -103,7 +104,9 @@ public class RdvController {
         }
 
         Rdv rdv = new Rdv();
+        rdv.setTime()
         model.addAttribute("rdv",rdv);
+
 
         return"rdvs/newRdv";
     }
