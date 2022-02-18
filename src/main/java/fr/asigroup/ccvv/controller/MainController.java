@@ -5,6 +5,7 @@ import fr.asigroup.ccvv.entity.DateCalendrier;
 import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.pojo.MonthCalendarGenerator;
 import fr.asigroup.ccvv.repository.RdvRepository;
+import fr.asigroup.ccvv.service.UnavailableDaysService;
 import fr.asigroup.ccvv.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +22,11 @@ import java.util.Map;
 public class MainController {
     private UserService userService;
     private RdvRepository rdvRepository;
-    public MainController(UserService userService, RdvRepository rdvRepository) {
+    private UnavailableDaysService unavailableDaysService;
+    public MainController(UserService userService, RdvRepository rdvRepository, UnavailableDaysService unavailableDaysService) {
         this.userService = userService;
         this.rdvRepository = rdvRepository;
+        this.unavailableDaysService = unavailableDaysService;
     }
 
 //    @GetMapping
@@ -45,7 +48,7 @@ public class MainController {
     public String index(@RequestParam(required = false, defaultValue = "0") Integer offset, Model model) {
         System.out.println("offset = " + offset);
 
-        MonthCalendarGenerator generator = new MonthCalendarGenerator(rdvRepository);
+        MonthCalendarGenerator generator = new MonthCalendarGenerator(rdvRepository, unavailableDaysService);
         Map<LocalDate, DateCalendrier> calendar = generator.getMonthCalendar(offset);
 
         model.addAttribute("calendar", calendar);

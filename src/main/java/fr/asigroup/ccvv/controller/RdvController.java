@@ -79,7 +79,7 @@ public class RdvController {
         return "rdvs/showRdvs";
     }
 
-    @GetMapping("/rdvs/new")
+    @GetMapping("/rdvs/new/{date}")
     public String newRdv(Model model, @RequestParam(required = false) String redirectCheck) throws CityNotFoundException, UserNotFoundException {
 
         List<City> cities = cityService.getAll();
