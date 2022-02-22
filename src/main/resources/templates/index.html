@@ -38,8 +38,8 @@
                     <div th:class="'jour ' + ${date.value.getClasseCSS()}">
                         <span th:if="${!date.value.isCliquable()}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></span>
 
-                        <a th:if="${date.value.isCliquable()}"  th:href="@{'/rdvs?date=' + ${date.key}}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></a>
-                        <a th:if="${date.value.isCliquable()}"  th:href="@{'/rdvs/new/' + ${date.key}}" class="ajout"><i class="bi bi-plus-circle"></i></a>
+                        <a  th:if="${date.value.isCliquable()}"  th:href="@{'/rdvs?date=' + ${date.key}}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></a>
+                        <a  th:if="${date.value.isCliquable()}"  th:href="@{'/rdvs/new/' + ${date.key}}" class="ajout"><i class="bi bi-plus-circle"></i></a>
                     </div>
                 </th:block>
             </div>
