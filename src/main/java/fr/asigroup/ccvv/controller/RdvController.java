@@ -104,7 +104,7 @@ public class RdvController {
         }
 
         Rdv rdv = new Rdv();
-        rdv.setTime()
+        //rdv.setTime()
         model.addAttribute("rdv",rdv);
 
 
