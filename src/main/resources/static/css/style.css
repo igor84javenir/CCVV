@@ -1,6 +1,13 @@
-.borders {
-    border: red solid 1px;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
+
+/*.borders {
+    border: red solid 1px;
+}*/
 
 .a-text-orange {
     color: #c16b24 !important; // Define your own color in your CSS
@@ -80,6 +87,10 @@
 .btn-size-custom-small {
     width: 5rem !important;
 }
+.footer{
+text-align:center;
+color:#FF6E05;
+}
 
 /*************************JOURS NON DISPONIBLES************************/
 
@@ -114,3 +125,114 @@
     width:4.5rem;
     height:5rem;
 }
+
+/*************************CALENDRIER************************/
+
+
+
+
+
+           .navbar{
+            height:4rem;
+            margin:0;
+            padding:0;
+            }
+
+            .navigation {
+                display: flex;
+                align-items:center;
+                justify-content:center;
+                height:4rem;
+            }
+            .mois {
+                display: flex;
+                flex-wrap: wrap;
+                text-align:center;
+
+            }
+            .leMois{
+                font-family: 'Roboto', sans-serif;
+                weight:500;
+                line-height:95px;
+                letter-spacing:1.2px;
+            }
+            .chevron{
+                font-size:2rem;
+                margin: 0 1.5rem;
+                width: 39px;
+                height: 41px;
+                color:#ff8e09;
+            }
+            .entete, .jours {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+            .jour {
+                flex: 0 0 calc(100%/7);
+                color : #fff;
+            }
+            .entete .jour {
+                height: 35px;
+                background: #FF6E05;
+                border-radius: 10px;
+                font-family: 'Roboto', sans-serif;
+                weight:200;
+                font-size: 20px;
+                text-align:center;
+            }
+
+            .jours .jour {
+                height: 6vw;
+                display: flex;
+                flex-wrap: wrap;
+                position: relative;
+                padding: 5px;
+
+                background-color:#FFCFA4;
+                border: 1px solid #B2B2B2;
+                box-sizing: border-box;
+                border-radius: 10px;
+
+            }
+            .jours .jour span, .jours .jour a {
+                flex: 1;
+                text-decoration: none;
+            }
+            .jours .jour span h3, .jours .jour a h3 {
+                font-size: 20px;
+                color: #000000;
+            }
+            .weekend {
+                background-color : #FFF1E1 !important;
+            }
+
+            .ferie {
+                background-color : #FFF1E1 !important;
+            }
+            .cliquable {
+                text-decoration: none;
+                color : #080808;
+            }
+            .ajout {
+                position: absolute;
+                top:5px;
+                right:5px;
+                font-size: 20px;
+            }
+            .bi-plus-circle{
+            color:#FF6E05;
+            }
+            footer{
+            /*display:flex;
+            flex-direction:row;
+            align-items:center;
+            justify-content:center;*/
+            position: absolute;
+            top: 100%;
+            width:100%;
+         }
+            footer p {
+            text-align:center;
+            color:#FF6E05;
+            }

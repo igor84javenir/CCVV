@@ -10,91 +10,32 @@
     <section layout:fragment="head">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-
-        <style>
-            .bordure {
-                border: solid 1px red;
-            }
-            .navigation {
-                display: flex;
-            }
-            .mois {
-                display: flex;
-                flex-wrap: wrap;
-            }
-            .entete, .jours {
-                display: flex;
-                flex-wrap: wrap;
-                width: 100%;
-            }
-            .jour {
-                flex: 0 0 calc(100%/7);
-                color : #282828;
-            }
-            .entete .jour {
-                height: 30px;
-            }
-            .jours .jour {
-                /*height: 80px;*/
-                height: 6.5vw;
-                display: flex;
-                flex-wrap: wrap;
-                position: relative;
-                padding: 5px;
-            }
-            .jours .jour span, .jours .jour a {
-                flex: 1;
-                text-decoration: none;
-            }
-            .jours .jour span h3, .jours .jour a h3 {
-                font-size: 20px;
-                color: #000000;
-            }
-            .weekend {
-                background-color : lightgray;
-            }
-
-            .ferie {
-                background-color : lightgray;
-            }
-            .cliquable {
-                text-decoration: none;
-                color : #080808;
-            }
-            .ajout {
-                position: absolute;
-                top:5px;
-                right:5px;
-                font-size: 20px;
-
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
     </section>
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content"  >
     <div class="container">
-        <h1>Calendrier</h1>
 
-        <nav class="navigation bordure">
-            <a th:href="@{/(offset=${offset - 1})}" class="bordure"><i class="bi bi-arrow-left bordure"></i></a>
-            <h2 class="bordure">[[${month.toString()}]]</h2>
-            <a th:href="@{/(offset=${offset + 1})}" class="bordure"><i class="bi bi-arrow-right bordure"></i></a>
+        <nav class="navigation">
+            <a th:href="@{/(offset=${offset - 1})}" ><i class="bi bi-chevron-double-left chevron"></i></a>
+            <h2 class="leMois">[[${month.toString()}]]</h2>
+            <a th:href="@{/(offset=${offset + 1})}"><i class="bi bi-chevron-double-right chevron"></i></a>
         </nav>
 
-        <div class="mois bordure">
-            <div class="entete bordure">
-                <span class="jour bordure">Lundi</span>
-                <span class="jour bordure">Mardi</span>
-                <span class="jour bordure">Mercredi</span>
-                <span class="jour bordure">Jeudi</span>
-                <span class="jour bordure">Vendredi</span>
-                <span class="jour bordure">Samedi</span>
-                <span class="jour bordure">Dimanche</span>
+        <div class="mois">
+            <div class="entete">
+                <span class="jour">Lundi</span>
+                <span class="jour">Mardi</span>
+                <span class="jour">Mercredi</span>
+                <span class="jour">Jeudi</span>
+                <span class="jour">Vendredi</span>
+                <span class="jour">Samedi</span>
+                <span class="jour">Dimanche</span>
             </div>
-            <div class="jours bordure">
+            <div class="jours">
                 <th:block th:each="date : ${calendar}">
-                    <div th:class="'jour bordure ' + ${date.value.getClasseCSS()}">
+                    <div th:class="'jour ' + ${date.value.getClasseCSS()}">
                         <span th:if="${!date.value.isCliquable()}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></span>
 
                         <a th:if="${date.value.isCliquable()}"  th:href="@{'/rdvs?date=' + ${date.key}}" ><h3>[[${date.key.getDayOfMonth()}]]</h3><th:block th:utext="${date.value.getTexte()}"></th:block></a>
@@ -103,9 +44,7 @@
                 </th:block>
             </div>
         </div>
-
-
     </div>
-</div>
+    </div>
 </body>
 </html>
