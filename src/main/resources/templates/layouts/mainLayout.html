@@ -18,7 +18,6 @@
     </section>
 </head>
 <body>
-
 <!-- Main Navigation -->
     <nav class="navbar navbar-expand-md navbar-dark mb-3 nav-custom-color" >
         <!--<a class="navbar-brand px-3" th:href="@{/}">CCVV</a>-->
@@ -92,21 +91,18 @@
 </div>
 <!-- Content Section -->
 
-<section layout:fragment="content">
-    <p>This is filled by the content template.</p>
+<section layout:fragment="content" class="section">
+    <!--<p>This is filled by the content template.</p>-->
+
 </section>
 
-<!-- Footer -->
-<!--<footer class="container py-3 fixed-bottom">-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-12">-->
-<!--            <p class="text-muted">&copy; 2022 Communauté de communes Vaison Ventoux. Tous droit réservés.</p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</footer>-->
+<footer>
+    <p>&copy; 2022 Communauté de communes Vaison Ventoux. Tous droit réservés.</p>
+</footer>
+
 
 <!-- Optional Section -->
-<th:block layout:fragment="optional" />
+<!--<th:block layout:fragment="optional" />-->
 
 </body>
 </html>
