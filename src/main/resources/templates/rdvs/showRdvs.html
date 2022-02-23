@@ -12,7 +12,7 @@
 <div layout:fragment="content">
     <div class="container-fluid text-center px-5">
             <div class="row">
-                <div class="col-4"><a class="btn btn-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/new}">Ajouter un RDV</a></div>
+                <div class="col-4"><a class="btn btn-warning btn-md m-1 btn-size-custom-large" th:href="@{'/rdvs/new?date=' + ${dateOfSearchedRdvs}}">Ajouter un RDV</a></div>
                 <div class="col-4"><h1>Gestion des RDV</h1></div>
                 <div class="col-4">
                     <a class="btn btn-outline-warning btn-md m-1 btn-size-custom-large" th:href="@{/rdvs/passed}">Voir les RDV passés</a>

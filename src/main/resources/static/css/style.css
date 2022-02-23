@@ -209,10 +209,17 @@ color:#FF6E05;
                 background-color : #FFF1E1 !important;
             }
 
+
             .ferie {
                 background-color : #FFF1E1 !important;
                 color:#FF6E05;
             }
+
+            .aujourdhui {
+                background-color : red !important;
+            }
+
+
             .cliquable {
                 text-decoration: none;
                 /*color : #080808;*/

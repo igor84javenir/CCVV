@@ -9,6 +9,7 @@ import fr.asigroup.ccvv.pojo.RdvComparator;
 import fr.asigroup.ccvv.repository.UserRepository;
 import fr.asigroup.ccvv.security.CurrentUser;
 import fr.asigroup.ccvv.service.*;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,7 +81,12 @@ public class RdvController {
     }
 
     @GetMapping(value ={"/rdvs/new", "/rdvs/new/{date}"})
-    public String newRdv(Model model, @RequestParam(required = false) String redirectCheck) throws CityNotFoundException, UserNotFoundException {
+    public String newRdv(Model model,
+                         @RequestParam(required = false) String date,
+                         @RequestParam(required = false) String redirectCheck) throws CityNotFoundException, UserNotFoundException {
+
+//        if (date != null)
+//            model.addAttribute("date", LocalDate.parse(date));
 
         List<City> cities = cityService.getAll();
         List<ReasonRdv> reasonsRdv = reasonRdvService.getAll();
@@ -104,7 +110,9 @@ public class RdvController {
         }
 
         Rdv rdv = new Rdv();
-        //rdv.setTime()
+        if (date != null)
+            rdv.setDate(LocalDate.parse(date));
+
         model.addAttribute("rdv",rdv);
 
 
