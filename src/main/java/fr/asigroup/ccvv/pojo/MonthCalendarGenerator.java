@@ -46,6 +46,12 @@ public class MonthCalendarGenerator {
             String texte = "";
             boolean cliquable = false;
 
+//            if (date pas dans le bon mois)
+//                classeCSS += "horsmois ";
+
+            if (localDate.equals(LocalDate.now()))
+                classeCSS += "aujourdhui ";
+
             if (isWeekEnd(localDate)) {
                 // Week-end
                 classeCSS += "weekend ";
