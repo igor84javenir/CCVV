@@ -7,6 +7,7 @@ import fr.asigroup.ccvv.service.UnavailableDaysService;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
@@ -36,6 +37,7 @@ public class MonthCalendarGenerator {
 
         // Get first day of month
         localDate = localDate.with(TemporalAdjusters.firstDayOfMonth());
+        Month currentMonth = localDate.getMonth();
 
         //Get first day week
         localDate = localDate.with(WeekFields.of(Locale.FRANCE).dayOfWeek(), 1);
@@ -46,8 +48,8 @@ public class MonthCalendarGenerator {
             String texte = "";
             boolean cliquable = false;
 
-//            if (date pas dans le bon mois)
-//                classeCSS += "horsmois ";
+            if (currentMonth != localDate.getMonth())
+                classeCSS += "horsmois ";
 
 
             if (localDate.equals(LocalDate.now()))
