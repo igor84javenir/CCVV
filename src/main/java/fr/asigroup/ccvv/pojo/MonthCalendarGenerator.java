@@ -49,6 +49,7 @@ public class MonthCalendarGenerator {
 //            if (date pas dans le bon mois)
 //                classeCSS += "horsmois ";
 
+
             if (localDate.equals(LocalDate.now()))
                 classeCSS += "aujourdhui ";
 
