@@ -83,6 +83,7 @@ public class MonthCalendarGenerator {
             else if (liste.size()==1) {
                 texte += ((texte.length() == 0 ? "" : "<br />") + "1 rendez-vous");
                 texte += ((texte.length()==0?"":"<br />") + liste.get(0).getTime() + " " + liste.get(0).getCity().getName());
+//                texte += ((texte.length()==0?"":"<br />") + liste.get(0).getCity().getName());
             }
 //            for (Rdv rdv: liste
 //                 ) {

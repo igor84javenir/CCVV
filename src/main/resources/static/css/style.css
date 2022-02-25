@@ -87,10 +87,10 @@ padding:0;
 .btn-size-custom-small {
     width: 5rem !important;
 }
-.footer{
+/*.footer{
 text-align:center;
 color:#FF6E05;
-}
+}*/
 
 /*************************JOURS NON DISPONIBLES************************/
 
@@ -122,9 +122,9 @@ color:#FF6E05;
 /*************************LOGO************************/
 
 .logo{
-    width:5.2rem;
-    height:4.9rem;
-    margin:0 10px;
+    width:4.2rem;
+    height:4rem;
+    margin:0 2px;
 }
 
 /*************************CALENDRIER************************/
@@ -141,11 +141,16 @@ color:#FF6E05;
     padding:0;
  }
 
+ .nav-link{
+ font-size:1.2rem !important;
+ }
+
 .navigation {
     display: flex;
     align-items:center;
     justify-content:center;
-    height:4rem;
+    /*height:4rem;*/
+    margin:1.5rem;
  }
 
  .mois {
@@ -233,9 +238,6 @@ color:#FF6E05;
         border: 2px solid #FF6E05 !important;
 }
 
-.horsmois {
-    background-color:red !important;
-}
 
 .cliquable {
      text-decoration: none;
@@ -252,7 +254,7 @@ color:#FF6E05;
 
 a{
      color: #a8353d;
-     font-size:1.1rem;
+     font-size:1rem;
 }
 
 a:hover{
@@ -266,9 +268,9 @@ a:hover{
 
 footer{
     position: absolute;
-    top: 100%;
+    top: 101%;
     width:100%;
-    margin-top:2.5rem;
+    margin-top:4rem;
 }
 
 
@@ -276,4 +278,8 @@ footer p {
     text-align:center;
     color:#FF6E05;
     margin:0;
+}
+
+.horsmois h3{
+    color:#b29072 !important;
 }
