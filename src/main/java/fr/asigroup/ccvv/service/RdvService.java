@@ -74,24 +74,26 @@ public class RdvService {
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
-            for (User user : utilisateurs) {
+        for (User user : utilisateurs) {
 
-                if(user.getUserRole() == User.UserRole.ROLE_ADMIN) {
+            if (user.getUserRole() == User.UserRole.ROLE_ADMIN) {
+                mailRecipients.add(user);
+            } else {
+                if (user.getUserRole() == User.UserRole.ROLE_UTILISATEUR && user.getCity() == rdv.getCity()) {
                     mailRecipients.add(user);
-                }else {
-                    if(user.getUserRole() == User.UserRole.ROLE_UTILISATEUR && user.getCity() == rdv.getCity()){
-                        mailRecipients.add(user);
-                    }
                 }
             }
-            for(User user: mailRecipients){
+        }
+        for (User user : mailRecipients) {
             String receivers = user.getMail();
-            mailService.envoiEmail(receivers, "Prise de rendez-vous","Vous venez de prendre un rdv pour un citoyen !");
+            mailService.envoiEmail(receivers, "Prise de rendez-vous", "Vous venez de prendre un rdv pour un citoyen !");
         }
 
-        String ownreceivers = rdv.getMail();
-        mailService.envoiEmail(ownreceivers, "Votre rendez-vous avec Vaison Ventoux","Vous venez de prendre un rdv avec l'un des agents de Vaison Ventoux");
+        if (rdv.getMail() != null) {
+            String ownreceivers = rdv.getMail();
+            mailService.envoiEmail(ownreceivers, "Votre rendez-vous avec Vaison Ventoux", "Vous venez de prendre un rdv avec l'un des agents de Vaison Ventoux");
 
+        }
     }
 
 
