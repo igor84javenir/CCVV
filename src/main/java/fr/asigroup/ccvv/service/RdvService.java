@@ -86,14 +86,52 @@ public class RdvService {
         }
         for (User user : mailRecipients) {
             String receivers = user.getMail();
-            mailService.envoiEmail(receivers, "Prise de rendez-vous", "Vous venez de prendre un rdv pour un citoyen !");
+            mailService.envoiEmail(receivers, "Objet : Confirmation de réservation France Services le : "+ rdv.getDate() +" à : "+ rdv.getCity().getName(),
+                    "Madame, Monsieur,\n" +
+                            "\n" +
+                            "Dans le cadre de l'itinérance France Services, un RDV a été pris à {nom de la commune} le {DD/MM/YY} à {HH:MM}.\n" +
+                            "Vous en trouverez le récapitulatif ci-dessous.\n" +
+                            "\n" +
+                            "Nom : {Prénom Nom}\n" +
+                            "Date : {Date DD/MM/YY}\n" +
+                            "Heure : {Heure HH:MM au format 24h}\n" +
+                            "Lieu : {Nom de la commune}\n" +
+                            "Motif : {nom du motif}\n" +
+                            "\n" +
+                            "Vous trouverez une liste indicative des documents nécessaires à la bonne réalisation de la démarche sur la page suivante : {lien vers le PDF}.\n" +
+                            "\n" +
+                            "En tant que mairie d'accueil, vous avez la possbilité de modifier ou d'annuler le présent rendez-vous directement sur la page web du service de prise de rendez-vous.\n" +
+                            "\n" +
+                            "Bien cordialement,\n" +
+                            "\n" +
+                            "L'équipe de l'Espace France Services Vaison Ventoux");
         }
 
-        if (rdv.getMail() != null) {
+
             String ownreceivers = rdv.getMail();
-            mailService.envoiEmail(ownreceivers, "Votre rendez-vous avec Vaison Ventoux", "Vous venez de prendre un rdv avec l'un des agents de Vaison Ventoux");
+            if (ownreceivers != null && ownreceivers != "Pas d'adresse mail") {
+            mailService.envoiEmail(ownreceivers, "Objet : Confirmation RDV France Services du {date au format DD/MM/YY} à {Nom de la commune}",
+                    "Madame, Monsieur,\n" +
+                            "\n" +
+                            "L'équipe de l'Espace France Services Vaison Ventoux confirme la prise en compte de votre rendez-vous dont vous trouverez le récapitulatif ci-dessous :\n" +
+                            "\n" +
+                            "Nom : {Prénom Nom}\n" +
+                            "Date : {Date DD/MM/YY}\n" +
+                            "Heure : {Heure HH:MM au format 24h}\n" +
+                            "Lieu : {Nom de la commune}\n" +
+                            "Motif : {nom du motif}\n" +
+                            "\n" +
+                            "Pensez à vous munir de tous les documents nécessaires à la réalisation de votre démarche. Vous en trouverez une liste indicative sur la page suivante : {lien vers le PDF}.\n" +
+                            "\n" +
+                            "Merci de vous présenter à l'heure prévue.\n" +
+                            "\n" +
+                            "Ceci est un email automatique. Pour toute demande de modification ou d'annulation, veuillez contacter directement votre mairie ou nous contacter par email : vaison-ventoux@france-services.gouv.fr ou par téléphone au 04 90 36 52 13.\n" +
+                            "\n" +
+                            "Bien cordialement,\n" +
+                            "\n" +
+                            "L'équipe de l'Espace France Services Vaison Ventoux");
 
-        }
+         }
     }
 
 
@@ -108,8 +146,56 @@ public class RdvService {
             Rdv rdv = optionalRdv.get();
             rdv.setStatus(Rdv.Status.Annulé);
             rdvRepository.save(rdv);
-        }
 
+
+            List<User> mailRecipients = new ArrayList<>();
+            List<User> utilisateurs = new ArrayList<>();
+            try {
+                utilisateurs = userService.getAll();
+            } catch (UserNotFoundException e) {
+                e.printStackTrace();
+            }
+            for (User user : utilisateurs) {
+
+                if (user.getUserRole() == User.UserRole.ROLE_ADMIN) {
+                    mailRecipients.add(user);
+                } else {
+                    if (user.getUserRole() == User.UserRole.ROLE_UTILISATEUR && user.getCity() == rdv.getCity()) {
+                        mailRecipients.add(user);
+                    }
+                }
+            }
+            for (User user : mailRecipients) {
+                String receivers = user.getMail();
+                mailService.envoiEmail(receivers, "Objet : Annulation du RDV France Services à {Nom de la commune} le {DD/MM/YY}",
+                        "Madame, Monsieur,\n" +
+                                "\n" +
+                                "L'équipe de l'Espace France Services Vaison Ventoux vous informe de l'annulation du rendez-vous initialement pris à {commune} le {ancienne date}.\n" +
+                                "En tant que mairie d'accueil, vous avez la possbilité de reprogrammer un rendez-vous directement sur la page web du service de prise de rendez-vous.\n" +
+                                "\n" +
+                                "Bien cordialement,\n" +
+                                "\n" +
+                                "L'équipe de l'Espace France Services Vaison Ventoux");
+            }
+
+
+
+        String ownreceivers = rdv.getMail();
+       // if (ownreceivers != null && ownreceivers != "Pas d'adresse mail") {
+            if (ownreceivers != null && !(ownreceivers.equals("Pas d'adresse mail") )) {
+            mailService.envoiEmail(ownreceivers, "Objet : Annulation du RDV France Services à {Nom de la commune}",
+                    "Madame, Monsieur,\n" +
+                            "\n" +
+                            "L'équipe de l'Espace France Services Vaison Ventoux vous informe de l'annulation de votre rendez-vous initialement pris à {commune ancien RDV} le {date ancien RDV}.\n" +
+                            "\n" +
+                            "Ceci est un email automatique. Pour toute demande d'information supplémentaire, veuillez contacter directement votre mairie ou nous contacter par email : vaison-ventoux@france-services.gouv.fr ou par téléphone au 04 90 36 52 13.\n" +
+                            "\n" +
+                            "Bien cordialement,\n" +
+                            "\n" +
+                            "L'équipe de l'Espace France Services Vaison Ventoux");
+
+        }
+    }
 
     }
 
