@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -86,17 +87,19 @@ public class RdvService {
         }
         for (User user : mailRecipients) {
             String receivers = user.getMail();
-            mailService.envoiEmail(receivers, "Objet : Confirmation de réservation France Services le : "+ rdv.getDate() +" à : "+ rdv.getCity().getName(),
+
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            mailService.envoiEmail(receivers, "Objet : Confirmation de réservation France Services le : "+ rdv.getDate().format(dateFormat) +" à : " + rdv.getCity().getName(),
                     "Madame, Monsieur,\n" +
                             "\n" +
-                            "Dans le cadre de l'itinérance France Services, un RDV a été pris à {nom de la commune} le {DD/MM/YY} à {HH:MM}.\n" +
+                            "Dans le cadre de l'itinérance France Services, un RDV a été pris à " + rdv.getCity().getName()+ " le " + rdv.getDate().format(dateFormat) + " à " + rdv.getTime() + ".\n" +
                             "Vous en trouverez le récapitulatif ci-dessous.\n" +
                             "\n" +
-                            "Nom : {Prénom Nom}\n" +
-                            "Date : {Date DD/MM/YY}\n" +
-                            "Heure : {Heure HH:MM au format 24h}\n" +
-                            "Lieu : {Nom de la commune}\n" +
-                            "Motif : {nom du motif}\n" +
+                            "Nom : " +  rdv.getFirstName() + " " + rdv.getName() + "\n" +
+                            "Date : " + rdv.getDate().format(dateFormat)+ "\n" +
+                            "Heure : " + rdv.getTime() + "\n" +
+                            "Lieu : " + rdv.getCity().getName() + "\n" +
+                            "Motif : " + rdv.getReasonRdv().getName() + "\n" +
                             "\n" +
                             "Vous trouverez une liste indicative des documents nécessaires à la bonne réalisation de la démarche sur la page suivante : {lien vers le PDF}.\n" +
                             "\n" +
