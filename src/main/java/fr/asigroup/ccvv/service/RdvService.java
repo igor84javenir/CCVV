@@ -1,6 +1,7 @@
 package fr.asigroup.ccvv.service;
 
 import fr.asigroup.ccvv.entity.City;
+import fr.asigroup.ccvv.entity.EntityUnavailableDays;
 import fr.asigroup.ccvv.entity.Rdv;
 import fr.asigroup.ccvv.entity.User;
 import fr.asigroup.ccvv.pojo.AvailableRdvTime;
@@ -205,6 +206,8 @@ public class RdvService {
     }
 
     }
+
+
 
     public List<Rdv> getAllByStatus(Rdv.Status status){
         return rdvRepository.findAllByStatus(status);
