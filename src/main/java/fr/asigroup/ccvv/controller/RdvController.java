@@ -217,7 +217,6 @@ public class RdvController {
     public String editRdv(@PathVariable Long id, Model model) throws RdvNotFoundException, CityNotFoundException, UserNotFoundException {
         Rdv rdv = rdvService.getRdvById(id);
 
-
         boolean isCurrentUserHaveAccessRights = CurrentUser.checkAccessRights(rdv);
 
         if (rdv.getStatus() != Rdv.Status.Actif || !isCurrentUserHaveAccessRights) {
@@ -237,79 +236,8 @@ public class RdvController {
         model.addAttribute("reasonsRdv",reasonsRdv);
         model.addAttribute("users", users);
 
-        //          SENDING EDITING EMAILS
-
-        List<User> mailRecipients = new ArrayList<>();
-        List<User> utilisateurs = new ArrayList<>();
-        try {
-            utilisateurs = userService.getAll();
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-        for (User user : utilisateurs) {
-
-            if (user.getUserRole() == User.UserRole.ROLE_ADMIN) {
-                mailRecipients.add(user);
-            } else {
-                if (user.getUserRole() == User.UserRole.ROLE_UTILISATEUR && user.getCity() == rdv.getCity()) {
-                    mailRecipients.add(user);
-                }
-            }
-        }
-        for (User user : mailRecipients) {
-            String receivers = user.getMail();
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            mailService.envoiEmail(receivers, "Objet : Modification du RDV France Services à " + rdv.getCity().getName(),
-                    "Madame, Monsieur,\n" +
-                            "\n" +
-                            "L'équipe de l'Espace France Services Vaison Ventoux vous informe de la modification du rendez-vous initialement pris à " + rdv.getCity().getName() + " le " + rdv.getDate().format(dateFormat) + ". Veuillez trouver ci-dessous les détails du nouveau rendez-vous :\n" +
-                            "\n" +
-                            "Nom : " +  rdv.getFirstName() + " " + rdv.getName() + "\n" +
-                            "Date : " + rdv.getDate().format(dateFormat)+ "\n" +
-                            "Heure : " + rdv.getTime() + "\n" +
-                            "Lieu : " + rdv.getCity().getName() + "\n" +
-                            "Motif : " + rdv.getReasonRdv().getName() + "\n" +
-                            "\n" +
-                            "Vous trouverez une liste indicative des documents nécessaires à la bonne réalisation de la démarche sur la page suivante : {lien vers le PDF}.\n" +
-                            "\n" +
-                            "En tant que mairie d'accueil, vous avez la possbilité de modifier ou d'annuler le présent rendez-vous directement sur la page web du service de prise de rendez-vous.\n" +
-                            "\n" +
-                            "Bien cordialement,\n" +
-                            "\n" +
-                            "L'équipe de l'Espace France Services Vaison Ventoux");
-        }
-
-
-
-        String ownreceivers = rdv.getMail();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        if (ownreceivers != null && !(ownreceivers.equals("Pas d'adresse mail") )) {
-            mailService.envoiEmail(ownreceivers, "Objet : Modification du RDV France Services à " + rdv.getCity().getName(),
-                    "L'équipe de l'Espace France Services Vaison Ventoux vous informe de la modification de votre rendez-vous initialement pris à {commune} le {date ancien RDV}. Veuillez trouver ci-dessous les détails de votre nouveau rendez-vous :\n" +
-                            "\n" +
-                            "Nom : " +  rdv.getFirstName() + " " + rdv.getName() + "\n" +
-                            "Date : " + rdv.getDate().format(dateFormat)+ "\n" +
-                            "Heure : " + rdv.getTime() + "\n" +
-                            "Lieu : " + rdv.getCity().getName() + "\n" +
-                            "Motif : " + rdv.getReasonRdv().getName() + "\n" +
-                            "\n" +
-                            "Pensez à vous munir de tous les documents nécessaires à la réalisation de votre démarche. Vous en trouverez une liste indicative sur la page suivante : {lien vers le PDF}.\n" +
-                            "\n" +
-                            "Merci de vous présenter à l'heure prévue.\n" +
-                            "\n" +
-                            "Ceci est un email automatique. Pour toute demande de modification ou d'annulation, veuillez contacter directement votre mairie ou nous contacter par email : vaison-ventoux@france-services.gouv.fr ou par téléphone au 04 90 36 52 13.\n" +
-                            "\n" +
-                            "Bien cordialement,\n" +
-                            "\n" +
-                            "L'équipe de l'Espace France Services Vaison Ventoux");
-
-        }
-
-         //      END OF SENDING EDITING EMAILS
-
         return "rdvs/newRdv";
 
-            // SENDING EMAILS MUST COME HERE INSTEAD
     }
 
     @GetMapping("/rdvs/passed")
