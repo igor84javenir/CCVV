@@ -18,4 +18,5 @@ public interface RdvRepository extends JpaRepository<Rdv, Long> {
     List<Rdv> findAllActiveAndPastByDate(LocalDate date);
 
 
+
 }
