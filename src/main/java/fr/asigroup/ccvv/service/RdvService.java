@@ -51,6 +51,7 @@ public class RdvService {
     public void save(Rdv rdv) {
 
 //        System.out.println("rdv.getCreatedBy()" + rdv.getCreatedBy());
+        boolean isNew = (rdv.getId() == 0);
 
         rdv.setStatus(Rdv.Status.Actif);
 
@@ -65,6 +66,7 @@ public class RdvService {
 
         rdv.setModifiedBy(CurrentUser.getCurrentUserDetails().getUsername());
         rdv.setModifiedAt(LocalDateTime.now());
+
 
         rdvRepository.save(rdv);
 
