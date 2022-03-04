@@ -309,7 +309,7 @@ public class RdvController {
 
         return "rdvs/newRdv";
 
-        // SENDING EMAILS MUST COME HERE INSTEAD
+            // SENDING EMAILS MUST COME HERE INSTEAD
     }
 
     @GetMapping("/rdvs/passed")
