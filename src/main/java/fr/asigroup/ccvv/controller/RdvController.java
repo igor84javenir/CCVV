@@ -117,7 +117,7 @@ public class RdvController {
         }
 
         Rdv rdv = new Rdv();
-        if (date != null)
+        if (!date.equals("null"))
             rdv.setDate(LocalDate.parse(date));
 
         model.addAttribute("rdv",rdv);
