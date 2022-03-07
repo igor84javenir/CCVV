@@ -239,7 +239,6 @@ public class RdvService {
             }
 
 
-
         String ownreceivers = rdv.getMail();
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             if (ownreceivers != null && !(ownreceivers.equals("Pas d'adresse mail") )) {
@@ -482,7 +481,6 @@ public class RdvService {
         }
 
         return availableRdvTimes;
-
     }
 }
 
